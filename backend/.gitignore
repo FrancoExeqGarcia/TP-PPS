@@ -1,0 +1,16 @@
+# Carpeta binaria, generalmente contiene archivos compilados
+bin/
+obj/
+
+# Carpeta de configuración de Visual Studio
+.vs/
+
+# Archivos de usuario de Visual Studio
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Paquetes NuGet
+*.nuget/
+*.nupkg
