@@ -16,6 +16,7 @@ import {
   APIContextProvider,
 } from "./Components/services/apiContext/API.Context";
 import { Spinner } from "react-bootstrap";
+import UserManagement from "./Components/UserManagement/UserManagement";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -45,6 +46,14 @@ function App() {
       element: (
          <Protected isSignedIn={isLoggedIn}>
           <Dashboard onLogout={logoutHandler} />
+        </Protected>
+      ),
+    },
+    {
+      path: "/users",
+      element: (
+         <Protected isSignedIn={isLoggedIn}>
+          <UserManagement/>
         </Protected>
       ),
     },

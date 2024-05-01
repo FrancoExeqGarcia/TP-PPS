@@ -24,6 +24,9 @@ const Dashboard = () => {
     handleLogout();
     navigate("/login");
   };
+  const handleCreateUser = () => {
+    navigate("/Users");
+  };
 
   return (
     <Container fluid className={theme === "oscuro" ? "dark-theme" : ""}>
@@ -37,6 +40,13 @@ const Dashboard = () => {
           <Navbar.Text className="mr-4 ms-auto me-auto border-gray rounded">
             {translate("hi")} {username}!
           </Navbar.Text>
+          <Button
+            variant="outline-primary"
+            className="ml-2 mt-2 mt-md-0"
+            onClick={handleCreateUser}
+          >
+            {translate("users")}
+          </Button>
           <ToggleTheme />
           <Button
             variant="outline-primary"
