@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Card, Button, Form } from "react-bootstrap";
-import { TranslateContext } from "../../services/translationContext/translation.context";
+import { TranslateContext } from "../services/translationContext/translation.context";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import { ThemeContext } from "../services/themeContext/theme.context";
 import "../../App.css";

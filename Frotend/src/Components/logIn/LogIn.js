@@ -1,7 +1,7 @@
 import React, { useRef, useState, useContext, useEffect } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router";
-import { AuthenticationContext } from "../services/authenticationContext/authentication.context";
+import { AuthenticationContext } from "../services/authenticationContext/authentication.context"; //fijar c
 import ToggleTheme from "../ui/toggleTheme/ToggleTheme";
 import ComboLanguage from "../ui/comboLanguage/ComboLanguaje";
 import { ThemeContext } from "../services/themeContext/theme.context"; // Importa ThemeContext
@@ -88,14 +88,18 @@ const Login = () => {
       return;
     }
     localStorage.setItem("userRole", JSON.stringify(user.role));
-    localStorage.setItem("userID", JSON.stringify(user.id ));
+    localStorage.setItem("userID", JSON.stringify(user.id));
     handleLogin(email);
     navigate("/home");
   };
 
   return (
     <div className="login-container">
-      <div className={`login-box ${theme === "DARK" ? "login-box-dark" : "light-theme"}`}>
+      <div
+        className={`login-box ${
+          theme === "DARK" ? "login-box-dark" : "light-theme"
+        }`}
+      >
         <ComboLanguage />
         <h3 className="mb-4">{translate("welcome")}</h3>
         <div className="mb-3">

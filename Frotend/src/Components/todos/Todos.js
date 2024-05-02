@@ -1,21 +1,19 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import TodoForm from "../todoForm/TodoForm";
 import TodoCard from "../todoCard/TodoCard";
-import EditTodo from "../editTodo/EditTodo"; 
+import EditTodo from "../editTodo/EditTodo";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import "../../App.css";
 
-
-
 function Todos({ projectId }) {
-  const translate = useTranslation()
+  const translate = useTranslation();
 
   const [tasks, setTasksState] = useState([]);
   const [editingTask, setEditingTask] = useState(null);
   const [userID, setUserID] = useState("");
   // const [projectId, setProjectId] = useState("");
-  const [filteredTasks, setFilteredTasks] = useState([]); 
+  const [filteredTasks, setFilteredTasks] = useState([]);
   const [userRole, setUserRole] = useState("");
 
   const setTasks = (newTasks) => {
@@ -27,43 +25,43 @@ function Todos({ projectId }) {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   };
 
+  // useEffect(() => {
+  //   const storedTasks = localStorage.getItem("tasks");
+  //   if (storedTasks) {
+  //     setTasks(JSON.parse(storedTasks));
+  //   }
+  //   const storedUserID = Number(localStorage.getItem("userID"));
+  //   if (storedUserID) {
+  //     setUserID(storedUserID);
+  //   }
+  //   const storedUserRole = localStorage.getItem("userRole");
+  //   if (storedUserRole) {
+  //     setUserRole(storedUserRole);
+  //   }
+  //   // const storedProjectId = Number(localStorage.getItem("projectId"));
+  //   // if (storedProjectId) {
+  //   //   setProjectId(storedProjectId);
+  //   // }
+  // }, []);
+
+  const filterTasksByProject = () => {
+    const storedProjectId = Number(localStorage.getItem("projectId"));
+    if (storedProjectId) {
+      const newFilteredTasks = tasks
+        .filter((task) => task.projectId === storedProjectId)
+        .filter((task) => task.userID === userID);
+      setFilteredTasks(newFilteredTasks);
+    } else {
+      setFilteredTasks(tasks);
+    }
+  };
   useEffect(() => {
-    const storedTasks = localStorage.getItem("tasks");
-    if (storedTasks) {
-      setTasks(JSON.parse(storedTasks));
-    }
-    const storedUserID = Number(localStorage.getItem("userID"));
-    if (storedUserID) {
-      setUserID(storedUserID);
-    }
-    const storedUserRole = localStorage.getItem("userRole");
-    if (storedUserRole) {
-      setUserRole(storedUserRole);
-    }
-    // const storedProjectId = Number(localStorage.getItem("projectId"));
-    // if (storedProjectId) {
-    //   setProjectId(storedProjectId);
-    // }
-  }, []);
-  
-      const filterTasksByProject = () => {
-        const storedProjectId = Number(localStorage.getItem("projectId"));
-        if (storedProjectId) {
-          const newFilteredTasks = tasks
-            .filter((task) => task.projectId === storedProjectId)
-            .filter((task) => task.userID === userID);
-          setFilteredTasks(newFilteredTasks);
-        } else {
-          setFilteredTasks(tasks);
-        }
-      };
-    useEffect(() => {
-      filterTasksByProject();
-    }, [tasks, userID, projectId]);
-  
-    const handleFilterButtonClick = () => {
-      filterTasksByProject();
-    };
+    filterTasksByProject();
+  }, [tasks, userID, projectId]);
+
+  const handleFilterButtonClick = () => {
+    filterTasksByProject();
+  };
   const addTask = (newTask) => {
     setTasks([...tasks, newTask]);
   };
@@ -92,30 +90,29 @@ function Todos({ projectId }) {
       setEditingTask(task);
     }
   };
-  
 
   const saveEditedTask = (editedTask) => {
     const updatedTasks = tasks.map((task) =>
       task.id === editedTask.id ? editedTask : task
     );
     setTasks(updatedTasks);
-    setEditingTask(null); 
+    setEditingTask(null);
   };
-  
 
   const cancelEdit = () => {
-    setEditingTask(null); 
+    setEditingTask(null);
   };
 
   return (
     <Container className="mt-4">
       <h1 className="text-center mb-4 ">{translate("list_of_todos")}</h1>
-      <Button onClick={handleFilterButtonClick}>{translate("filter_by_project")}</Button>
+      <Button onClick={handleFilterButtonClick}>
+        {translate("filter_by_project")}
+      </Button>
 
       <TodoForm
         onAddTask={addTask}
         onDeleteCompletedTask={deleteCompletedTasks}
-        
       />
       <Row className="mt-4">
         {filteredTasks.map((task, index) => (

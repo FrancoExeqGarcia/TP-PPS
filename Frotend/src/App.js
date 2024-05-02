@@ -9,12 +9,12 @@ import Login from "./Components/logIn/LogIn";
 import Dashboard from "./Components/dashboard/Dashboard";
 import Protected from "./Components/security/protected/Protected";
 import PageNotFound from "./Components/security/pageNotFound/PageNotFound";
-import { ThemeContext } from "./Components/services/themeContext/theme.context";
+import { ThemeContext } from "./Components/services/themeContext/theme.context"; //fijar c
 import { useContext, useState } from "react";
 import {
   APIContext,
   APIContextProvider,
-} from "./Components/services/apiContext/API.Context";
+} from "./Components/services/apiContext/API.Context"; //fijar c
 import { Spinner } from "react-bootstrap";
 import UserManagement from "./Components/UserManagement/UserManagement";
 
@@ -29,7 +29,6 @@ function App() {
 
   const logoutHandler = () => {
     setIsLoggedIn(false);
-
   };
 
   const router = createBrowserRouter([
@@ -39,12 +38,12 @@ function App() {
     },
     {
       path: "/login",
-      element: <Login onLoggedIn={loginHandler}/>,
+      element: <Login onLoggedIn={loginHandler} />,
     },
     {
       path: "/home",
       element: (
-         <Protected isSignedIn={isLoggedIn}>
+        <Protected isSignedIn={isLoggedIn}>
           <Dashboard onLogout={logoutHandler} />
         </Protected>
       ),
@@ -52,8 +51,8 @@ function App() {
     {
       path: "/users",
       element: (
-         <Protected isSignedIn={isLoggedIn}>
-          <UserManagement/>
+        <Protected isSignedIn={isLoggedIn}>
+          <UserManagement />
         </Protected>
       ),
     },
