@@ -19,7 +19,7 @@ builder.Services.AddSwaggerGen(setupAction =>
     {
         Type = SecuritySchemeType.Http,
         Scheme = "Bearer",
-        Description = "Acá pegar el token generado al loguearse."
+        Description = "Acï¿½ pegar el token generado al loguearse."
     });
 
     setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -30,7 +30,7 @@ builder.Services.AddSwaggerGen(setupAction =>
                 Reference = new OpenApiReference
                 {
                     Type = ReferenceType.SecurityScheme,
-                    Id = "TaskMangerApiBearerAuth" } //Tiene que coincidir con el id seteado arriba en la definición
+                    Id = "TaskMangerApiBearerAuth" } //Tiene que coincidir con el id seteado arriba en la definiciï¿½n
                 }, new List<string>() }
     });
 });
@@ -39,8 +39,8 @@ builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IToDoService, TodoService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
-builder.Services.AddAuthentication("Bearer") //"Bearer" es el tipo de auntenticación que tenemos que elegir después en PostMan para pasarle el token
-    .AddJwtBearer(options => //Acá definimos la configuración de la autenticación. le decimos qué cosas queremos comprobar. La fecha de expiración se valida por defecto.
+builder.Services.AddAuthentication("Bearer") //"Bearer" es el tipo de auntenticaciï¿½n que tenemos que elegir despuï¿½s en PostMan para pasarle el token
+    .AddJwtBearer(options => //Acï¿½ definimos la configuraciï¿½n de la autenticaciï¿½n. le decimos quï¿½ cosas queremos comprobar. La fecha de expiraciï¿½n se valida por defecto.
     {
         options.TokenValidationParameters = new()
         {
@@ -65,6 +65,14 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "TODOLIST API", Version = "v1" });
 });
 
+builder.Services.AddCors(options => {
+    options.AddPolicy("CorsPolicy" , 
+    builder => builder.WithOrigins("https://localhost:3000")
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    );
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -82,6 +90,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseCors("AllowLocalhost3000");
 
 app.MapControllers();
 
