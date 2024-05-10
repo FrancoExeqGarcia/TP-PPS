@@ -32,7 +32,7 @@
 .dark-theme {
   background-color: var(--secondary-background);
   color: var(--text-color-dark);
-  height: 100vh;
+  height: 100%;
 }
 .light_theme {
   background-color: var(--primary-background);
