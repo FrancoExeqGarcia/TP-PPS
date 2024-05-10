@@ -54,42 +54,26 @@ const Login = () => {
   };
 
   const signInHandler = () => {
-    if (emailRef.current.value.length === 0) {
-      emailRef.current.focus();
-      passwordRef.current.style.borderColor = "red";
-      passwordRef.current.style.outline = "none";
+    if (
+      emailRef.current.value.length === 0 ||
+      passwordRef.current.value.length === 0
+    ) {
       toast.warning(translate("complete_all_fields"));
       return;
     }
 
-    if (password.length === 0) {
-      passwordRef.current.focus();
-      passwordRef.current.style.borderColor = "red";
-      passwordRef.current.style.outline = "none";
-      toast.warning(translate("complete_all_fields"));
-      return;
-    }
-    if (email === "" || password === "") {
-      toast.warning(translate("complete_all_fields"));
-      return;
-    }
-
-    const user = users.find((user) => user.email === email);
-
-    const passwordUsers = users.find((user) => user.password === password);
+    const user = users.find(
+      (user) => user.email === email && user.password === password
+    );
 
     if (!user) {
-      toast.warning(translate("wrong_email"));
+      toast.warning(translate("wrong_email_or_password"));
       return;
     }
 
-    if (!passwordUsers) {
-      toast.warning(translate("wrong_password"));
-      return;
-    }
-    localStorage.setItem("userRole", JSON.stringify(user.role));
-    localStorage.setItem("userID", JSON.stringify(user.id));
-    handleLogin(email);
+    localStorage.setItem("userRole", user.role);
+    localStorage.setItem("userID", user.id);
+    handleLogin(email, user.role);
     navigate("/home");
   };
 

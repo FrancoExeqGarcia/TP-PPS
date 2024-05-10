@@ -6,19 +6,16 @@ import ToggleTheme from "../ui/toggleTheme/ToggleTheme";
 
 import ComboLanguage from "../ui/comboLanguage/ComboLanguaje";
 import useTranslation from "../../custom/useTranslation/useTranslation";
-import UserManagement from "../UserManagement/UserManagement";
 import Projects from "../projects/Projects";
 import { ThemeContext } from "../services/themeContext/theme.context";
 
 const Dashboard = () => {
-  const { handleLogout, user } = useContext(AuthenticationContext);
+  const { handleLogout, user, role } = useContext(AuthenticationContext);
   const navigate = useNavigate();
   const translate = useTranslation();
   const { theme } = useContext(ThemeContext);
 
-
   const username = user.email.split("@")[0];
-  const userRole = localStorage.getItem("userRole");
 
   const handleLogoutInDashboard = () => {
     handleLogout();
@@ -31,22 +28,29 @@ const Dashboard = () => {
   return (
     <Container fluid className={theme === "oscuro" ? "dark-theme" : ""}>
       <Navbar
-      variant={theme === "oscuro" ? "dark" : "light"}
-      className="d-flex align-items-center"
-      style={{ borderBottom: `2px solid ${theme === "oscuro" ? "white" : "black"}` }}>
-      <Navbar.Brand className="mr-4 ms-auto me-auto border-gray rounded">TASK MINDER</Navbar.Brand>
+        variant={theme === "oscuro" ? "dark" : "light"}
+        className="d-flex align-items-center"
+        style={{
+          borderBottom: `2px solid ${theme === "oscuro" ? "white" : "black"}`,
+        }}
+      >
+        <Navbar.Brand className="mr-4 ms-auto me-auto border-gray rounded">
+          TASK MINDER
+        </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text className="mr-4 ms-auto me-auto border-gray rounded">
             {translate("hi")} {username}!
           </Navbar.Text>
-          <Button
-            variant="outline-primary"
-            className="ml-2 mt-2 mt-md-0"
-            onClick={handleCreateUser}
-          >
-            {translate("users")}
-          </Button>
+          {role === "sysadmin" && (
+            <Button
+              variant="outline-primary"
+              className="ml-2 mt-2 mt-md-0"
+              onClick={handleCreateUser}
+            >
+              {translate("users")}
+            </Button>
+          )}
           <ToggleTheme />
           <Button
             variant="outline-primary"
@@ -58,11 +62,9 @@ const Dashboard = () => {
         </Navbar.Collapse>
       </Navbar>
       <ComboLanguage />
-      {userRole === '"sysadmin"' && <UserManagement />}
       <Col xs={12} className="text-center mt-4">
-        <Projects/>
+        <Projects />
       </Col>
-
     </Container>
   );
 };

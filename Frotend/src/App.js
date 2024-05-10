@@ -9,6 +9,7 @@ import Login from "./Components/logIn/LogIn";
 import Dashboard from "./Components/dashboard/Dashboard";
 import Protected from "./Components/security/protected/Protected";
 import PageNotFound from "./Components/security/pageNotFound/PageNotFound";
+import Forbidden from "./Components/security/forbidden/Forbidden";
 import { ThemeContext } from "./Components/services/themeContext/theme.context"; //fijar c
 import { useContext, useState } from "react";
 import {
@@ -51,7 +52,7 @@ function App() {
     {
       path: "/users",
       element: (
-        <Protected isSignedIn={isLoggedIn}>
+        <Protected isSignedIn={isLoggedIn} requiredRole={"sysadmin"}>
           <UserManagement />
         </Protected>
       ),
@@ -59,6 +60,10 @@ function App() {
     {
       path: "*",
       element: <PageNotFound />,
+    },
+    {
+      path: "/forbidden",
+      element: <Forbidden />,
     },
   ]);
   return (
