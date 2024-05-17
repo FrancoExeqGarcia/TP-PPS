@@ -3,6 +3,7 @@ import useTranslation from "../../custom/useTranslation/useTranslation";
 import { ThemeContext } from "../services/themeContext/theme.context";
 import { Card, Button, Form } from "react-bootstrap";
 import "../../App.css";
+import Header from "../header/Header"; // Importar el nuevo componente
 
 const UserManagement = () => {
   const [language, setLanguage] = useState("es");
@@ -142,96 +143,117 @@ const UserManagement = () => {
   };
 
   return (
-    <div className={`container mt-1 shadow p-4 ${theme === "DARK" && "dark-theme"} border-gray`}>
-      <div className="row">
-        <div className="col-md-3">
-          <h2>{translate("administer_users")}</h2>
-          <ul>
-            {users.map((user) => (
-              <li key={user.id}>
-                {user.email}{" "}
-                <button
-                  type="submit"
-                  className={`${theme === "DARK" ? "btn-outline-light" : "btn-outline-dark"} me-2`}
-                  onClick={() => handleEditClick(user)}
-                >
-                  {translate("edit")}
-                </button>{" "}
-                <button
-                  type="submit"
-                  className={`${theme === "DARK" ? "btn-outline-light" : "btn-outline-dark"}`}
-                  onClick={() => handleDeleteUser(user.id)}
-                >
-                  {translate("delete")}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="col-md-9">
-          <h3>{isEditing ? translate("edit_admin") : translate("create_admin")}</h3>
-          {error && <div className={`alert alert-danger ${theme === "DARK" ? "text-light" : ""}`}>{error}</div>}
-          <form onSubmit={isEditing ? handleEditUser : handleAddUser}>
-            <div className="mb-3">
-              <label htmlFor="email" className="form-label">
-                {translate("email")}
-              </label>
-              <input
-                type="email"
-                className="form-control"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="password" className="form-label">
-                {translate("password")}
-              </label>
-              <input
-                type="password"
-                className="form-control"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="mb-3">
-              <label htmlFor="role" className="form-label">
-                {translate("user_role")}
-              </label>
-              <select
-                className="form-select"
-                id="role"
-                name="role"
-                value={formData.role}
-                onChange={handleInputChange}
-                required
+    <div className={`wrapper ${theme === "oscuro" ? "dark-theme" : ""}`}>
+      <Header />
+      <div className="container mt-1 shadow p-4 border-gray content">
+        <div className="row">
+          <div className="col-md-3">
+            <h2>{translate("administer_users")}</h2>
+            <ul>
+              {users.map((user) => (
+                <li key={user.id}>
+                  {user.email}{" "}
+                  <button
+                    type="submit"
+                    className={`${
+                      theme === "oscuro"
+                        ? "btn-outline-light"
+                        : "btn-outline-dark"
+                    } me-2`}
+                    onClick={() => handleEditClick(user)}
+                  >
+                    {translate("edit")}
+                  </button>{" "}
+                  <button
+                    type="submit"
+                    className={`${
+                      theme === "oscuro"
+                        ? "btn-outline-light"
+                        : "btn-outline-dark"
+                    }`}
+                    onClick={() => handleDeleteUser(user.id)}
+                  >
+                    {translate("delete")}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="col-md-9">
+            <h3>
+              {isEditing ? translate("edit_admin") : translate("create_admin")}
+            </h3>
+            {error && (
+              <div
+                className={`alert alert-danger ${
+                  theme === "oscuro" ? "text-light" : ""
+                }`}
               >
-                <option value="" disabled>
-                  {translate("select_role")}
-                </option>
-                <option value="user">{translate("user")}</option>
-                <option value="sysadmin">{translate("sysadmin")}</option>
-                <option value="admin">{translate("admin")}</option>
-              </select>
-            </div>
-            <button type="submit" className="btn btn-primary">
-              {isEditing ? translate("save") : translate("register")}
-            </button>
-            {isEditing && (
-              <button
-                type="button"
-                className="btn btn-secondary ms-2"
-                onClick={handleCancelEdit}
-              >
-                {translate("cancel")}
-              </button>
+                {error}
+              </div>
             )}
-          </form>
+            <form onSubmit={isEditing ? handleEditUser : handleAddUser}>
+              <div className="mb-3">
+                <label htmlFor="email" className="form-label">
+                  {translate("email")}
+                </label>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="password" className="form-label">
+                  {translate("password")}
+                </label>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="role" className="form-label">
+                  {translate("user_role")}
+                </label>
+                <select
+                  className="form-select"
+                  id="role"
+                  name="role"
+                  value={formData.role}
+                  onChange={handleInputChange}
+                  required
+                >
+                  <option value="" disabled>
+                    {translate("select_role")}
+                  </option>
+                  <option value="user">{translate("user")}</option>
+                  <option value="sysadmin">{translate("sysadmin")}</option>
+                  <option value="admin">{translate("admin")}</option>
+                </select>
+              </div>
+              <button type="submit" className="btn btn-primary">
+                {isEditing ? translate("save") : translate("register")}
+              </button>
+              {isEditing && (
+                <button
+                  type="button"
+                  className="btn btn-secondary ms-2"
+                  onClick={handleCancelEdit}
+                >
+                  {translate("cancel")}
+                </button>
+              )}
+            </form>
+          </div>
         </div>
       </div>
     </div>
