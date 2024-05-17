@@ -18,6 +18,7 @@ import {
 } from "./Components/services/apiContext/API.Context"; //fijar c
 import { Spinner } from "react-bootstrap";
 import UserManagement from "./Components/UserManagement/UserManagement";
+import Profile from "./Components/profile/Profile";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -54,6 +55,13 @@ function App() {
       element: (
         <Protected isSignedIn={isLoggedIn} requiredRole={"sysadmin"}>
           <UserManagement />
+        </Protected>
+      ),
+    }, {
+      path: "/profile", // Añade esta nueva ruta
+      element: (
+        <Protected isSignedIn={isLoggedIn}>
+          <Profile />
         </Protected>
       ),
     },

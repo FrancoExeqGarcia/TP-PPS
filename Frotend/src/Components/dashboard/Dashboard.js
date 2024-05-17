@@ -1,9 +1,8 @@
 import React, { useContext } from "react";
-import { Button, Col, Container, Navbar, Row } from "react-bootstrap";
+import { Button, Col, Container, Navbar, Row, Dropdown } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { AuthenticationContext } from "../services/authenticationContext/authentication.context";
 import ToggleTheme from "../ui/toggleTheme/ToggleTheme";
-
 import ComboLanguage from "../ui/comboLanguage/ComboLanguaje";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import Projects from "../projects/Projects";
@@ -13,7 +12,7 @@ const Dashboard = () => {
   const { handleLogout, user, role } = useContext(AuthenticationContext);
   const navigate = useNavigate();
   const translate = useTranslation();
-  const { theme } = useContext(ThemeContext);
+  const { theme, toggleTheme } = useContext(ThemeContext);
 
   const username = user.email.split("@")[0];
 
@@ -21,8 +20,17 @@ const Dashboard = () => {
     handleLogout();
     navigate("/login");
   };
+  
   const handleCreateUser = () => {
     navigate("/Users");
+  };
+
+  const handleProfile = () => {
+    navigate("/profile");
+  };
+
+  const handleThemeToggle = () => {
+    toggleTheme();
   };
 
   return (
@@ -42,23 +50,29 @@ const Dashboard = () => {
           <Navbar.Text className="mr-4 ms-auto me-auto border-gray rounded">
             {translate("hi")} {username}!
           </Navbar.Text>
-          {role === "sysadmin" && (
-            <Button
-              variant="outline-primary"
-              className="ml-2 mt-2 mt-md-0"
-              onClick={handleCreateUser}
-            >
-              {translate("users")}
-            </Button>
-          )}
-          <ToggleTheme />
-          <Button
-            variant="outline-primary"
-            className="ml-2 mt-2 mt-md-0"
-            onClick={handleLogoutInDashboard}
-          >
-            {translate("sign_off")}
-          </Button>
+          <Dropdown align="end">
+            <Dropdown.Toggle variant="outline-primary" id="dropdown-basic">
+              Menu
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              {role === "sysadmin" && (
+                <Dropdown.Item onClick={handleCreateUser}>
+                  {translate("users")}
+                </Dropdown.Item>
+              )}
+              <Dropdown.Item onClick={handleProfile}>
+                {translate("profile")}
+              </Dropdown.Item>
+            <Dropdown.Item onClick={handleThemeToggle}>
+              {theme === "oscuro"
+                ? translate("light_theme_change")
+                : translate("dark_theme_change")}
+            </Dropdown.Item>
+              <Dropdown.Item onClick={handleLogoutInDashboard}>
+                {translate("sign_off")}
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </Navbar.Collapse>
       </Navbar>
       <ComboLanguage />
