@@ -15,11 +15,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(setupAction =>
 {
-    setupAction.AddSecurityDefinition("TaskMangerApiBearerAuth", new OpenApiSecurityScheme() //Esto va a permitir usar swagger con el token.
+    setupAction.AddSecurityDefinition("TaskMangerApiBearerAuth", new OpenApiSecurityScheme()
     {
         Type = SecuritySchemeType.Http,
         Scheme = "Bearer",
-        Description = "Ac� pegar el token generado al loguearse."
+        Description = "Acá pegar el token generado al loguearse."
     });
 
     setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -30,8 +30,11 @@ builder.Services.AddSwaggerGen(setupAction =>
                 Reference = new OpenApiReference
                 {
                     Type = ReferenceType.SecurityScheme,
-                    Id = "TaskMangerApiBearerAuth" } //Tiene que coincidir con el id seteado arriba en la definici�n
-                }, new List<string>() }
+                    Id = "TaskMangerApiBearerAuth"
+                }
+            },
+            new List<string>()
+        }
     });
 });
 
@@ -39,8 +42,8 @@ builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IToDoService, TodoService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
-builder.Services.AddAuthentication("Bearer") //"Bearer" es el tipo de auntenticaci�n que tenemos que elegir despu�s en PostMan para pasarle el token
-    .AddJwtBearer(options => //Ac� definimos la configuraci�n de la autenticaci�n. le decimos qu� cosas queremos comprobar. La fecha de expiraci�n se valida por defecto.
+builder.Services.AddAuthentication("Bearer")
+    .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new()
         {
@@ -56,20 +59,15 @@ builder.Services.AddAuthentication("Bearer") //"Bearer" es el tipo de auntentica
 
 // Configure DbContext with SQL Server connection string
 builder.Services.AddDbContext<ToDoContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"))
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
-// Configure Swagger
-builder.Services.AddSwaggerGen(c =>
+builder.Services.AddCors(options =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "TODOLIST API", Version = "v1" });
-});
-
-builder.Services.AddCors(options => {
-    options.AddPolicy("CorsPolicy" , 
-    builder => builder.WithOrigins("https://localhost:3000")
-    .AllowAnyMethod()
-    .AllowAnyHeader()
+    options.AddPolicy("CorsPolicy",
+        builder => builder.WithOrigins("https://localhost:3000")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
     );
 });
 
@@ -91,7 +89,7 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseCors("AllowLocalhost3000");
+app.UseCors("CorsPolicy");
 
 app.MapControllers();
 
