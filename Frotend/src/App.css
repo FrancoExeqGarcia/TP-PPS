@@ -45,3 +45,13 @@
 .rounded{
   border-radius: 10px;
 }
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  min-width: 100%;
+}
+
+.content {
+  flex: 1;
+}
