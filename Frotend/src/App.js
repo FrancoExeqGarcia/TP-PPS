@@ -19,18 +19,19 @@ import {
 import { Spinner } from "react-bootstrap";
 import UserManagement from "./Components/UserManagement/UserManagement";
 import Profile from "./Components/profile/Profile";
+import { useAuth } from "./Components/services/authenticationContext/authentication.context";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLogin, setIsLogin } = useAuth();
   const { theme } = useContext(ThemeContext);
   const { isLoading } = useContext(APIContext);
 
   const loginHandler = () => {
-    setIsLoggedIn(true);
+    setIsLogin(true);
   };
 
   const logoutHandler = () => {
-    setIsLoggedIn(false);
+    setIsLogin(false);
   };
 
   const router = createBrowserRouter([
@@ -45,7 +46,7 @@ function App() {
     {
       path: "/home",
       element: (
-        <Protected isSignedIn={isLoggedIn}>
+        <Protected isSignedIn={isLogin}>
           <Dashboard onLogout={logoutHandler} />
         </Protected>
       ),
@@ -53,14 +54,15 @@ function App() {
     {
       path: "/users",
       element: (
-        <Protected isSignedIn={isLoggedIn} requiredRole={"sysadmin"}>
+        <Protected isSignedIn={isLogin} requiredRole={"SuperAdmin"}>
           <UserManagement />
         </Protected>
       ),
-    }, {
+    },
+    {
       path: "/profile", // Añade esta nueva ruta
       element: (
-        <Protected isSignedIn={isLoggedIn}>
+        <Protected isSignedIn={isLogin}>
           <Profile />
         </Protected>
       ),

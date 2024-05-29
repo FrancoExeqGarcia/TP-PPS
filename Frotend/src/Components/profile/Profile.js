@@ -1,14 +1,12 @@
 import React, { useState, useContext } from "react";
 import { Form, Button, Container } from "react-bootstrap";
-import { AuthenticationContext } from "../services/authenticationContext/authentication.context";
+import { useAuth } from "../services/authenticationContext/authentication.context";
 import { useNavigate } from "react-router";
 import Header from "../header/Header";
 import { ThemeContext } from "../services/themeContext/theme.context";
 
 const Profile = () => {
-  const { user, updateUser, validatePassword } = useContext(
-    AuthenticationContext
-  );
+  const { user, updateUser, validatePassword } = useAuth();
   const [email, setEmail] = useState(user.email);
   const [firstName, setFirstName] = useState(user.firstName || "");
   const [lastName, setLastName] = useState(user.lastName || "");

@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { Navigate } from "react-router";
-import { AuthenticationContext } from "../../services/authenticationContext/authentication.context";
+import { useAuth } from "../../services/authenticationContext/authentication.context";
 const Protected = ({ children, requiredRole }) => {
-  const { user, role } = useContext(AuthenticationContext);
+  const { user } = useAuth();
 
   if (!user) {
     return <Navigate to="/login" replace />;
-  } else if (requiredRole && role !== requiredRole) {
+  } else if (requiredRole && user.UserType !== requiredRole) {
     return <Navigate to="/forbidden" replace />;
   } else {
     return children;

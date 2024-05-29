@@ -1,21 +1,21 @@
 import React, { useContext } from "react";
 import { Button, Navbar, Dropdown } from "react-bootstrap";
 import { useNavigate } from "react-router";
-import { AuthenticationContext } from "../services/authenticationContext/authentication.context";
+import { useAuth } from "../services/authenticationContext/authentication.context";
 import ToggleTheme from "../ui/toggleTheme/ToggleTheme";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import { ThemeContext } from "../services/themeContext/theme.context";
 import CustomLink from "../customLink/CustomLink";
 const Header = () => {
-  const { handleLogout, user, role } = useContext(AuthenticationContext);
+  const { logout, user } = useAuth();
   const navigate = useNavigate();
   const translate = useTranslation();
   const { theme, toggleTheme } = useContext(ThemeContext);
 
-  const username = user.email.split("@")[0];
+  const username = user.Email.split("@")[0];
 
   const handleLogoutInHeader = () => {
-    handleLogout();
+    logout();
     navigate("/login");
   };
 
@@ -55,7 +55,7 @@ const Header = () => {
             Menu
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            {role === "sysadmin" && (
+            {user.role === "SuperAdmin" && (
               <Dropdown.Item onClick={handleCreateUser}>
                 {translate("users")}
               </Dropdown.Item>

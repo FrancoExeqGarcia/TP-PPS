@@ -1,20 +1,21 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import ProjectForm from "../projectForm/ProjectForm";
 import EditProject from "../editProject/EditProject";
 import ProjectCard from "../projectCard/ProjectCard";
 import Todos from "../todos/Todos";
-
-
+import { useAuth } from "../services/authenticationContext/authentication.context";
 
 function Projects({ onProjectClick }) {
-  const translate = useTranslation()
+  const translate = useTranslation();
+
+  const { user } = useAuth();
 
   const [projects, setProjectsState] = useState([]);
   const [editingProject, setEditingProject] = useState(null);
   const [userID, setUserID] = useState("");
-  const [filteredProjects, setFilteredProjects] = useState([]); 
+  const [filteredProjects, setFilteredProjects] = useState([]);
   const [userRole, setUserRole] = useState("");
 
   const setProjects = (newProjects) => {
@@ -42,14 +43,16 @@ function Projects({ onProjectClick }) {
   }, []);
 
   useEffect(() => {
-    if (userRole === '"user"') {
-      const newFilteredProjects = projects.filter((project) => project.userID === userID);
+    if (user.UserType === "Programer") {
+      const newFilteredProjects = projects.filter(
+        (project) => project.userID === userID
+      );
       setFilteredProjects(newFilteredProjects);
     } else {
       setFilteredProjects(projects);
     }
   }, [projects, userID, userRole]);
-  
+
   const addProject = (newProject) => {
     setProjects([...projects, newProject]);
   };
@@ -78,26 +81,24 @@ function Projects({ onProjectClick }) {
       setEditingProject(project);
     }
   };
-  
 
   const saveEditedProject = (editedProject) => {
     const updatedProjects = projects.map((project) =>
       project.id === editedProject.id ? editedProject : project
     );
     setProjects(updatedProjects);
-    setEditingProject(null); 
+    setEditingProject(null);
   };
-  
 
   const cancelEdit = () => {
-    setEditingProject(null); 
+    setEditingProject(null);
   };
 
   return (
     <Container className="mt-4">
       <h1 className="text-center mb-4">{translate("list_of_projects")}</h1>
 
-      {userRole !== '"user"' && (
+      {user.UserType === "Programer" && (
         <ProjectForm
           onAddProject={addProject}
           onDeleteCompletedproject={deleteCompletedProjects}
@@ -125,10 +126,10 @@ function Projects({ onProjectClick }) {
         ))}
       </Row>
       <Row>
-      <Col xs={12} className="text-center mt-4">
-        <Todos/>
-      </Col>
-    </Row>
+        <Col xs={12} className="text-center mt-4">
+          <Todos />
+        </Col>
+      </Row>
     </Container>
   );
 }

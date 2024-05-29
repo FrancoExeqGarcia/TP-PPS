@@ -9,11 +9,13 @@ using System.Text;
 using TODOLIST.Data.Entities;
 using TODOLIST.Services.Interfaces;
 using TODOLIST.Data.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace TODOLIST.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("CorsPolicy")]
     public class AuthenticateController : ControllerBase
     {
         public IUserService _userService;

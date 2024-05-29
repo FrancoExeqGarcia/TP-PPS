@@ -65,7 +65,7 @@ builder.Services.AddDbContext<ToDoContext>(options =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy",
-        builder => builder.WithOrigins("https://localhost:3000")
+        builder => builder.WithOrigins("http://localhost:3000")
             .AllowAnyMethod()
             .AllowAnyHeader()
     );
@@ -85,11 +85,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("CorsPolicy");
+
 app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseCors("CorsPolicy");
+
 
 app.MapControllers();
 

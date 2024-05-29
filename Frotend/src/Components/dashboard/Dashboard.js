@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Button, Col, Container, Navbar, Row, Dropdown } from "react-bootstrap";
 import { useNavigate } from "react-router";
-import { AuthenticationContext } from "../services/authenticationContext/authentication.context";
+import { useAuth } from "../services/authenticationContext/authentication.context";
 import ToggleTheme from "../ui/toggleTheme/ToggleTheme";
 import ComboLanguage from "../ui/comboLanguage/ComboLanguaje";
 import useTranslation from "../../custom/useTranslation/useTranslation";
@@ -9,18 +9,18 @@ import Projects from "../projects/Projects";
 import { ThemeContext } from "../services/themeContext/theme.context";
 
 const Dashboard = () => {
-  const { handleLogout, user, role } = useContext(AuthenticationContext);
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const translate = useTranslation();
   const { theme, toggleTheme } = useContext(ThemeContext);
 
-  const username = user.email.split("@")[0];
+  const username = user.Email.split("@")[0];
 
   const handleLogoutInDashboard = () => {
-    handleLogout();
+    logout();
     navigate("/login");
   };
-  
+
   const handleCreateUser = () => {
     navigate("/Users");
   };
@@ -55,7 +55,7 @@ const Dashboard = () => {
               Menu
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              {role === "sysadmin" && (
+              {user.UserType === "SuperAdmin" && (
                 <Dropdown.Item onClick={handleCreateUser}>
                   {translate("users")}
                 </Dropdown.Item>
@@ -63,11 +63,11 @@ const Dashboard = () => {
               <Dropdown.Item onClick={handleProfile}>
                 {translate("profile")}
               </Dropdown.Item>
-            <Dropdown.Item onClick={handleThemeToggle}>
-              {theme === "oscuro"
-                ? translate("light_theme_change")
-                : translate("dark_theme_change")}
-            </Dropdown.Item>
+              <Dropdown.Item onClick={handleThemeToggle}>
+                {theme === "oscuro"
+                  ? translate("light_theme_change")
+                  : translate("dark_theme_change")}
+              </Dropdown.Item>
               <Dropdown.Item onClick={handleLogoutInDashboard}>
                 {translate("sign_off")}
               </Dropdown.Item>
