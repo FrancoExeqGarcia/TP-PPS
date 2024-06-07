@@ -84,6 +84,8 @@ export const dictionary_translations = {
     { key: "select_project", value: "Seleccionar Proyecto" },
     { key: "filter_by_project", value: "Filtrar segun Proyecto" },
     { key: "user_id", value: "ID del Usuario" },
+    { key: "service_unavailable", value: "El servicio no esta disponible" },
+    { key: "wrong_email_or_password", value: "Email o usuario equivocado" },
   ],
   en: [
     { key: "login", value: "Login" },
@@ -161,5 +163,7 @@ export const dictionary_translations = {
     { key: "select_project", value: "Select Project" },
     { key: "filter_by_project", value: "Filter by Project" },
     { key: "user_id", value: "User ID" },
+    { key: "service_unavailable", value: "The Service is unavailable" },
+    { key: "wrong_email_or_password", value: "Wrong email or password" },
   ],
 };

@@ -39,7 +39,11 @@ const LogIn = () => {
       setEmail("");
       setPassword("");
     } catch (error) {
-      toast.error(translate("wrong_email_or_password"));
+      if(error.response.status === 500) {
+        toast.error(translate("service_unavailable")); 
+      } else {
+        toast.error(translate("wrong_email_or_password"));
+      }
     }
   };
 
