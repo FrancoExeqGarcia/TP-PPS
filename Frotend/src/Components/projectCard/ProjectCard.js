@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Card, Button, Form } from "react-bootstrap";
 import useTranslation from "../../custom/useTranslation/useTranslation";
+import { useAuth } from "../services/authenticationContext/authentication.context";
 
 function ProjectCard({
   project,
@@ -9,6 +10,7 @@ function ProjectCard({
   onMarkAsCompleted,
   onProjectClick,
 }) {
+  const { user } = useAuth();
   const translate = useTranslation();
 
   const handleEditClick = () => {
@@ -39,24 +41,28 @@ function ProjectCard({
           {new Date(project.endDate).toLocaleDateString()}
         </Card.Text>
         <Card.Text>{translate("user_id")}: {project.userID}</Card.Text>
-        <Form.Check
-          type="checkbox"
-          label={translate("completed")}
-          onClick={() => onMarkAsCompleted(project)}
-        />
-        <Button
-          variant="secondary"
-          onClick={handleEditClick}
-          disabled={project.completed}
-        >
-          {translate("edit")}
-        </Button>
-        <Button variant="danger" onClick={() => onDeleteProject(project)}>
-          {translate("delete")}
-        </Button>
-        <Button variant="primary" onClick={handleProjectClick}>
-          {translate("select_project")}
-        </Button>
+        {(user.UserType === "SuperAdmin" || user.UserType === "Admin") && (
+          <>
+            <Form.Check
+              type="checkbox"
+              label={translate("completed")}
+              onClick={() => onMarkAsCompleted(project)}
+            />
+            <Button
+              variant="secondary"
+              onClick={handleEditClick}
+              disabled={project.completed}
+            >
+              {translate("edit")}
+            </Button>
+            <Button variant="danger" onClick={() => onDeleteProject(project)}>
+              {translate("delete")}
+            </Button>
+            <Button variant="primary" onClick={handleProjectClick}>
+              {translate("select_project")}
+            </Button>
+          </>
+        )}
       </Card.Body>
     </Card>
   );

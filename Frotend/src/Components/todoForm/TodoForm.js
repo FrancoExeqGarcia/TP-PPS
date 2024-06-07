@@ -1,27 +1,29 @@
 import React, { useState, useEffect, useContext } from "react";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import { Form, Button, Col, Row, Alert } from "react-bootstrap";
-import { ThemeContext } from "../services/themeContext/theme.context"; // Importa ThemeContext
+import { ThemeContext } from "../services/themeContext/theme.context";
 import '../../App.css';
+import { useAuth } from "../services/authenticationContext/authentication.context";
 
-
-function TodoForm({ onAddTask, onDeleteCompletedTask, editedTask, projects }) {
+function TodoForm({ onAddTask, onDeleteCompletedTask, editedTask }) {
   const { theme } = useContext(ThemeContext);
   const translate = useTranslation();
   const [taskName, setTaskName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [userID, setUserID] = useState(0);
+  const { user } = useAuth();
 
   useEffect(() => {
     setTaskName(editedTask ? editedTask.name : "");
     setStartDate(editedTask ? editedTask.startDate : "");
     setEndDate(editedTask ? editedTask.endDate : "");
+    setUserID(editedTask ? editedTask.userID : 0);
   }, [editedTask]);
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
 
     if (taskName.trim() === "") {
       setErrorMessage("Por favor, ingresa el nombre de la tarea.");
@@ -42,21 +44,17 @@ function TodoForm({ onAddTask, onDeleteCompletedTask, editedTask, projects }) {
     const endDateObj = new Date(endDate);
 
     if (endDateObj < startDateObj) {
-      setErrorMessage(
-        "La fecha de fin no puede ser anterior a la fecha de inicio."
-      );
+      setErrorMessage("La fecha de fin no puede ser anterior a la fecha de inicio.");
       return;
     }
-
-    const userID = JSON.parse(localStorage.getItem("userID"));
 
     const newTask = {
       name: taskName,
       startDate,
       endDate,
       completed: false,
-      userID,
-      projectId:JSON.parse(localStorage.getItem("projectId")),
+      userID: (user.UserType === "SuperAdmin" || user.UserType === "Admin") ? userID : JSON.parse(localStorage.getItem("userID")),
+      projectId: JSON.parse(localStorage.getItem("projectId")),
     };
 
     if (editedTask) {
@@ -69,12 +67,13 @@ function TodoForm({ onAddTask, onDeleteCompletedTask, editedTask, projects }) {
     setTaskName("");
     setStartDate("");
     setEndDate("");
+    setUserID(0);
     setErrorMessage("");
   };
 
   return (
-    <Form onSubmit={handleSubmit} className={`mt-1 shadow p-5  ${theme === "DARK" && "dark-theme"} border-gray`}>
-    <Form.Group as={Row}>
+    <Form onSubmit={handleSubmit} className={`mt-1 shadow p-5 ${theme === "DARK" && "dark-theme"} border-gray`}>
+      <Form.Group as={Row}>
         <Form.Label column sm={4} className="text-right">
           {translate("name_task")}
         </Form.Label>
@@ -110,6 +109,20 @@ function TodoForm({ onAddTask, onDeleteCompletedTask, editedTask, projects }) {
           />
         </Col>
       </Form.Group>
+      {(user.UserType === "SuperAdmin" || user.UserType === "Admin") && (
+        <Form.Group as={Row}>
+          <Form.Label column sm={4} className="text-right">
+            {translate("user_id")}
+          </Form.Label>
+          <Col sm={8}>
+            <Form.Control
+              type="number"
+              value={userID}
+              onChange={(e) => setUserID(Number(e.target.value))}
+            />
+          </Col>
+        </Form.Group>
+      )}
       <Form.Group as={Row}>
         <Col sm={{ span: 8, offset: 4 }}>
           <Button variant="primary" type="submit" className="mt-3">
@@ -119,7 +132,7 @@ function TodoForm({ onAddTask, onDeleteCompletedTask, editedTask, projects }) {
             variant="outline-danger"
             className="mt-3"
             onClick={onDeleteCompletedTask}
-            type="submit"
+            type="button"
           >
             {translate("delete_completed")}
           </Button>

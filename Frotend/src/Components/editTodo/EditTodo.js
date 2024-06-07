@@ -8,6 +8,7 @@ function EditTodo({ task, onUpdateTask, onCancel }) {
   const [editedStartDate, setEditedStartDate] = useState(task.startDate);
   const [editedEndDate, setEditedEndDate] = useState(task.endDate);
   const [errorMessage, setErrorMessage] = useState("");
+  const [editedUserID, setEditedUserID] = useState(task.userID);
 
   const handleSaveChanges = (e) => {
     e.preventDefault();
@@ -24,6 +25,10 @@ function EditTodo({ task, onUpdateTask, onCancel }) {
 
     if (!editedEndDate) {
       setErrorMessage("Por favor, ingresa la fecha de fin.");
+      return;
+    }
+    if (!editedUserID) {
+      setErrorMessage("Por favor, ingresa el user ID asociado.");
       return;
     }
 
@@ -65,6 +70,14 @@ function EditTodo({ task, onUpdateTask, onCancel }) {
           type="date"
           value={editedEndDate}
           onChange={(e) => setEditedEndDate(e.target.value)}
+        />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>{translate("user_id")}</Form.Label>
+        <Form.Control
+          type="number"
+          value={editedUserID}
+          onChange={(e) => setEditedUserID(Number(e.target.value))}
         />
       </Form.Group>
       <Button variant="primary" type="submit">

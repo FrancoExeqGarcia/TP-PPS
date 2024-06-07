@@ -96,14 +96,14 @@ function Projects({ onProjectClick }) {
 
   return (
     <Container className="mt-4">
-      <h1 className="text-center mb-4">{translate("list_of_projects")}</h1>
 
-      {user.UserType === "Programer" && (
+      {(user.UserType === "Admin" || user.UserType === "SuperAdmin") && (
         <ProjectForm
           onAddProject={addProject}
           onDeleteCompletedproject={deleteCompletedProjects}
         />
       )}
+      <h1 className="text-center mt-4 mb-4">{translate("list_of_projects")}</h1>
       <Row className="mt-4">
         {filteredProjects.map((project, index) => (
           <Col key={index} xs={12} md={6} lg={4} className="mb-3">

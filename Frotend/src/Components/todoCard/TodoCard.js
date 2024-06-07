@@ -4,6 +4,7 @@ import { TranslateContext } from "../services/translationContext/translation.con
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import { ThemeContext } from "../services/themeContext/theme.context";
 import "../../App.css";
+import { useAuth } from "../services/authenticationContext/authentication.context";
 
 function TodoCard({ task, onDeleteTask, onEditTask, onMarkAsCompleted }) {
   const translate = useTranslation();
@@ -37,6 +38,7 @@ function TodoCard({ task, onDeleteTask, onEditTask, onMarkAsCompleted }) {
           {translate("end_date")}:{" "}
           {new Date(task.endDate).toLocaleDateString(language)}
         </Card.Text>
+        <Card.Text>{translate("user_id")}: {task.userID}</Card.Text>
         <Form.Check
           type="checkbox"
           label={translate("completed")}

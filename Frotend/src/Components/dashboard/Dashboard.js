@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Button, Col, Container, Navbar, Row, Dropdown } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { useAuth } from "../services/authenticationContext/authentication.context";
-import ToggleTheme from "../ui/toggleTheme/ToggleTheme";
 import ComboLanguage from "../ui/comboLanguage/ComboLanguaje";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import Projects from "../projects/Projects";
