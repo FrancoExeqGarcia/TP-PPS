@@ -1,3 +1,7 @@
 *.mdf
+<<<<<<< HEAD
 *.ldf
 /Base de Datos/
+=======
+*.ldf
+>>>>>>> 11d606b51c122fbe0a5b71a118e960993947e723
