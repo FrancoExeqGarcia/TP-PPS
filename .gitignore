@@ -1,2 +1,2 @@
-Base de Datos/MSSQL15.TASKMANAGER/MSSQL/DATA/TaskManager.mdf
-Base de Datos/MSSQL15.TASKMANAGER/MSSQL/DATA/TaskManager.ldf
+*.mdf
+*.ldf
