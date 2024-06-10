@@ -25,18 +25,20 @@ namespace TODOLIST.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Project>> GetAllUsers()
+        public ActionResult<IEnumerable<User>> GetAllUsers()
         {
-            StringValues header;
-            if (Request.Headers.TryGetValue("Authorization",out header))
-            {
-
-            }
             var users = _userService.GetAllUsers();
             return Ok(users);
         }
+        [HttpGet]
+        public ActionResult<IEnumerable<User>> GetAdminUsers()
+        {
+
+            var users = _userService.GetAdminUsers();
+            return Ok(users);
+        }
         [HttpGet("{id}")]
-        public ActionResult<IEnumerable<Project>> GetUserById(int id)
+        public ActionResult<IEnumerable<User>> GetUserById(int id)
         {
             var user = _userService.GetUserById(id);
             if (user == null)

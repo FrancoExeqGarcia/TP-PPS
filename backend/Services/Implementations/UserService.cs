@@ -1,10 +1,12 @@
 ﻿using ErrorOr;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Data;
 using System.Globalization;
 using TODOLIST.Data.Entities;
 using TODOLIST.Data.Models;
 using TODOLIST.DBContext;
+using TODOLIST.Enums;
 using TODOLIST.Services.Interfaces;
 
 namespace TODOLIST.Services.Implementations
@@ -114,6 +116,11 @@ namespace TODOLIST.Services.Implementations
         User? IUserService.GetUserById(int userId)
         {
             return _context.Users.FirstOrDefault(u => u.UserId == userId);
+        }
+
+        public List<User> GetAdminUsers()
+        {
+            return _context.Users.Where(u => u.UserType == nameof(UserRoleEnum.Admin) || u.UserType == nameof(UserRoleEnum.SuperAdmin)).ToList();
         }
     }
 }
