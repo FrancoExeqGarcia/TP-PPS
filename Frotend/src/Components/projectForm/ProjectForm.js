@@ -1,17 +1,25 @@
 import React, { useState, useEffect, useContext } from "react";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import { Form, Button, Col, Row, Alert, Container } from "react-bootstrap";
-import { ThemeContext } from "../services/themeContext/theme.context"; 
+import { ThemeContext } from "../services/themeContext/theme.context";
 import "../../App.css";
+import axios from "axios";
+import { useAuth } from "../services/authenticationContext/authentication.context";
 
-function ProjectForm({onAddProject,onDeleteCompletedProject,editedProject,}) {
+function ProjectForm({
+  onAddProject,
+  onDeleteCompletedProject,
+  editedProject,
+}) {
   const { theme } = useContext(ThemeContext);
+  const { user } = useAuth();
   const translate = useTranslation();
   const [projectName, setProjectName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [userID,setUserID]= useState(0);
+  const [userID, setUserID] = useState(0);
+  const [adminUsers, setAdminUsers] = useState([]);
 
   useEffect(() => {
     setProjectName(editedProject ? editedProject.name : "");
@@ -20,6 +28,24 @@ function ProjectForm({onAddProject,onDeleteCompletedProject,editedProject,}) {
     setUserID(editedProject ? editedProject.userID : 0);
   }, [editedProject]);
 
+  useEffect(() => {
+    const fetchAdminUsers = async () => {
+      try {
+        const response = await axios.get(
+          "https://localhost:7166/api/User/admins",
+          {
+            headers: {
+              Authorization: `Bearer ${user.token}`, 
+            },
+          }
+        );
+        setAdminUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching admin users:", error);
+      }
+    };
+    fetchAdminUsers();
+  }, [user.token]);
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -73,10 +99,9 @@ function ProjectForm({onAddProject,onDeleteCompletedProject,editedProject,}) {
   };
 
   return (
-    <Container className={`mt-100 form-container ${theme === "DARK" && "dark-theme"} `}>
-    <h1 className="text-center mb-4">
-        {translate("add_project")}
-      </h1>
+    <Container className={`mt-100 form-container ${theme === "DARK" && "dark-theme"} `}
+    >
+      <h1 className="text-center mb-4">{translate("add_project")}</h1>
       <Form onSubmit={handleSubmit} className="mt-1 shadow p-5 border-gray">
         <Form.Group as={Row}>
           <Form.Label column sm={4} className="text-right">
@@ -113,17 +138,22 @@ function ProjectForm({onAddProject,onDeleteCompletedProject,editedProject,}) {
               onChange={(e) => setEndDate(e.target.value)}
             />
           </Col>
-        </Form.Group> 
+        </Form.Group>
         <Form.Group as={Row}>
           <Form.Label column sm={4} className="text-right">
             {translate("user_id")}
           </Form.Label>
           <Col sm={8}>
-            <Form.Control
-              type="number"
+            <Form.Select
               value={userID}
-              onChange={(e) => setUserID(Number(e.target.value))}
-            />
+              onChange={(e) => setUserID(e.target.value)}
+            >
+              {adminUsers.map((user) => (
+                <option key={user.id} value={user.id}>
+                  {user.email}
+                </option>
+              ))}
+            </Form.Select>
           </Col>
         </Form.Group>
         <Form.Group as={Row}>
