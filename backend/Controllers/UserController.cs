@@ -30,8 +30,8 @@ namespace TODOLIST.Controllers
             var users = _userService.GetAllUsers();
             return Ok(users);
         }
-        [HttpGet]
-        public ActionResult<IEnumerable<User>> GetAdminUsers()
+        [HttpGet("admins")]
+        public ActionResult<IEnumerable<UserDto>> GetAdminUsers()
         {
 
             var users = _userService.GetAdminUsers();

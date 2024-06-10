@@ -13,8 +13,8 @@ namespace TODOLIST.Services.Interfaces
         BaseResponse ValidateUser(string email, string password);
         User CreateUser(User user);
         bool DeleteUser(int userId);
-        List<User> GetAllUsers();
-        List<User> GetAdminUsers();
+        List<UserDto> GetAllUsers();
+        List<UserDto> GetAdminUsers();
 
         User? GetUserById(int userId);
         User? GetUserByEmail(string email);

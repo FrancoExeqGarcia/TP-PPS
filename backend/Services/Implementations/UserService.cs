@@ -108,9 +108,18 @@ namespace TODOLIST.Services.Implementations
             return _context.Users.Where(u => u.UserType == role).ToList();
         }
 
-        public List<User> GetAllUsers()
+        public List<UserDto> GetAllUsers()
         {
-            return _context.Users.Include(e => e.Project).ToList();
+            var users = _context.Users.Include(e => e.Project).ToList();
+
+            var usersDto = new List<UserDto>();
+
+            users.ForEach(user =>
+            {
+                usersDto.Add(new UserDto() { UserId = user.UserId, Email = user.Email, UserName = user.UserName, UserType = user.UserType });
+            });
+
+            return usersDto;
         }
 
         User? IUserService.GetUserById(int userId)
@@ -118,9 +127,18 @@ namespace TODOLIST.Services.Implementations
             return _context.Users.FirstOrDefault(u => u.UserId == userId);
         }
 
-        public List<User> GetAdminUsers()
+        public List<UserDto> GetAdminUsers()
         {
-            return _context.Users.Where(u => u.UserType == nameof(UserRoleEnum.Admin) || u.UserType == nameof(UserRoleEnum.SuperAdmin)).ToList();
+            var users = _context.Users.Where(u => u.UserType == nameof(UserRoleEnum.Admin) || u.UserType == nameof(UserRoleEnum.SuperAdmin)).ToList();
+
+            var usersDto = new List<UserDto>();
+
+            users.ForEach(user =>
+            {
+                usersDto.Add(new UserDto() { UserId = user.UserId, Email = user.Email, UserName = user.UserName, UserType = user.UserType });
+            });
+
+            return usersDto;
         }
     }
 }
