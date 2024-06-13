@@ -286,7 +286,7 @@ const UserManagement = () => {
                 </button>
               )}
             </form>
-            <ProjectFilter /> {/* Añadido el componente ProjectFilter */}
+            <ProjectFilter /> 
           </div>
         </div>
       </div>
