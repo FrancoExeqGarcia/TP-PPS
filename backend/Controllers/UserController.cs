@@ -68,6 +68,16 @@ namespace TODOLIST.Controllers
             return Ok(userDto);
         }
 
+        [HttpGet("check-email/{email}")]
+        public IActionResult CheckEmailExists(string email)
+        {
+            var user = _userService.GetUserByEmail(email);
+            if (user != null)
+            {
+                return Ok(true);
+            }
+            return Ok(false);
+        }
 
 
         [HttpPost]

@@ -10,7 +10,7 @@ const UserManagement = () => {
   const [language, setLanguage] = useState("es");
   const translate = useTranslation(language);
   const { theme } = useContext(ThemeContext);
-  const { user } = useAuth(); 
+  const { user } = useAuth();
 
   const [users, setUsers] = useState([]);
   const [formData, setFormData] = useState({
@@ -48,11 +48,32 @@ const UserManagement = () => {
     }));
   };
 
+  const checkEmailExists = async (email) => {
+    try {
+      const response = await fetch(`https://localhost:7166/api/User/check-email/${email}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      const exists = await response.json();
+      return exists;
+    } catch (error) {
+      console.error(translate("error_check_email"));
+      return false;
+    }
+  };
+
   const handleAddUser = async (e) => {
     e.preventDefault();
 
     if (!formData.email || !formData.password || !formData.role) {
       setError(translate("complete_all_fields"));
+      return;
+    }
+
+    const emailExists = await checkEmailExists(formData.email);
+    if (emailExists) {
+      setError(translate("email_already_exists"));
       return;
     }
 
