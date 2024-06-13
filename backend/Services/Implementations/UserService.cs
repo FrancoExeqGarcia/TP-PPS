@@ -156,5 +156,9 @@ namespace TODOLIST.Services.Implementations
                 UserType = user.UserType
             };
         }
+        public bool CheckEmailExists(string email)
+        {
+            return _context.Users.Any(u => u.Email == email);
+        }
     }
 }
