@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import { ThemeContext } from "../services/themeContext/theme.context";
-import { Card, Button, Form } from "react-bootstrap";
+import { Card, Button, Form, Container, Row, Col } from "react-bootstrap";
 import "../../App.css";
 import Header from "../header/Header";
 import { useAuth } from "../services/authenticationContext/authentication.context";
+import ProjectFilter from "../projectFilter/projectFilter";
 
 const UserManagement = () => {
   const [language, setLanguage] = useState("es");
@@ -267,7 +268,7 @@ const UserManagement = () => {
                   <option value="" disabled>
                     {translate("select_role")}
                   </option>
-                  <option value="Programer">{translate("user")}</option>
+                  <option value="Programer">{translate("programer")}</option>
                   <option value="SysAdmin">{translate("sysadmin")}</option>
                   <option value="Admin">{translate("admin")}</option>
                 </select>
@@ -287,6 +288,8 @@ const UserManagement = () => {
             </form>
           </div>
         </div>
+        <hr />
+        <ProjectFilter /> 
       </div>
     </div>
   );

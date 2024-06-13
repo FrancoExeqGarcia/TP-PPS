@@ -47,7 +47,7 @@ function TodoCard({ task, onDeleteTask, onEditTask, onMarkAsCompleted }) {
         <Button
           variant="info"
           onClick={handleEditClick}
-          disabled={task.completed}
+          disabled={task.isCompleted}
         >
           {translate("edit")}
         </Button>

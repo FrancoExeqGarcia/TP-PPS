@@ -86,6 +86,11 @@ export const dictionary_translations = {
     { key: "user_id", value: "ID del Usuario" },
     { key: "service_unavailable", value: "El servicio no esta disponible" },
     { key: "wrong_email_or_password", value: "Email o usuario equivocado" },
+    { key: "programer", value: "Programador" },
+    { key: "select_project", value: "Seleccion de proyectos" },
+    { key: "select_one_project", value: "Seleccione un proyecto" },
+    { key: "project_details", value: "Detalles del proyecto" },
+    { key: "todos", value: "Tareas" }
   ],
   en: [
     { key: "login", value: "Login" },
@@ -165,5 +170,10 @@ export const dictionary_translations = {
     { key: "user_id", value: "User ID" },
     { key: "service_unavailable", value: "The Service is unavailable" },
     { key: "wrong_email_or_password", value: "Wrong email or password" },
+    { key: "programer", value: "Programer" },
+    { key: "select_project", value: "Select Project" },
+    { key: "select_one_project", value: "Select a project" },
+    { key: "project_details", value: "Project details" },
+    { key: "todos", value: "Todos" }
   ],
 };
