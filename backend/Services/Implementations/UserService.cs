@@ -140,5 +140,21 @@ namespace TODOLIST.Services.Implementations
 
             return usersDto;
         }
+        public UserDto GetUserProfile(int userId)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+            if (user == null)
+            {
+                return null;
+            }
+
+            return new UserDto
+            {
+                UserId = user.UserId,
+                Email = user.Email,
+                UserName = user.UserName,
+                UserType = user.UserType
+            };
+        }
     }
 }

@@ -47,9 +47,29 @@ namespace TODOLIST.Controllers
             }
             return Ok(user);
         }
+        [HttpGet("profile")]
+        public ActionResult<UserDto> GetProfile()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _userService.GetUserById(int.Parse(userId));
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var userDto = new UserDto
+            {
+                UserId = user.UserId,
+                Email = user.Email,
+                UserName = user.UserName,
+                UserType = user.UserType
+            };
+
+            return Ok(userDto);
+        }
 
 
-        
+
         [HttpPost]
         [Authorize(Roles = "SuperAdmin")]
         public IActionResult CreateProgramer([FromBody] ProgramerPostDto programerPostDto) //sería la registración de un nuevo cliente
