@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Form, Container, Row, Col, Alert } from "react-bootstrap";
+import { Form, Container, Row, Col, Alert, Button } from "react-bootstrap";
 import { useAuth } from "../services/authenticationContext/authentication.context";
 import ProjectCard from "../projectCard/ProjectCard";
 import TodoCard from "../todoCard/TodoCard";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 
+
 const ProjectFilter = () => {
-  const translate = useTranslation();
+    const translate = useTranslation();
   const { user } = useAuth();
   const [projects, setProjects] = useState([]);
-  const [selectedProject, setSelectedProject] = useState(null);
   const [todos, setTodos] = useState([]);
+  const [selectedProject, setSelectedProject] = useState(null);
   const [error, setError] = useState(null);
+  const [showProjects, setShowProjects] = useState(false);
+  const [showTodos, setShowTodos] = useState(false);
 
   useEffect(() => {
     fetchProjects();
@@ -24,33 +27,83 @@ const ProjectFilter = () => {
           Authorization: `Bearer ${user.token}`,
         },
       });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
       const data = await response.json();
       setProjects(data);
     } catch (error) {
       console.error("Error fetching projects:", error);
       setError("Error fetching projects.");
-      setProjects([]);
+      setProjects([]); 
+    }
+  };
+
+  const fetchAllTodos = async () => {
+    try {
+      const response = await fetch("https://localhost:7166/getalltodos", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      if (!response.ok) {
+        const errorText = await response.text(); 
+        throw new Error(`Network response was not ok: ${errorText}`);
+      }
+      const data = await response.json();
+      setTodos(data);
+      setSelectedProject(null);
+      setShowProjects(false); 
+      setShowTodos(true); 
+    } catch (error) {
+      console.error("Error fetching todos:", error.message);
+      setError(`Error fetching todos: ${error.message}`);
+      setTodos([]); 
+    }
+  };
+
+  const fetchAllProjects = async () => {
+    try {
+      const response = await fetch("https://localhost:7166/api/Project", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      setProjects(data);
+      setSelectedProject(null);
+      setTodos([]); 
+      setShowProjects(true); 
+      setShowTodos(false); 
+    } catch (error) {
+      console.error("Error fetching projects:", error);
+      setError("Error fetching projects.");
+      setProjects([]); 
     }
   };
 
   const fetchProjectWithTodos = async (projectId) => {
     try {
-      const response = await fetch(
-        `https://localhost:7166/api/Project/${projectId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
+      const response = await fetch(`https://localhost:7166/api/Project/${projectId}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
       const data = await response.json();
-      console.log(data);
       setSelectedProject(data);
-      setTodos(data.toDos || []);
+      setTodos(data.toDos || []); 
+      setShowProjects(false); 
+      setShowTodos(false); 
     } catch (error) {
       console.error("Error fetching project with todos:", error);
       setError("Error fetching project with todos.");
-      setTodos([]);
+      setTodos([]); 
     }
   };
 
@@ -66,6 +119,12 @@ const ProjectFilter = () => {
           {error}
         </Alert>
       )}
+      <Row className="mt-4">
+        <Col>
+          <Button onClick={fetchAllTodos} className="me-2">{translate("all_todos")}</Button>
+          <Button onClick={fetchAllProjects}>{translate("all_projects")}</Button>
+        </Col>
+      </Row>
       <Row className="mt-4">
         <Col>
           <Form.Group controlId="formProject">
@@ -89,10 +148,20 @@ const ProjectFilter = () => {
           </Col>
         </Row>
       )}
-      {todos.length > 0 && (
+      {showProjects && projects.length > 0 && (
         <Row className="mt-4">
           <Col>
-            <h3>{translate("todos")}</h3>
+            <h3>{translate("all_projects")}</h3>
+            {projects.map((project) => (
+              <ProjectCard key={project.projectId} project={project} />
+            ))}
+          </Col>
+        </Row>
+      )}
+      {showTodos && todos.length > 0 && (
+        <Row className="mt-4">
+          <Col>
+            <h3>{translate("all_todos")}</h3>
             {todos.map((todo) => (
               <TodoCard key={todo.toDoId} task={todo} />
             ))}

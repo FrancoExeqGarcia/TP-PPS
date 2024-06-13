@@ -6,6 +6,7 @@ import ComboLanguage from "../ui/comboLanguage/ComboLanguaje";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import Projects from "../projects/Projects";
 import { ThemeContext } from "../services/themeContext/theme.context";
+import User from "../user/User"; 
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
@@ -54,7 +55,7 @@ const Dashboard = () => {
               Menu
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              {user.UserType === "SuperAdmin" && (
+              {(user.UserType === "SuperAdmin") && (
                 <Dropdown.Item onClick={handleCreateUser}>
                   {translate("users")}
                 </Dropdown.Item>
@@ -75,6 +76,11 @@ const Dashboard = () => {
         </Navbar.Collapse>
       </Navbar>
       <ComboLanguage />
+      <Col xs={12} className="text-center mt-4">
+        {(user.UserType === "SuperAdmin" || user.UserType === "Admin") && (
+          <User /> 
+        )}
+      </Col>
       <Col xs={12} className="text-center mt-4">
         <Projects />
       </Col>
