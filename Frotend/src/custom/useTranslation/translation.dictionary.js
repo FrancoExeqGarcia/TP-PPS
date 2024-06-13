@@ -90,7 +90,9 @@ export const dictionary_translations = {
     { key: "select_project", value: "Seleccion de proyectos" },
     { key: "select_one_project", value: "Seleccione un proyecto" },
     { key: "project_details", value: "Detalles del proyecto" },
-    { key: "todos", value: "Tareas" }
+    { key: "todos", value: "Tareas" },
+    { key: "all_projects", value: "Todos los proyectos" },
+    { key: "all_todos", value: "Todas las tareas" }
   ],
   en: [
     { key: "login", value: "Login" },
@@ -174,6 +176,8 @@ export const dictionary_translations = {
     { key: "select_project", value: "Select Project" },
     { key: "select_one_project", value: "Select a project" },
     { key: "project_details", value: "Project details" },
-    { key: "todos", value: "Todos" }
+    { key: "todos", value: "Todos" },
+    { key: "all_projects", value: "All projects" },
+    { key: "all_todos", value: "All todos" }
   ],
 };

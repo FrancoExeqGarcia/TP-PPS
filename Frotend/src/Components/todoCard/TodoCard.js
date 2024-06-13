@@ -12,31 +12,24 @@ function TodoCard({ task, onDeleteTask, onEditTask, onMarkAsCompleted }) {
   const { language } = useContext(TranslateContext);
 
   const handleEditClick = () => {
-    if (!task.completed) {
+    if (!task.isCompleted) {
       if (task.name.trim() === "") {
         alert("El nombre de la tarea no puede estar vacío.");
         return;
       }
-
       onEditTask(task);
     }
   };
 
   return (
-    <Card
-      className={`mt-1 shadow  ${
-        theme === "DARK" && "dark-theme"
-      } border-green`}
-    >
+    <Card className={`mt-1 shadow ${theme === "DARK" && "dark-theme"} border-green`}>
       <Card.Body className="bg-success" key="success">
         <Card.Title>{task.name}</Card.Title>
         <Card.Text>
-          {translate("start_date")}:{" "}
-          {new Date(task.startDate).toLocaleDateString(language)}
+          {translate("start_date")}: {new Date(task.startDate).toLocaleDateString(language)}
         </Card.Text>
         <Card.Text>
-          {translate("end_date")}:{" "}
-          {new Date(task.endDate).toLocaleDateString(language)}
+          {translate("end_date")}: {new Date(task.endDate).toLocaleDateString(language)}
         </Card.Text>
         <Card.Text>{translate("user_id")}: {task.userID}</Card.Text>
         <Form.Check
@@ -44,11 +37,7 @@ function TodoCard({ task, onDeleteTask, onEditTask, onMarkAsCompleted }) {
           label={translate("completed")}
           onClick={() => onMarkAsCompleted(task)}
         />
-        <Button
-          variant="info"
-          onClick={handleEditClick}
-          disabled={task.isCompleted}
-        >
+        <Button variant="info" onClick={handleEditClick} disabled={task.isCompleted}>
           {translate("edit")}
         </Button>
         <Button variant="danger" onClick={() => onDeleteTask(task)}>
