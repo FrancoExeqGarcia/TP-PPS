@@ -1,6 +1,6 @@
 import React, { useContext, useState, createContext, useEffect } from "react";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";  // Asegúrate de usar la importación nombrada correctamente
+import { jwtDecode } from "jwt-decode"; // Asegúrate de usar la importación nombrada correctamente
 
 const AuthenticationContext = createContext();
 const TOKEN_KEY = "authToken";
@@ -27,7 +27,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         setUser({
           UserId: decodedToken.nameid,
           Email: decodedToken.email,
-          UserName: decodedToken.unique_name,
+          UserName: decodedToken.username,
           UserType: decodedToken.role,
           token: token,
         });
@@ -54,7 +54,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         setUser({
           UserId: decodedToken.nameid,
           Email: decodedToken.email,
-          UserName: decodedToken.unique_name,
+          UserName: decodedToken.username,
           UserType: decodedToken.role,
           token: token,
         });
@@ -82,9 +82,12 @@ export const AuthenticationContextProvider = ({ children }) => {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await axios.get(`https://localhost:7166/api/User/profile`, {
-        headers: { Authorization: `Bearer ${user.token}` },
-      });
+      const response = await axios.get(
+        `https://localhost:7166/api/User/profile`,
+        {
+          headers: { Authorization: `Bearer ${user.token}` },
+        }
+      );
       setUser((prevUser) => ({ ...prevUser, ...response.data }));
     } catch (error) {
       console.error("Error fetching user profile:", error);
@@ -93,9 +96,13 @@ export const AuthenticationContextProvider = ({ children }) => {
 
   const updateUser = async (updatedUser) => {
     try {
-      const response = await axios.put(`https://localhost:7166/api/User/${user.UserId}`, updatedUser, {
-        headers: { Authorization: `Bearer ${user.token}` },
-      });
+      const response = await axios.put(
+        `https://localhost:7166/api/User/${user.UserId}`,
+        updatedUser,
+        {
+          headers: { Authorization: `Bearer ${user.token}` },
+        }
+      );
       setUser((prevUser) => ({ ...prevUser, ...response.data }));
     } catch (error) {
       console.error("Error updating user data:", error);
@@ -104,7 +111,15 @@ export const AuthenticationContextProvider = ({ children }) => {
 
   return (
     <AuthenticationContext.Provider
-      value={{ user, login, setUser, logout, isLogin, fetchUserProfile, updateUser }}
+      value={{
+        user,
+        login,
+        setUser,
+        logout,
+        isLogin,
+        fetchUserProfile,
+        updateUser,
+      }}
     >
       {children}
     </AuthenticationContext.Provider>

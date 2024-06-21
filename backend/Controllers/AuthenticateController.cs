@@ -56,6 +56,7 @@ namespace TODOLIST.Controllers
                         var claimsForToken = new List<Claim>();
                         claimsForToken.Add(new Claim("sub", user.UserId.ToString())); // sub es una key estándar (unique user identifier)
                         claimsForToken.Add(new Claim("email", user.Email));
+                        claimsForToken.Add(new Claim("username", user.UserName));
                         claimsForToken.Add(new Claim("role", user.UserType)); // Puede ser "Programer", "Admin" o "SuperAdmin"
 
                         var jwtSecurityToken = new JwtSecurityToken(

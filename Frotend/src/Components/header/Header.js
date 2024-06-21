@@ -12,8 +12,6 @@ const Header = () => {
   const translate = useTranslation();
   const { theme, toggleTheme } = useContext(ThemeContext);
 
-  const username = user.Email.split("@")[0];
-
   const handleLogoutInHeader = () => {
     logout();
     navigate("/login");
@@ -48,7 +46,7 @@ const Header = () => {
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end">
         <Navbar.Text className="mr-4 ms-auto me-auto border-gray rounded">
-          {translate("hi")} {username}!
+          {translate("hi")} {user.UserName}!
         </Navbar.Text>
         <Dropdown align="end">
           <Dropdown.Toggle variant="outline-primary" id="dropdown-basic">
