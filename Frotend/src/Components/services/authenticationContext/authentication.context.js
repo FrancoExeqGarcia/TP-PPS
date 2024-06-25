@@ -1,6 +1,6 @@
 import React, { useContext, useState, createContext, useEffect } from "react";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode"; // Asegúrate de usar la importación nombrada correctamente
+import { jwtDecode } from "jwt-decode"; 
 
 const AuthenticationContext = createContext();
 const TOKEN_KEY = "authToken";
