@@ -7,6 +7,7 @@ import useTranslation from "../../custom/useTranslation/useTranslation";
 import Projects from "../projects/Projects";
 import { ThemeContext } from "../services/themeContext/theme.context";
 import User from "../user/User";
+import ChatBotManager from "../chatBotManager/ChatBotManager";
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
@@ -82,6 +83,7 @@ const Dashboard = () => {
       <Col xs={12} className="text-center mt-4">
         <Projects />
       </Col>
+      <ChatBotManager user={user} />
     </Container>
   );
 };
