@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Form } from "react-bootstrap";
 import useTranslation from "../../../custom/useTranslation/useTranslation";
-import { TranslateContext } from "../../services/translationContext/translation.context";
+import { TranslateContext } from "../../../services/translationContext/translation.context";
 
 const ComboLanguage = () => {
   const { language, changeLanguageHandler } = useContext(TranslateContext);

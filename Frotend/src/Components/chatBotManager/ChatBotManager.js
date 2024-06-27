@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ChatBot from "react-chatbotify";
-import { useAuth } from "../services/authenticationContext/authentication.context";
 import chatIcon from "../../assets/chatIcon.svg";
+import { useAuth } from "../../services/authenticationContext/authentication.context";
 
 const ChatBotManager = () => {
   const [form, setForm] = useState({});
@@ -32,6 +32,12 @@ const ChatBotManager = () => {
     },
     botBubble: {
       avatar: chatIcon,
+    },
+    notification: {
+      disabled: false,
+      defaultToggledOn: true,
+      volume: 0.01,
+      showCount: true,
     },
   };
   const formStyle = {
