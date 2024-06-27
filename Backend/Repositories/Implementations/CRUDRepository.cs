@@ -1,10 +1,8 @@
-﻿using Castle.Components.DictionaryAdapter;
-using TODOLIST.Data.Entities;
+﻿using TODOLIST.Data.Entities;
 using TODOLIST.DBContext;
 using TODOLIST.Exceptions;
 using TODOLIST.Repositories.Interfaces;
 using TODOLIST.Services.Interfaces;
-using static TODOLIST.Repositories.Interfaces.ICRUDRepository;
 
 namespace TODOLIST.Repositories.Implementations
 {
