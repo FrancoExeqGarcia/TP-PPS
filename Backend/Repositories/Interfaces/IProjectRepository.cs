@@ -1,6 +1,10 @@
-﻿namespace TODOLIST.Repositories.Interfaces
+﻿using System.Collections.Generic;
+using TODOLIST.Data.Entities;
+
+namespace TODOLIST.Repositories.Interfaces
 {
-    public class IProjectRepository
+    public interface IProjectRepository : ICRUDRepository<Project>
     {
+
     }
 }
