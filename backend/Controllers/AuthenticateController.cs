@@ -8,8 +8,8 @@ using System.Security.Claims;
 using System.Text;
 using TODOLIST.Data.Entities;
 using TODOLIST.Services.Interfaces;
-using TODOLIST.Data.Models;
 using Microsoft.AspNetCore.Cors;
+using TODOLIST.Data.Models.User;
 
 namespace TODOLIST.Controllers
 {
@@ -33,54 +33,41 @@ namespace TODOLIST.Controllers
             if (credentialsDto != null && credentialsDto.Email != null && credentialsDto.Password != null)
             {
                 // Valido usuario
-                BaseResponse validateUserResult = _userService.ValidateUser(credentialsDto.Email, credentialsDto.Password);
-                if (validateUserResult.Message == "wrong email")
+                var userDto = new UserDto();
+                try
                 {
-                    return BadRequest(validateUserResult.Message);
+                    userDto = _userService.GetByEmailAndPassword(credentialsDto.Email, credentialsDto.Password);
                 }
-                else if (validateUserResult.Message == "wrong password")
+                catch (Exception ex)
                 {
                     return Unauthorized();
                 }
-                if (validateUserResult.Result)
-                {
-                    // Obtener usuario
-                    User user = _userService.GetUserByEmail(credentialsDto.Email);
-                    if (user != null)
-                    {
-                        // Crear el token
-                        var securityPassword = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_config["Authentication:SecretForKey"])); // Traemos la SecretKey del Json
-                        var signature = new SigningCredentials(securityPassword, SecurityAlgorithms.HmacSha256);
 
-                        // Los claims son datos en clave->valor que nos permiten guardar data del usuario.
-                        var claimsForToken = new List<Claim>();
-                        claimsForToken.Add(new Claim("sub", user.UserId.ToString())); // sub es una key estándar (unique user identifier)
-                        claimsForToken.Add(new Claim("email", user.Email));
-                        claimsForToken.Add(new Claim("role", user.UserType)); // Puede ser "Programer", "Admin" o "SuperAdmin"
+                // Crear el token
+                var securityPassword = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_config["Authentication:SecretForKey"])); // Traemos la SecretKey del Json
+                var signature = new SigningCredentials(securityPassword, SecurityAlgorithms.HmacSha256);
 
-                        var jwtSecurityToken = new JwtSecurityToken(
-                            _config["Authentication:Issuer"],
-                            _config["Authentication:Audience"],
-                            claimsForToken,
-                            DateTime.UtcNow,
-                            DateTime.UtcNow.AddHours(1),
-                            signature);
+                // Los claims son datos en clave->valor que nos permiten guardar data del usuario.
+                var claimsForToken = new List<Claim>();
+                claimsForToken.Add(new Claim("sub", userDto.Id.ToString())); // sub es una key estándar (unique user identifier)
+                claimsForToken.Add(new Claim("email", userDto.Email));
+                claimsForToken.Add(new Claim("role", userDto.UserType.ToString())); // Puede ser "Programmer", "Admin" o "SuperAdmin"
 
-                        string tokenToReturn = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
-                        return Ok(tokenToReturn);
-                    }
-                    else
-                    {
-                        return BadRequest("Usuario no encontrado");
-                    }
-                }
-                return BadRequest();
+                var jwtSecurityToken = new JwtSecurityToken(
+                    _config["Authentication:Issuer"],
+                    _config["Authentication:Audience"],
+                    claimsForToken,
+                    DateTime.UtcNow,
+                    DateTime.UtcNow.AddHours(1),
+                    signature);
+
+                string tokenToReturn = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
+                return Ok(tokenToReturn);
             }
             else
             {
-                return BadRequest("Credenciales inválidas");
+                return BadRequest("Complete todos los campos");
             }
         }
-
     }
 }

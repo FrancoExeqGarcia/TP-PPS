@@ -1,19 +1,19 @@
 import React, { useContext } from "react";
-import { Button, Col, Container, Navbar, Row, Dropdown } from "react-bootstrap";
+import { Col, Container, Navbar, Dropdown } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import { useAuth } from "../services/authenticationContext/authentication.context";
 import ComboLanguage from "../ui/comboLanguage/ComboLanguaje";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import Projects from "../projects/Projects";
 import { ThemeContext } from "../services/themeContext/theme.context";
+import User from "../user/User";
+import ChatBotManager from "../chatBotManager/ChatBotManager";
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const translate = useTranslation();
   const { theme, toggleTheme } = useContext(ThemeContext);
-
-  const username = user.Email.split("@")[0];
 
   const handleLogoutInDashboard = () => {
     logout();
@@ -46,8 +46,8 @@ const Dashboard = () => {
         </Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
-          <Navbar.Text className="mr-4 ms-auto me-auto border-gray rounded">
-            {translate("hi")} {username}!
+          <Navbar.Text className="mr-4 ms-auto me-auto border-gray rounded font-weight-bold">
+            {translate("hi")} {user.UserName}!
           </Navbar.Text>
           <Dropdown align="end">
             <Dropdown.Toggle variant="outline-primary" id="dropdown-basic">
@@ -76,8 +76,14 @@ const Dashboard = () => {
       </Navbar>
       <ComboLanguage />
       <Col xs={12} className="text-center mt-4">
+        {(user.UserType === "SuperAdmin" || user.UserType === "Admin") && (
+          <User />
+        )}
+      </Col>
+      <Col xs={12} className="text-center mt-4">
         <Projects />
       </Col>
+      <ChatBotManager user={user} />
     </Container>
   );
 };

@@ -60,7 +60,7 @@ function App() {
       ),
     },
     {
-      path: "/profile", // Añade esta nueva ruta
+      path: "/profile", 
       element: (
         <Protected isSignedIn={isLogin}>
           <Profile />

@@ -3,12 +3,15 @@ import useTranslation from "../../custom/useTranslation/useTranslation";
 import { ThemeContext } from "../services/themeContext/theme.context";
 import { Card, Button, Form } from "react-bootstrap";
 import "../../App.css";
-import Header from "../header/Header"; // Importar el nuevo componente
+import Header from "../header/Header";
+import { useAuth } from "../services/authenticationContext/authentication.context";
+import ProjectFilter from "../projectFilter/projectFilter";
 
 const UserManagement = () => {
   const [language, setLanguage] = useState("es");
   const translate = useTranslation(language);
   const { theme } = useContext(ThemeContext);
+  const { user } = useAuth(); 
 
   const [users, setUsers] = useState([]);
   const [formData, setFormData] = useState({
@@ -26,7 +29,11 @@ const UserManagement = () => {
 
   const getUsers = async () => {
     try {
-      const response = await fetch("https://task-minder.onrender.com/users");
+      const response = await fetch("https://localhost:7166/api/User", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
       const data = await response.json();
       setUsers(data);
     } catch (error) {
@@ -42,6 +49,21 @@ const UserManagement = () => {
     }));
   };
 
+  const checkEmailExists = async (email) => {
+    try {
+      const response = await fetch(`https://localhost:7166/api/User/check-email/${email}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      const exists = await response.json();
+      return exists;
+    } catch (error) {
+      console.error(translate("error_check_email"));
+      return false;
+    }
+  };
+
   const handleAddUser = async (e) => {
     e.preventDefault();
 
@@ -50,11 +72,18 @@ const UserManagement = () => {
       return;
     }
 
+    const emailExists = await checkEmailExists(formData.email);
+    if (emailExists) {
+      setError(translate("email_already_exists"));
+      return;
+    }
+
     try {
-      const response = await fetch("https://task-minder.onrender.com/users", {
+      const response = await fetch("https://localhost:7166/api/User", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${user.token}`,
         },
         body: JSON.stringify(formData),
       });
@@ -81,18 +110,19 @@ const UserManagement = () => {
 
     try {
       const response = await fetch(
-        `https://task-minder.onrender.com/users/${editingUser.id}`,
+        `https://localhost:7166/api/User/${editingUser.userId}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
           },
           body: JSON.stringify(formData),
         }
       );
       const data = await response.json();
       const updatedUsers = users.map((user) =>
-        user.id === data.id ? data : user
+        user.userId === data.userId ? data : user
       );
       setUsers(updatedUsers);
       setEditingUser(null);
@@ -108,12 +138,15 @@ const UserManagement = () => {
     }
   };
 
-  const handleDeleteUser = async (id) => {
+  const handleDeleteUser = async (userId) => {
     try {
-      await fetch(`https://task-minder.onrender.com/users/${id}`, {
+      await fetch(`https://localhost:7166/api/User/${userId}`, {
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
       });
-      const updatedUsers = users.filter((user) => user.id !== id);
+      const updatedUsers = users.filter((user) => user.userId !== userId);
       setUsers(updatedUsers);
     } catch (error) {
       console.error(translate("error_delete_user"));
@@ -125,7 +158,7 @@ const UserManagement = () => {
     setFormData({
       email: user.email,
       password: "",
-      role: user.role,
+      role: user.userType,
     });
     setIsEditing(true);
     setError(null);
@@ -151,7 +184,7 @@ const UserManagement = () => {
             <h2>{translate("administer_users")}</h2>
             <ul>
               {users.map((user) => (
-                <li key={user.id}>
+                <li key={user.userId}>
                   {user.email}{" "}
                   <button
                     type="submit"
@@ -171,7 +204,7 @@ const UserManagement = () => {
                         ? "btn-outline-light"
                         : "btn-outline-dark"
                     }`}
-                    onClick={() => handleDeleteUser(user.id)}
+                    onClick={() => handleDeleteUser(user.userId)}
                   >
                     {translate("delete")}
                   </button>
@@ -235,9 +268,9 @@ const UserManagement = () => {
                   <option value="" disabled>
                     {translate("select_role")}
                   </option>
-                  <option value="user">{translate("user")}</option>
-                  <option value="sysadmin">{translate("sysadmin")}</option>
-                  <option value="admin">{translate("admin")}</option>
+                  <option value="Programer">{translate("programer")}</option>
+                  <option value="SysAdmin">{translate("sysadmin")}</option>
+                  <option value="Admin">{translate("admin")}</option>
                 </select>
               </div>
               <button type="submit" className="btn btn-primary">
@@ -253,6 +286,7 @@ const UserManagement = () => {
                 </button>
               )}
             </form>
+            <ProjectFilter /> 
           </div>
         </div>
       </div>

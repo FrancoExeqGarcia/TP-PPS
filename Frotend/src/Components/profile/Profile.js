@@ -1,30 +1,44 @@
-import React, { useState, useContext } from "react";
-import { Form, Button, Container } from "react-bootstrap";
+import React, { useState, useContext, useEffect } from "react";
+import { Form, Button } from "react-bootstrap";
 import { useAuth } from "../services/authenticationContext/authentication.context";
 import { useNavigate } from "react-router";
 import Header from "../header/Header";
 import { ThemeContext } from "../services/themeContext/theme.context";
 
 const Profile = () => {
-  const { user, updateUser, validatePassword } = useAuth();
-  const [email, setEmail] = useState(user.email);
-  const [firstName, setFirstName] = useState(user.firstName || "");
-  const [lastName, setLastName] = useState(user.lastName || "");
+  const { user, fetchUserProfile, updateUser } = useAuth();
+  const [email, setEmail] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userType, setUserType] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { theme } = useContext(ThemeContext);
 
+  useEffect(() => {
+    const getUserData = async () => {
+      await fetchUserProfile();
+    };
+    getUserData();
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      setEmail(user.Email);
+      setUserName(user.UserName);
+      setUserType(user.UserType);
+    }
+  }, [user]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const isValid = await validatePassword(currentPassword);
-    if (!isValid) {
-      setError("Current password is incorrect.");
-      return;
+    try {
+      await updateUser({ email, userName, userType, password: newPassword });
+      navigate("/home");
+    } catch (error) {
+      setError("Error updating user profile.");
     }
-    updateUser({ email, firstName, lastName, password: newPassword });
-    navigate("/home");
   };
 
   return (
@@ -36,21 +50,22 @@ const Profile = () => {
             <h2>Profile</h2>
             {error && <p className="text-danger">{error}</p>}
             <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="formFirstName">
-                <Form.Label>First Name</Form.Label>
+              <Form.Group controlId="formUserName">
+                <Form.Label>Nombre Completo</Form.Label>
                 <Form.Control
                   type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
                 />
               </Form.Group>
 
-              <Form.Group controlId="formLastName">
-                <Form.Label>Last Name</Form.Label>
+              <Form.Group controlId="formUserType">
+                <Form.Label>Rol</Form.Label>
                 <Form.Control
                   type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  value={userType}
+                  onChange={(e) => setUserType(e.target.value)}
+                  readOnly
                 />
               </Form.Group>
 
@@ -60,6 +75,7 @@ const Profile = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  readOnly
                 />
               </Form.Group>
 

@@ -1,119 +1,221 @@
 ﻿using ErrorOr;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Data;
 using System.Globalization;
 using TODOLIST.Data.Entities;
 using TODOLIST.Data.Models;
 using TODOLIST.DBContext;
+using TODOLIST.Enums;
+using TODOLIST.Repositories.Interfaces;
 using TODOLIST.Services.Interfaces;
+using TODOLIST.Exceptions;
+using TODOLIST.Data.Models.User;
+using TODOLIST.Repositories.Implementations;
 
 namespace TODOLIST.Services.Implementations
 {
     public class UserService : IUserService
     {
-        private readonly ToDoContext _context;
+        private readonly IUserRepository _repository;
 
-        public UserService(ToDoContext context)
+        public UserService(IUserRepository repository)
         {
-            _context = context;
+            _repository = repository;
         }
+        public void Delete(int id)
+            => _repository.Delete(id);
 
-        public User? GetUserByEmail(string email)
+        public UserDto Create(CreateUserRequest request)
         {
-            return _context.Users.SingleOrDefault(u => u.Email == email);
-        }
-
-        public bool CheckIfUserExists(string userEmail)
-        {
-            return _context.Users.Any(u => u.Email == userEmail);
-        }
-
-        public BaseResponse ValidateUser(string email, string password)
-        {
-            BaseResponse response = new BaseResponse();
-            User? userForLogin = _context.Users.SingleOrDefault(u => u.Email == email);
-            if (userForLogin != null) //Si lo encuentra, entra al if (distinto de null)
+            var entity = new User()
             {
-                if (userForLogin.Password == password)
+                Email = request.Email,
+                Name = request.Name,
+                Password = request.Password,
+                UserType = (UserRoleEnum)Enum.Parse(typeof(UserRoleEnum), request.UserType),
+                State = request.State
+            };
+
+            var createdUser = _repository.Create(entity);
+
+            var createdUserDto = new UserDto()
+            {
+                Email = createdUser.Email,
+                Name = createdUser.Name,
+                Password = createdUser.Password,
+                ProjectAssigned = createdUser.ProjectAssigned,
+                ToDosAssigned = createdUser.ToDosAssigned,
+                Id = createdUser.Id,
+                //UserType = createdUser.UserType,
+                State = createdUser.State
+            };
+
+            return createdUserDto;
+        }
+
+        public UserDto GetById(int id)
+        {
+            var user = _repository.GetById(id);
+
+            if (user == null)
+                throw new NotFoundException("User not found");
+
+            var userDto = new UserDto()
+            {
+                Email = user.Email,
+                Name = user.Name,
+                Password = user.Password,
+                ProjectAssigned = user.ProjectAssigned,
+                ToDosAssigned = user.ToDosAssigned,
+                Id = user.Id,
+                UserType = user.UserType.ToString(),
+                State = user.State
+            };
+
+            return userDto;
+        }
+
+        public List<UserDto> GetAll()
+        {
+            var users = _repository.GetAll();
+
+            var userDtoList = new List<UserDto>();
+
+            foreach (var user in users)
+            {
+                userDtoList.Add(new UserDto()
                 {
-                    response.Result = true;
-                    response.Message = "successful login";
-                }
-                else
+                    Email = user.Email,
+                    Name = user.Name,
+                    Password = user.Password,
+                    ProjectAssigned = user.ProjectAssigned,
+                    ToDosAssigned = user.ToDosAssigned,
+                    Id = user.Id,
+                    UserType = user.UserType.ToString(),
+                    State = user.State
+                });
+            };
+
+            return userDtoList;
+        }
+
+        public UserDto Update(int id, UpdateUserRequest request)
+        {
+            var foundUser = _repository.GetById(id)
+                ?? throw new NotFoundException("User not found");
+
+            foundUser.Password = request.Password;
+            foundUser.State = request.State;
+            foundUser.Name = request.Name;
+            foundUser.UserType = (UserRoleEnum)Enum.Parse(typeof(UserRoleEnum), request.UserType);
+
+            var updatedUser = _repository.Update(id, foundUser);
+
+            var updatedUserDto = new UserDto()
+            {
+                Email = updatedUser.Email,
+                Name = updatedUser.Name,
+                Password = updatedUser.Password,
+                ProjectAssigned = updatedUser.ProjectAssigned,
+                ToDosAssigned = updatedUser.ToDosAssigned,
+                Id = updatedUser.Id,
+                UserType = updatedUser.UserType.ToString(),
+                State = updatedUser.State
+            };
+
+            return updatedUserDto;
+        }
+
+        public List<UserDto> GetSuperAdminUsers()
+        {
+            var users = _repository.GetSuperAdminUsers();
+
+            var usersDtoList = new List<UserDto>();
+            foreach (var adminUser in users)
+            {
+                usersDtoList.Add(new UserDto()
                 {
-                    response.Result = false;
-                    response.Message = "wrong password";
-                }
+                    Id = adminUser.Id,
+                    Name = adminUser.Name,
+                    ProjectAssigned = adminUser.ProjectAssigned,
+                    ToDosAssigned = adminUser.ToDosAssigned,
+                    Email = adminUser.Email,
+                    Password = adminUser.Password,
+                    State = adminUser.State,
+                    UserType = adminUser.UserType.ToString()
+                });
             }
-            else
-            {
-                response.Result = false;
-                response.Message = "wrong email";
-            }
-            return response;
+
+            return usersDtoList;
         }
 
-        public User CreateUser(User user)
+        public List<UserDto> GetAdminUsers()
         {
-            _context.Add(user);
-            _context.SaveChanges();
-            return user;
-        }
+            var users = _repository.GetAdminUsers();
 
-        public User? UpdateUser(int userId, User updateUser)
-        {
-            var existingUser = _context.Users.Find(userId);
-            if (existingUser == null)
+            var usersDtoList = new List<UserDto>();
+            foreach (var adminUser in users)
             {
-                return null;
-            }
-            existingUser.UserName = updateUser.UserName;
-            existingUser.Password = updateUser.Password;
-            existingUser.Email = updateUser.Email;
-
-            _context.SaveChanges();
-            return existingUser;
-
-        }
-
-        public bool DeleteUser(int userId)
-        {
-            User userToBeDeleted = _context.Users.SingleOrDefault(u => u.UserId == userId); //el usuario a borrar va a existir en la BBDD porque el userId viene del token del usuario que inició sesión. Si inicia sesión, su usuario ya existe.
-            if (userToBeDeleted != null)
-            {
-                if (userToBeDeleted.State != false)
+                usersDtoList.Add(new UserDto()
                 {
-                    userToBeDeleted.State = false; //borrado lógico. El usuario seguirá en la BBDD pero con un state 0 (false)
-                    _context.Update(userToBeDeleted);
-                    _context.SaveChanges();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                    Id = adminUser.Id,
+                    Name = adminUser.Name,
+                    ProjectAssigned = adminUser.ProjectAssigned,
+                    ToDosAssigned = adminUser.ToDosAssigned,
+                    Email = adminUser.Email,
+                    Password = adminUser.Password,
+                    State = adminUser.State,
+                    UserType = adminUser.UserType.ToString()
+                });
             }
-            else
+
+            return usersDtoList;
+        }
+
+        public List<UserDto> GetProgrammerUsers()
+        {
+            var users = _repository.GetProgrammerUsers();
+
+            var usersDtoList = new List<UserDto>();
+            foreach (var adminUser in users)
             {
-                throw new ArgumentNullException(nameof(userToBeDeleted), "El User a ser eliminado no fue encontrado.");
+                usersDtoList.Add(new UserDto()
+                {
+                    Id = adminUser.Id,
+                    Name = adminUser.Name,
+                    ProjectAssigned = adminUser.ProjectAssigned,
+                    ToDosAssigned = adminUser.ToDosAssigned,
+                    Email = adminUser.Email,
+                    Password = adminUser.Password,
+                    State = adminUser.State,
+                    UserType = adminUser.UserType.ToString()
+                });
             }
+
+            return usersDtoList;
         }
 
-
-
-        public ErrorOr<List<User>> GetUsersByRole(string role)
+        public UserDto GetByEmailAndPassword(string email, string password)
         {
-            return _context.Users.Where(u => u.UserType == role).ToList();
-        }
+            var user = _repository.GetByEmailAndPassword(email, password);
 
-        public List<User> GetAllUsers()
-        {
-            return _context.Users.Include(e => e.Project).ToList();
-        }
+            if (user == null)
+                throw new NotFoundException("User not found");
 
-        User? IUserService.GetUserById(int userId)
-        {
-            return _context.Users.FirstOrDefault(u => u.UserId == userId);
+            var userDto = new UserDto()
+            {
+                Email = user.Email,
+                Name = user.Name,
+                Password = user.Password,
+                ProjectAssigned = user.ProjectAssigned,
+                ToDosAssigned = user.ToDosAssigned,
+                Id = user.Id,
+                UserType = user.UserType.ToString(),
+                State = user.State
+            };
+
+            return userDto;
         }
     }
 }

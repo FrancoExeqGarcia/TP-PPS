@@ -17,20 +17,20 @@ namespace TODOLIST.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.0")
+                .HasAnnotation("ProductVersion", "8.0.6")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("TODOLIST.Data.Entities.Project", b =>
                 {
-                    b.Property<int>("ProjectId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProjectId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AdminUserId")
+                    b.Property<int>("CreatedByUserId")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -40,6 +40,7 @@ namespace TODOLIST.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
@@ -48,57 +49,26 @@ namespace TODOLIST.Migrations
                     b.Property<bool>("State")
                         .HasColumnType("bit");
 
-                    b.Property<int>("UserID")
-                        .HasColumnType("int");
+                    b.HasKey("Id");
 
-                    b.HasKey("ProjectId");
-
-                    b.HasIndex("AdminUserId");
-
-                    b.HasIndex("UserID");
+                    b.HasIndex("CreatedByUserId");
 
                     b.ToTable("Project");
-
-                    b.HasData(
-                        new
-                        {
-                            ProjectId = 1,
-                            Description = "Project from USA",
-                            EndDate = new DateTime(2023, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Project1",
-                            StartDate = new DateTime(2023, 11, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            State = true,
-                            UserID = 1
-                        },
-                        new
-                        {
-                            ProjectId = 2,
-                            Description = "Project from Arg",
-                            EndDate = new DateTime(2023, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Project2",
-                            StartDate = new DateTime(2023, 11, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            State = true,
-                            UserID = 1
-                        },
-                        new
-                        {
-                            ProjectId = 3,
-                            Description = "Project from EU",
-                            EndDate = new DateTime(2023, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Project3",
-                            StartDate = new DateTime(2023, 11, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            State = true,
-                            UserID = 1
-                        });
                 });
 
             modelBuilder.Entity("TODOLIST.Data.Entities.ToDo", b =>
                 {
-                    b.Property<int>("ToDoId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ToDoId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("AssignedUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
@@ -107,6 +77,7 @@ namespace TODOLIST.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProjectID")
@@ -118,153 +89,101 @@ namespace TODOLIST.Migrations
                     b.Property<bool>("State")
                         .HasColumnType("bit");
 
-                    b.HasKey("ToDoId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("AssignedUserId");
 
                     b.HasIndex("ProjectID");
 
                     b.ToTable("ToDo");
-
-                    b.HasData(
-                        new
-                        {
-                            ToDoId = 1,
-                            EndDate = new DateTime(2023, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsCompleted = false,
-                            Name = "Controlers",
-                            ProjectID = 1,
-                            StartDate = new DateTime(2023, 11, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            State = true
-                        },
-                        new
-                        {
-                            ToDoId = 2,
-                            EndDate = new DateTime(2023, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsCompleted = false,
-                            Name = "Entities",
-                            ProjectID = 2,
-                            StartDate = new DateTime(2023, 11, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            State = true
-                        },
-                        new
-                        {
-                            ToDoId = 3,
-                            EndDate = new DateTime(2023, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsCompleted = false,
-                            Name = "Services",
-                            ProjectID = 3,
-                            StartDate = new DateTime(2023, 11, 29, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            State = true
-                        });
                 });
 
             modelBuilder.Entity("TODOLIST.Data.Entities.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CreatedByUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<bool>("State")
                         .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
 
-                    b.HasDiscriminator<string>("UserType").HasValue("User");
-                });
-
-            modelBuilder.Entity("TODOLIST.Data.Entities.Admin", b =>
-                {
-                    b.HasBaseType("TODOLIST.Data.Entities.User");
-
-                    b.HasDiscriminator().HasValue("Admin");
-
                     b.HasData(
                         new
                         {
-                            UserId = 2,
-                            Email = "francoexequiel.garcia150@gmail.com",
-                            Password = "123456",
-                            State = true,
-                            UserName = "exegar",
-                            UserType = "Admin"
-                        });
-                });
-
-            modelBuilder.Entity("TODOLIST.Data.Entities.Programer", b =>
-                {
-                    b.HasBaseType("TODOLIST.Data.Entities.User");
-
-                    b.HasDiscriminator().HasValue("Programer");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
+                            Id = 1,
+                            CreatedByUserId = 1,
                             Email = "ramirodicarlo2@gmail.com",
+                            Name = "Ramiro Dicarlo",
                             Password = "123456",
                             State = true,
-                            UserName = "rdic",
-                            UserType = "Programer"
-                        });
-                });
-
-            modelBuilder.Entity("TODOLIST.Data.Entities.SuperAdmin", b =>
-                {
-                    b.HasBaseType("TODOLIST.Data.Entities.User");
-
-                    b.HasDiscriminator().HasValue("SuperAdmin");
-
-                    b.HasData(
+                            UserType = "Admin"
+                        },
                         new
                         {
-                            UserId = 3,
-                            Email = "superadmin@gmail.com",
+                            Id = 2,
+                            CreatedByUserId = 1,
+                            Email = "francoexequiel.garcia150@gmail.com",
+                            Name = "Franco Garcia",
                             Password = "123456",
                             State = true,
-                            UserName = "superadmin",
                             UserType = "SuperAdmin"
                         });
                 });
 
             modelBuilder.Entity("TODOLIST.Data.Entities.Project", b =>
                 {
-                    b.HasOne("TODOLIST.Data.Entities.Admin", null)
-                        .WithMany("Projects")
-                        .HasForeignKey("AdminUserId");
-
-                    b.HasOne("TODOLIST.Data.Entities.User", null)
-                        .WithMany("Project")
-                        .HasForeignKey("UserID")
+                    b.HasOne("TODOLIST.Data.Entities.User", "CreatedByUser")
+                        .WithMany("ProjectAssigned")
+                        .HasForeignKey("CreatedByUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("CreatedByUser");
                 });
 
             modelBuilder.Entity("TODOLIST.Data.Entities.ToDo", b =>
                 {
-                    b.HasOne("TODOLIST.Data.Entities.Project", null)
+                    b.HasOne("TODOLIST.Data.Entities.User", "AssignedUser")
+                        .WithMany("ToDosAssigned")
+                        .HasForeignKey("AssignedUserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("TODOLIST.Data.Entities.Project", "Project")
                         .WithMany("ToDos")
                         .HasForeignKey("ProjectID")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("AssignedUser");
+
+                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("TODOLIST.Data.Entities.Project", b =>
@@ -274,12 +193,9 @@ namespace TODOLIST.Migrations
 
             modelBuilder.Entity("TODOLIST.Data.Entities.User", b =>
                 {
-                    b.Navigation("Project");
-                });
+                    b.Navigation("ProjectAssigned");
 
-            modelBuilder.Entity("TODOLIST.Data.Entities.Admin", b =>
-                {
-                    b.Navigation("Projects");
+                    b.Navigation("ToDosAssigned");
                 });
 #pragma warning restore 612, 618
         }
