@@ -1,49 +1,74 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Container, Row, Col, Alert } from "react-bootstrap";
-import { useAuth } from "../services/authenticationContext/authentication.context";
-import UserCard from "../userCard/UserCard";
-import { ThemeContext } from "../services/themeContext/theme.context";
-import useTranslation from "../../custom/useTranslation/useTranslation";
+import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
+import axiosInstance from "../../data/axiosConfig";
 
-const User = () => {
-  const { user } = useAuth();
+import UserHeader from "./UserHeader";
+import UserTable from "./UserTable";
+import AddUser from "./AddUser";
+import EditUser from "./EditUser";
+
+const UserDashboard = ({ setIsAuthenticated }) => {
   const [users, setUsers] = useState([]);
-  const [error, setError] = useState(null);
-  const { theme } = useContext(ThemeContext);
-  const translate = useTranslation();
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [isAdding, setIsAdding] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
+    // Fetch users from the API using Axios
+    const fetchUsers = async () => {
+      try {
+        const response = await axiosInstance.get(
+          "https://localhost:7076/api/user"
+        );
+        setUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong while fetching the users!",
+        });
+      }
+    };
+
     fetchUsers();
   }, []);
 
-  const fetchUsers = async () => {
-    try {
-      const response = await fetch("https://localhost:7166/api/User", {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-      const data = await response.json();
-      setUsers(data);
-    } catch (error) {
-      console.error("Error fetching users:", error);
-      setError("Error fetching users.");
-    }
+  const handleEdit = (id) => {
+    const [user] = users.filter((user) => user.id === id);
+
+    setSelectedUser(user);
+    setIsEditing(true);
   };
 
   return (
-    <Container className={`wrapper ${theme === "oscuro" ? "dark-theme" : ""}`}>
-      <h2>{translate("user_list")}</h2>
-      {error && <Alert variant="danger">{error}</Alert>}
-      <Row className="mt-4">
-        {users.map((user) => (
-          <Col key={user.userId} xs={12} md={6} lg={4} className="mb-3">
-            <UserCard user={user} />
-          </Col>
-        ))}
-      </Row>
-    </Container>
+    <div className="container">
+      {!isAdding && !isEditing && (
+        <>
+          <UserHeader
+            setIsAdding={setIsAdding}
+            setIsAuthenticated={setIsAuthenticated}
+          />
+          <UserTable
+            users={users}
+            setUsers={setUsers}
+            handleEdit={handleEdit}
+          />
+        </>
+      )}
+      {isAdding && (
+        <AddUser users={users} setUsers={setUsers} setIsAdding={setIsAdding} />
+      )}
+      {isEditing && (
+        <EditUser
+          users={users}
+          selectedUser={selectedUser}
+          setUsers={setUsers}
+          setIsEditing={setIsEditing}
+        />
+      )}
+    </div>
   );
 };
 
-export default User;
+export default UserDashboard;

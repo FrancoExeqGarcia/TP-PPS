@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { Button, Navbar, Dropdown } from "react-bootstrap";
 import { useNavigate } from "react-router";
-import { useAuth } from "../services/authenticationContext/authentication.context";
 import ToggleTheme from "../ui/toggleTheme/ToggleTheme";
 import useTranslation from "../../custom/useTranslation/useTranslation";
-import { ThemeContext } from "../services/themeContext/theme.context";
+import { ThemeContext } from "../../services/themeContext/theme.context";
 import CustomLink from "../customLink/CustomLink";
+import { useAuth } from "../../services/authenticationContext/authentication.context";
 const Header = () => {
   const { logout, user } = useAuth();
   const navigate = useNavigate();

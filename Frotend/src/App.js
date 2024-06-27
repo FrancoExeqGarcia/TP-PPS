@@ -10,16 +10,13 @@ import Dashboard from "./Components/dashboard/Dashboard";
 import Protected from "./Components/security/protected/Protected";
 import PageNotFound from "./Components/security/pageNotFound/PageNotFound";
 import Forbidden from "./Components/security/forbidden/Forbidden";
-import { ThemeContext } from "./Components/services/themeContext/theme.context"; //fijar c
+import { ThemeContext } from "./services/themeContext/theme.context";
 import { useContext, useState } from "react";
-import {
-  APIContext,
-  APIContextProvider,
-} from "./Components/services/apiContext/API.Context"; //fijar c
+import { APIContext } from "./services/apiContext/API.Context";
 import { Spinner } from "react-bootstrap";
-import UserManagement from "./Components/UserManagement/UserManagement";
 import Profile from "./Components/profile/Profile";
-import { useAuth } from "./Components/services/authenticationContext/authentication.context";
+import { useAuth } from "./services/authenticationContext/authentication.context";
+import UserDashboard from "./Components/user/User";
 
 function App() {
   const { isLogin, setIsLogin } = useAuth();
@@ -55,12 +52,12 @@ function App() {
       path: "/users",
       element: (
         <Protected isSignedIn={isLogin} requiredRole={"SuperAdmin"}>
-          <UserManagement />
+          <UserDashboard />
         </Protected>
       ),
     },
     {
-      path: "/profile", 
+      path: "/profile",
       element: (
         <Protected isSignedIn={isLogin}>
           <Profile />

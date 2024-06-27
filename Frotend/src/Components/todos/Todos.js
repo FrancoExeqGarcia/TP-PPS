@@ -1,141 +1,136 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
-import TodoForm from "../todoForm/TodoForm";
-import TodoCard from "../todoCard/TodoCard";
-import EditTodo from "../editTodo/EditTodo";
-import useTranslation from "../../custom/useTranslation/useTranslation";
-import "../../App.css";
+import Swal from "sweetalert2";
 
-function Todos({ projectId }) {
-  const translate = useTranslation();
+import { useAuth } from "../../services/authenticationContext/authentication.context";
 
-  const [tasks, setTasksState] = useState([]);
-  const [editingTask, setEditingTask] = useState(null);
-  const [userID, setUserID] = useState("");
-  // const [projectId, setProjectId] = useState("");
-  const [filteredTasks, setFilteredTasks] = useState([]);
-  const [userRole, setUserRole] = useState("");
+import ToDoHeader from "./ToDoHeader";
+import ToDoTable from "./ToDoTable";
+import AddToDo from "./AddToDo";
+import EditToDo from "./EditToDo";
 
-  const setTasks = (newTasks) => {
-    setTasksState(newTasks);
-    saveTasksToLocalStorage(newTasks);
-  };
+const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
+  const { user } = useAuth();
 
-  const saveTasksToLocalStorage = (tasks) => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  };
+  const [todos, setTodos] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [selectedToDo, setSelectedToDo] = useState(null);
+  const [isAdding, setIsAdding] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
 
-  // useEffect(() => {
-  //   const storedTasks = localStorage.getItem("tasks");
-  //   if (storedTasks) {
-  //     setTasks(JSON.parse(storedTasks));
-  //   }
-  //   const storedUserID = Number(localStorage.getItem("userID"));
-  //   if (storedUserID) {
-  //     setUserID(storedUserID);
-  //   }
-  //   const storedUserRole = localStorage.getItem("userRole");
-  //   if (storedUserRole) {
-  //     setUserRole(storedUserRole);
-  //   }
-  //   // const storedProjectId = Number(localStorage.getItem("projectId"));
-  //   // if (storedProjectId) {
-  //   //   setProjectId(storedProjectId);
-  //   // }
-  // }, []);
-
-  const filterTasksByProject = () => {
-    const storedProjectId = Number(localStorage.getItem("projectId"));
-    if (storedProjectId) {
-      const newFilteredTasks = tasks
-        .filter((task) => task.projectId === storedProjectId)
-        .filter((task) => task.userID === userID);
-      setFilteredTasks(newFilteredTasks);
-    } else {
-      setFilteredTasks(tasks);
-    }
-  };
   useEffect(() => {
-    filterTasksByProject();
-  }, [tasks, userID, projectId]);
+    // Fetch todos for the selected project
+    const fetchToDos = async () => {
+      try {
+        const response = await axiosInstance.get(
+          `/todo?projectId=${projectId}`
+        );
+        setTodos(response.data);
+      } catch (error) {
+        console.error("Error fetching todos:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong while fetching the todos!",
+        });
+      }
+    };
 
-  const handleFilterButtonClick = () => {
-    filterTasksByProject();
-  };
-  const addTask = (newTask) => {
-    setTasks([...tasks, newTask]);
+    const fetchUsers = async () => {
+      try {
+        const response = await axiosInstance.get("/user");
+        setUsers(response.data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong while fetching the users!",
+        });
+      }
+    };
+
+    fetchToDos();
+    fetchUsers();
+  }, [projectId]);
+
+  const handleEdit = (id) => {
+    const [todo] = todos.filter((todo) => todo.id === id);
+
+    setSelectedToDo(todo);
+    setIsEditing(true);
   };
 
-  const deleteTask = (index) => {
-    const updatedTasks = [...tasks];
-    updatedTasks.splice(index, 1);
-    setTasks(updatedTasks);
-  };
+  const handleDelete = async (id) => {
+    Swal.fire({
+      icon: "warning",
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+    }).then(async (result) => {
+      if (result.value) {
+        try {
+          await axiosInstance.delete(`/todo/${id}`);
+          const todosCopy = todos.filter((todo) => todo.id !== id);
+          setTodos(todosCopy);
 
-  const markTaskAsCompleted = (task) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((t) =>
-        t.id === task.id ? { ...t, completed: !t.completed } : t
-      )
-    );
-  };
-
-  const deleteCompletedTasks = () => {
-    const incompleteTasks = tasks.filter((task) => !task.completed);
-    setTasks(incompleteTasks);
-  };
-
-  const editTask = (task) => {
-    if (!task.completed) {
-      setEditingTask(task);
-    }
-  };
-
-  const saveEditedTask = (editedTask) => {
-    const updatedTasks = tasks.map((task) =>
-      task.id === editedTask.id ? editedTask : task
-    );
-    setTasks(updatedTasks);
-    setEditingTask(null);
-  };
-
-  const cancelEdit = () => {
-    setEditingTask(null);
+          Swal.fire({
+            icon: "success",
+            title: "Deleted!",
+            text: `ToDo has been deleted.`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } catch (error) {
+          console.error("Error deleting todo:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Error!",
+            text: "Something went wrong while deleting the todo.",
+            showConfirmButton: true,
+          });
+        }
+      }
+    });
   };
 
   return (
-    <Container className="mt-4">
-      <h1 className="text-center mb-4 ">{translate("list_of_todos")}</h1>
-      <Button onClick={handleFilterButtonClick}>
-        {translate("filter_by_project")}
-      </Button>
-
-      <TodoForm
-        onAddTask={addTask}
-        onDeleteCompletedTask={deleteCompletedTasks}
-      />
-      <Row className="mt-4">
-        {filteredTasks.map((task, index) => (
-          <Col key={index} xs={12} md={6} lg={4} className="mb-3">
-            {editingTask === task ? (
-              <EditTodo
-                task={task}
-                onUpdateTask={saveEditedTask}
-                onCancel={cancelEdit}
-              />
-            ) : (
-              <TodoCard
-                task={task}
-                onDeleteTask={() => deleteTask(index)}
-                onEditTask={editTask}
-                onMarkAsCompleted={markTaskAsCompleted}
-              />
-            )}
-          </Col>
-        ))}
-      </Row>
-    </Container>
+    <div className="container">
+      {!isAdding && !isEditing && (
+        <>
+          <ToDoHeader
+            setIsAdding={setIsAdding}
+            setSelectedProjectId={setSelectedProjectId}
+          />
+          <ToDoTable
+            todos={todos}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+            users={users}
+          />
+        </>
+      )}
+      {isAdding && (
+        <AddToDo
+          todos={todos}
+          setTodos={setTodos}
+          setIsAdding={setIsAdding}
+          users={users}
+          projectId={projectId}
+        />
+      )}
+      {isEditing && (
+        <EditToDo
+          todos={todos}
+          selectedToDo={selectedToDo}
+          setTodos={setTodos}
+          setIsEditing={setIsEditing}
+          users={users}
+        />
+      )}
+    </div>
   );
-}
+};
 
-export default Todos;
+export default ToDoDashboard;

@@ -1,9 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
-import { useAuth } from "../services/authenticationContext/authentication.context";
 import { useNavigate } from "react-router";
 import Header from "../header/Header";
-import { ThemeContext } from "../services/themeContext/theme.context";
+import { ThemeContext } from "../../services/themeContext/theme.context";
+import { useAuth } from "../../services/authenticationContext/authentication.context";
 
 const Profile = () => {
   const { user, fetchUserProfile, updateUser } = useAuth();
@@ -39,6 +39,10 @@ const Profile = () => {
     } catch (error) {
       setError("Error updating user profile.");
     }
+  };
+
+  const handleBackToHome = () => {
+    navigate("/home");
   };
 
   return (
@@ -103,6 +107,9 @@ const Profile = () => {
                 Save Changes
               </Button>
             </Form>
+            <Button variant="info" onClick={handleBackToHome} className="mt-3">
+              Back to Home/Dashboard
+            </Button>
           </div>
         </div>
       </div>

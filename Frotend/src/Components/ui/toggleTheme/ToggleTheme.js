@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Button } from "react-bootstrap";
-import { ThemeContext } from "../../services/themeContext/theme.context";
+import { ThemeContext } from "../../../services/themeContext/theme.context";
 import useTranslation from "../../../custom/useTranslation/useTranslation";
 
 const ToggleTheme = () => {
