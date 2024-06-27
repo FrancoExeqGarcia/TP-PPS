@@ -6,6 +6,9 @@ using TODOLIST.Services.Implementations;
 using TODOLIST.DBContext;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using TODOLIST.Repositories.Implementations;
+using TODOLIST.Repositories.Interfaces;
+using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,9 +41,14 @@ builder.Services.AddSwaggerGen(setupAction =>
     });
 });
 
-builder.Services.AddScoped<IProjectService, ProjectService>();
-builder.Services.AddScoped<IToDoService, TodoService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IToDoService, ToDoService>();
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<IToDoRepository, ToDoRepository>();
+
 
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer(options =>
@@ -56,6 +64,7 @@ builder.Services.AddAuthentication("Bearer")
         };
     }
 );
+builder.Services.AddAuthorization();
 
 // Configure DbContext with SQL Server connection string
 builder.Services.AddDbContext<ToDoContext>(options =>
@@ -65,11 +74,14 @@ builder.Services.AddDbContext<ToDoContext>(options =>
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy",
-        builder => builder.WithOrigins("http://localhost:3000")
+        //builder => builder.WithOrigins("http://localhost:3000")
+        builder => builder
+            .AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader()
     );
 });
+
 
 var app = builder.Build();
 
@@ -90,8 +102,6 @@ app.UseCors("CorsPolicy");
 app.UseAuthentication();
 
 app.UseAuthorization();
-
-
 
 app.MapControllers();
 
