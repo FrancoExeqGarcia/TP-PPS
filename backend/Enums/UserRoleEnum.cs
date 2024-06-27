@@ -2,8 +2,8 @@
 {
     public enum UserRoleEnum
     {
-        Programer = 1,
+        SuperAdmin = 1,
         Admin = 2,
-        SuperAdmin = 3
+        Programmer = 3
     }
 }

@@ -2,11 +2,8 @@
 
 namespace TODOLIST.Data.Models.ToDo
 {
-    public class ToDoDto
+    public class CreateToDoRequest
     {
-        [Required]
-        public int Id { get; set; }
-
         [Required]
         public string Name { get; set; } = string.Empty;
 
@@ -18,7 +15,6 @@ namespace TODOLIST.Data.Models.ToDo
 
         [Required]
         public int ProjectID { get; set; }
-        public Entities.Project Project { get; set; } = new();
 
         [Required]
         public bool State { get; set; } = true;
@@ -28,12 +24,7 @@ namespace TODOLIST.Data.Models.ToDo
 
         public int? AssignedUserId { get; set; }
 
-        public Entities.User? AssignedUser { get; set; }
-
-
         public int CreatedByUserId { get; set; } = 1;
-
-        public Entities.User CreatedByUser { get; set; } = new Entities.User();
 
     }
 }
