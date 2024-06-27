@@ -12,8 +12,8 @@ using TODOLIST.DBContext;
 namespace TODOLIST.Migrations
 {
     [DbContext(typeof(ToDoContext))]
-    [Migration("20240627190341_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240627230705_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -152,8 +152,18 @@ namespace TODOLIST.Migrations
                         {
                             Id = 2,
                             CreatedByUserId = 1,
-                            Email = "francoexequiel.garcia150@gmail.com",
+                            Email = "francoexequiel.garcia1500@gmail.com",
                             Name = "Franco Garcia",
+                            Password = "123456",
+                            State = true,
+                            UserType = "SuperAdmin"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedByUserId = 1,
+                            Email = "lorenzocarignani@gmail.com",
+                            Name = "Lorenzo Carignani",
                             Password = "123456",
                             State = true,
                             UserType = "SuperAdmin"

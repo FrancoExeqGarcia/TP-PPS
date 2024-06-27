@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TODOLIST.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -93,7 +93,8 @@ namespace TODOLIST.Migrations
                 values: new object[,]
                 {
                     { 1, 1, "ramirodicarlo2@gmail.com", "Ramiro Dicarlo", "123456", true, "Admin" },
-                    { 2, 1, "francoexequiel.garcia150@gmail.com", "Franco Garcia", "123456", true, "SuperAdmin" }
+                    { 2, 1, "francoexequiel.garcia1500@gmail.com", "Franco Garcia", "123456", true, "SuperAdmin" },
+                    { 3, 1, "lorenzocarignani@gmail.com", "Lorenzo Carignani", "123456", true, "SuperAdmin" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -149,8 +149,18 @@ namespace TODOLIST.Migrations
                         {
                             Id = 2,
                             CreatedByUserId = 1,
-                            Email = "francoexequiel.garcia150@gmail.com",
+                            Email = "francoexequiel.garcia1500@gmail.com",
                             Name = "Franco Garcia",
+                            Password = "123456",
+                            State = true,
+                            UserType = "SuperAdmin"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedByUserId = 1,
+                            Email = "lorenzocarignani@gmail.com",
+                            Name = "Lorenzo Carignani",
                             Password = "123456",
                             State = true,
                             UserType = "SuperAdmin"

@@ -24,7 +24,7 @@ namespace TODOLIST.Data.Models.Project
 
         public ICollection<Entities.ToDo> ToDos { get; set; } = new List<Entities.ToDo>();
 
-        [ForeignKey("CreatedByUserId")]
+        //[ForeignKey("CreatedByUserId")]
         public int CreatedByUserId { get; set; }
 
         public Entities.User CreatedByUser { get; set; } = new Entities.User();
