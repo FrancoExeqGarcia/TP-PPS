@@ -16,7 +16,6 @@ const ProjectDashboard = ({ setIsAuthenticated }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    // Fetch projects from the API using Axios
     const fetchProjects = async () => {
       try {
         const response = await axiosInstance.get(

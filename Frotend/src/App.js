@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 
 import Login from "./Components/logIn/LogIn";
-import Dashboard from "./Components/dashboard/Dashboard";
+import Dashboard from "./Components/dashboard/ProjectCardDashboard";
 import Protected from "./Components/security/protected/Protected";
 import PageNotFound from "./Components/security/pageNotFound/PageNotFound";
 import Forbidden from "./Components/security/forbidden/Forbidden";
