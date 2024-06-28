@@ -81,7 +81,7 @@ const ProjectDashboard = ({ setIsAuthenticated }) => {
   };
 
   return (
-    <div className="container">
+    <div   sm>
       {!isAdding && !isEditing && (
         <>
           <ProjectHeader

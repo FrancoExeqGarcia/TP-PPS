@@ -12,15 +12,17 @@ const Dashboard = () => {
       <NavBar />
       <ComboLanguage />
       <Row className="mt-4">
-        <Col xs={12} className="text-center">
+        <Col sm className="text-center">
           <h2>Proyectos</h2>
         </Col>
-        <Col xs={12} className="mt-2">
+        </Row>
+        <Row className="mt-4">  
+        <Col sm className="mt-2">
           <ProjectDashboard />
         </Col>
       </Row>
       <Row className="mt-4">
-        <Col xs={12}>
+        <Col sm>
           <ChatBotManager />
         </Col>
       </Row>

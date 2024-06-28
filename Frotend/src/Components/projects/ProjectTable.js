@@ -1,6 +1,9 @@
 import React from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
+import Table from 'react-bootstrap/Table';
+
+
 
 const ProjectTable = ({ projects, setProjects, handleEdit }) => {
   const handleDelete = async (id) => {
@@ -45,8 +48,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
   });
 
   return (
-    <div className="contain-table">
-      <table className="striped-table">
+      <Table striped bordered hover responsive="sm">
         <thead>
           <tr>
             <th>No.</th>
@@ -81,7 +83,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
                 <td className="text-left">
                   <button
                     onClick={() => handleDelete(project.id)}
-                    className="button muted-button"
+                    className="button muted-button" sm
                   >
                     Delete
                   </button>
@@ -89,13 +91,12 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
               </tr>
             ))
           ) : (
-            <tr>
+            <tr responsive="sm">
               <td colSpan={7}>No Projects</td>
             </tr>
           )}
         </tbody>
-      </table>
-    </div>
+      </Table>
   );
 };
 

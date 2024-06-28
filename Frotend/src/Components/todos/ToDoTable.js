@@ -1,4 +1,5 @@
 import React from "react";
+import Table from 'react-bootstrap/Table';
 
 const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
   const getUserEmailById = (id) => {
@@ -8,7 +9,7 @@ const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
 
   return (
     <div className="contain-table">
-      <table className="striped-table">
+      <Table striped bordered hover responsive="sm">
         <thead>
           <tr>
             <th>No.</th>
@@ -58,7 +59,7 @@ const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
             </tr>
           )}
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 };

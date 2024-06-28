@@ -1,6 +1,7 @@
 import React from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
+import Table from 'react-bootstrap/Table';
 
 const UserTable = ({ users, setUsers, handleEdit }) => {
   const handleDelete = async (id) => {
@@ -44,7 +45,7 @@ const UserTable = ({ users, setUsers, handleEdit }) => {
 
   return (
     <div className="contain-table">
-      <table className="striped-table">
+      <Table striped bordered hover responsive="sm">
         <thead>
           <tr>
             <th>No.</th>
@@ -90,7 +91,7 @@ const UserTable = ({ users, setUsers, handleEdit }) => {
             </tr>
           )}
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 };
