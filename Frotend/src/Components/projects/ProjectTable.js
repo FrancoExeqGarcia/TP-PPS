@@ -87,7 +87,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
                 <td className="text-left">
                   <button
                     onClick={() => handleDelete(project.id)}
-                    className="btn btn-primary" sm
+                    className="btn btn-primary"
                   >
                     Delete
                   </button>
