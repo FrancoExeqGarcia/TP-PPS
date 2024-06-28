@@ -1,50 +1,66 @@
-# ASP.NET Core / React SPA Template App
+# README - Levantar el Proyecto
 
+Este README describe los pasos necesarios para clonar y levantar el proyecto en tu entorno de desarrollo. Asegúrate de seguir estos pasos cuidadosamente para poder ejecutar el proyecto sin problemas.
 
-This app is a template application using ASP.NET Core 3.1 for a REST/JSON API server and React for a web client.
+## Paso 1: Clonar el Repositorio
 
+Para comenzar, clona el repositorio en tu máquina local utilizando el siguiente comando en tu terminal:
 
-## Overview of Stack
-- Server
-  - ASP.NET Core 8.0
-  - SQK Server 2019
-  - Entity Framework Core w/ EF Migrations
-  - JSON Web Token (JWT) authorization
-- API
-  - Visual Studio 2022
-- Client
-  - React 16
-  - CSS Modules
+```bash
+git clone https://github.com/FrancoExeqGarcia/TP-PPS.git
+```
 
+## Paso 2: Configuracion e instalacion del SqlServer
 
+Descargar el SqlServer Express 2019:
 
-## Setup
+```bash
+https://www.microsoft.com/es-ar/download/details.aspx?id=101064
+```
 
-1. Install the following:
-   - [.NET Core 8.0](https://www.microsoft.com/net/core)
-   - [Node.js >= v8](https://nodejs.org/en/download/)
-   - [Visual Studio 2022](https://visualstudio.microsoft.com/es/vs/community/)
-2. Open Visual studio and lunch de project
-3. Run `npm i ,npm install react-bootstrap bootstrap, npm start`
+Una vez instalado, levantas el servicio en el Administrador de configuración de SQL Server 2019 y
 
+Abres el SqlServer Managment Studio, conectas con tu configuracion definida en la instalacion del SqlServer Express
 
-This template was developed and tested Windows. 
+Te diriges a properties de la bases de datos, database settings y editas las direcciones data, log, backup
 
-## Scripts
+data: [donde clonaste el proyecto]\TP-PPS\Base de Datos\MSSQL15.TASKMANAGER\MSSQL\DATA\
 
-### `npm install`
+log: [donde clonaste el pro
+yecto]\TP-PPS\Base de Datos\MSSQL15.TASKMANAGER\MSSQL\Logs\
 
-When first cloning the repo or adding new dependencies, run this command.  This will:
+backup: [donde instalaste Sql server] generalmente C:\Program Files\Microsoft SQL Server\MSSQL15.LOCAL\MSSQL\Backup
 
-- Install Node dependencies from package.json
-- Install .NET Core dependencies from api/api.csproj and api.test/api.test.csproj (using dotnet restore)
+## Paso 3: Levantar el Frontend
 
+Una vez que hayas clonado el repositorio, navega a la carpeta Frotend:
 
-### `npm install react-bootstrap bootstrap`
-- Install react bootstrap dependencies
+Dentro de la carpeta Frotend, instala las dependencias del proyecto con npm:
 
-### `npm start`
+```bash
+npm i
+```
 
-To start the app for development, run this command.  
+Una vez que se hayan instalado las dependencias, inicia el servidor de desarrollo con el siguiente comando:
 
+```bash
+npm start
+```
 
+Esto pondrá en marcha la parte frontend de la aplicación y podrás acceder a ella en tu navegador visitando [http://localhost:3000](http://localhost:3000).
+
+## Paso 4: Levantar el Backend
+
+Dentro de la carpeta de Backend, inicia el servicio con el siguiente comando:
+
+```bash
+dotnet run
+```
+
+Esto pondrá en marcha la parte backend de la aplicación.
+
+Ahora puedes probar la aplicación.
+
+PD: Podras acceder al swagger en tu navegador visitando [https://localhost:7165/swagger](http://localhost:7165/swagger)
+
+Si tienes alguna pregunta o enfrentas problemas, no dudes en consultar con el equipo de desarrollo. ¡Feliz codificación!
