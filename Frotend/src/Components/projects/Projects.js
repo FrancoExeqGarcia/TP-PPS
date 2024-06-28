@@ -20,7 +20,7 @@ const ProjectDashboard = ({ setIsAuthenticated }) => {
     const fetchProjects = async () => {
       try {
         const response = await axiosInstance.get(
-          "https://localhost:7076/api/project"
+          "/project"
         );
         setProjects(response.data);
       } catch (error) {
@@ -55,7 +55,7 @@ const ProjectDashboard = ({ setIsAuthenticated }) => {
       if (result.value) {
         try {
           await axiosInstance.delete(
-            `https://localhost:7076/api/project/${id}`
+            `https://localhost:7165/api/project/${id}`
           );
           const projectsCopy = projects.filter((project) => project.id !== id);
           setProjects(projectsCopy);

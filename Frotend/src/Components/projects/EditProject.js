@@ -39,7 +39,7 @@ const EditProject = ({
 
     try {
       const response = await axiosInstance.put(
-        `https://localhost:7076/api/project/${id}`,
+        `https://localhost:7165/api/project/${id}`,
         updatedProject
       );
       setProjects(

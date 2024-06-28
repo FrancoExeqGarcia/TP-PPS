@@ -31,7 +31,7 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
 
     try {
       const response = await axiosInstance.post(
-        "https://localhost:7076/api/project",
+        "/project",
         newProject
       );
       setProjects([...projects, response.data]);

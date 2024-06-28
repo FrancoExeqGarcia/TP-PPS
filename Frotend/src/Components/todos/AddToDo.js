@@ -33,7 +33,7 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
 
     try {
       const response = await axiosInstance.post(
-        "https://localhost:7076/api/todo",
+        "https://localhost:7165/api/todo",
         newToDo
       );
       setTodos([...todos, response.data]);

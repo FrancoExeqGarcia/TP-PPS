@@ -18,7 +18,7 @@ const UserDashboard = ({ setIsAuthenticated }) => {
     const fetchUsers = async () => {
       try {
         const response = await axiosInstance.get(
-          "https://localhost:7076/api/user"
+          "https://localhost:7165/api/user"
         );
         setUsers(response.data);
       } catch (error) {

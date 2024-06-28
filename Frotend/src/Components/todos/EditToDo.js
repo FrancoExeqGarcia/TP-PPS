@@ -37,7 +37,7 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
 
     try {
       const response = await axiosInstance.put(
-        `https://localhost:7076/api/todo/${id}`,
+        `https://localhost:7165/api/todo/${id}`,
         updatedToDo
       );
       setTodos(todos.map((todo) => (todo.id === id ? response.data : todo)));

@@ -15,7 +15,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
       if (result.value) {
         try {
           await axiosInstance.delete(
-            `https://localhost:7076/api/project/${id}`
+            `https://localhost:7165/api/project/${id}`
           );
           const projectsCopy = projects.filter((project) => project.id !== id);
           setProjects(projectsCopy);

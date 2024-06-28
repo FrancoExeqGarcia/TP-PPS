@@ -2,13 +2,13 @@ import axios from "axios";
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-  baseURL: "https://localhost:7076/api",
+  baseURL: "https://localhost:7165/api",
 });
 
 // Add a request interceptor to attach the token to every request
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("auth_token");
+    const token = localStorage.getItem("authToken");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
