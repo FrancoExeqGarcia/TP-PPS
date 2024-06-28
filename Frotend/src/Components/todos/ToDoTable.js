@@ -38,7 +38,7 @@ const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
                 <td className="text-right">
                   <button
                     onClick={() => handleEdit(todo.id)}
-                    className="button muted-button"
+                    className="btn btn-primary"
                   >
                     Edit
                   </button>
@@ -46,7 +46,7 @@ const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
                 <td className="text-left">
                   <button
                     onClick={() => handleDelete(todo.id)}
-                    className="button muted-button"
+                    className="btn btn-primary"
                   >
                     Delete
                   </button>
