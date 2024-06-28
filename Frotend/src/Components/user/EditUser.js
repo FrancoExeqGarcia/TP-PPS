@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
   const id = selectedUser.id;
@@ -10,6 +11,7 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
   const [password, setPassword] = useState(selectedUser.password);
   const [userType, setUserType] = useState(selectedUser.userType);
   const [state, setState] = useState(selectedUser.state);
+  const translate = useTranslation();
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -61,8 +63,8 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
   return (
     <div className="small-container">
       <form onSubmit={handleUpdate}>
-        <h1>Edit User</h1>
-        <label htmlFor="name">Name</label>
+        <h1>{translate("Edit User")}</h1>
+        <label htmlFor="name">{translate("Name")}</label>
         <input
           id="name"
           type="text"
@@ -70,7 +72,7 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <label htmlFor="email">Email</label>
+        <label htmlFor="email">{translate("Email")}</label>
         <input
           id="email"
           type="email"
@@ -78,7 +80,7 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password">{translate("Password")}</label>
         <input
           id="password"
           type="password"
@@ -86,18 +88,18 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <label htmlFor="userType">User Type</label>
+        <label htmlFor="userType">{translate("User Type")}</label>
         <select
           id="userType"
           name="userType"
           value={userType}
           onChange={(e) => setUserType(e.target.value)}
         >
-          <option value="Programmer">Programmer</option>
-          <option value="Admin">Admin</option>
-          <option value="SuperAdmin">Super Admin</option>
+          <option value="Programmer">{translate("Programmer")}</option>
+          <option value="Admin">{translate("Admin")}</option>
+          <option value="SuperAdmin">{translate("Super Admin")}</option>
         </select>
-        <label htmlFor="state">State</label>
+        <label htmlFor="state">{translate("State")}</label>
         <input
           id="state"
           type="checkbox"

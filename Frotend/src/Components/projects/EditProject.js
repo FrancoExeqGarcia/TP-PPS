@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const EditProject = ({
   projects,
@@ -15,6 +16,7 @@ const EditProject = ({
   const [startDate, setStartDate] = useState(selectedProject.startDate);
   const [endDate, setEndDate] = useState(selectedProject.endDate);
   const [status, setStatus] = useState(selectedProject.status);
+  const translate = useTranslation();
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -69,7 +71,7 @@ const EditProject = ({
     <div className="small-container">
       <form onSubmit={handleUpdate}>
         <h1>Edit Project</h1>
-        <label htmlFor="name">Name</label>
+        <label htmlFor="name">{translate("Name")}</label>
         <input
           id="name"
           type="text"
@@ -77,7 +79,7 @@ const EditProject = ({
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <label htmlFor="description">Description</label>
+        <label htmlFor="description">{translate("Description")}</label>
         <input
           id="description"
           type="text"
@@ -85,7 +87,7 @@ const EditProject = ({
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <label htmlFor="startDate">Start Date</label>
+        <label htmlFor="startDate">{translate("Start Date")}</label>
         <input
           id="startDate"
           type="datetime-local"
@@ -93,7 +95,7 @@ const EditProject = ({
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
         />
-        <label htmlFor="endDate">End Date</label>
+        <label htmlFor="endDate">{translate("End Date")}</label>
         <input
           id="endDate"
           type="datetime-local"
@@ -101,7 +103,7 @@ const EditProject = ({
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
         />
-        <label htmlFor="status">Status</label>
+        <label htmlFor="status">{translate("Status")}</label>
         <input
           id="status"
           type="checkbox"

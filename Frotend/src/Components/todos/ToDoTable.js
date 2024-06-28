@@ -1,7 +1,10 @@
 import React from "react";
 import Table from 'react-bootstrap/Table';
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
+
+  const translate = useTranslation();
   const getUserEmailById = (id) => {
     const user = users.find((user) => user.id === id);
     return user ? user.email : "Unassigned";
@@ -13,14 +16,14 @@ const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
         <thead>
           <tr>
             <th>No.</th>
-            <th>Name</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>State</th>
-            <th>Is Completed</th>
-            <th>Assigned User</th>
+            <th>{translate("Name")}</th>
+            <th>{translate("Start Date")}</th>
+            <th>{translate("End Date")}</th>
+            <th>{translate("State")}</th>
+            <th>{translate("Is Completed")}</th>
+            <th>{translate("Assigned User")}</th>
             <th colSpan={2} className="text-center">
-              Actions
+            {translate("Actions")}
             </th>
           </tr>
         </thead>
@@ -40,7 +43,7 @@ const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
                     onClick={() => handleEdit(todo.id)}
                     className="btn btn-primary"
                   >
-                    Edit
+                    {translate("Edit")}
                   </button>
                 </td>
                 <td className="text-left">
@@ -48,14 +51,14 @@ const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
                     onClick={() => handleDelete(todo.id)}
                     className="btn btn-primary"
                   >
-                    Delete
+                    {translate("Delete")}
                   </button>
                 </td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan={9}>No ToDos</td>
+              <td colSpan={9}>{translate("There are not assigned ToDos")}</td>
             </tr>
           )}
         </tbody>

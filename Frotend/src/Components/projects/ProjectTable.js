@@ -3,10 +3,12 @@ import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
 import Table from 'react-bootstrap/Table';
 import { ThemeContext } from "../../services/themeContext/theme.context";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 
 const ProjectTable = ({ projects, setProjects, handleEdit }) => {
   const { theme } = useContext(ThemeContext);
+  const translate = useTranslation();
   const className = `project-dashboard ${theme === 'oscuro' ? 'dark-theme' : 'light-theme'}`;
   
   const handleDelete = async (id) => {
@@ -56,13 +58,13 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
         <thead>
           <tr>
             <th>No.</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Status</th>
+            <th>{translate("Name")}</th>
+            <th>{translate("Description")}</th>
+            <th>{translate("Start Date")}</th>
+            <th>{translate("End Date")}</th>
+            <th>{translate("Status")}</th>
             <th colSpan={2} className="text-center">
-              Actions
+            {translate("Actions")}
             </th>
           </tr>
         </thead>
@@ -81,7 +83,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
                     onClick={() => handleEdit(project.id)}
                     className="btn btn-primary"
                   >
-                    Edit
+                    {translate("Edit")}
                   </button>
                 </td>
                 <td className="text-left">
@@ -89,14 +91,14 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
                     onClick={() => handleDelete(project.id)}
                     className="btn btn-primary"
                   >
-                    Delete
+                    {translate("Delete")}
                   </button>
                 </td>
               </tr>
             ))
           ) : (
             <tr responsive="sm">
-              <td colSpan={7}>No Projects</td>
+              <td colSpan={7}>{translate("No Projects")}</td>
             </tr>
           )}
         </tbody>

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
+import useTranslation from "../../custom/useTranslation/useTranslation";
+
 const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
   const id = selectedToDo.id;
 
@@ -9,6 +11,7 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
   const [endDate, setEndDate] = useState(selectedToDo.endDate);
   const [state, setState] = useState(selectedToDo.state);
   const [isCompleted, setIsCompleted] = useState(selectedToDo.isCompleted);
+  const translate = useTranslation();
   const [assignedUserId, setAssignedUserId] = useState(
     selectedToDo.assignedUserId || ""
   );
@@ -65,7 +68,7 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
     <div className="small-container">
       <form onSubmit={handleUpdate}>
         <h1>Edit ToDo</h1>
-        <label htmlFor="name">Name</label>
+        <label htmlFor="name">{translate("Name")}</label>
         <input
           id="name"
           type="text"
@@ -73,7 +76,7 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <label htmlFor="startDate">Start Date</label>
+        <label htmlFor="startDate">{translate("Start Date")}</label>
         <input
           id="startDate"
           type="datetime-local"
@@ -81,7 +84,7 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
         />
-        <label htmlFor="endDate">End Date</label>
+        <label htmlFor="endDate">{translate("End Date")}</label>
         <input
           id="endDate"
           type="datetime-local"
@@ -89,7 +92,7 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
         />
-        <label htmlFor="state">State</label>
+        <label htmlFor="state">{translate("State")}</label>
         <input
           id="state"
           type="checkbox"
@@ -97,7 +100,7 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
           checked={state}
           onChange={(e) => setState(e.target.checked)}
         />
-        <label htmlFor="isCompleted">Is Completed</label>
+        <label htmlFor="isCompleted">{translate("Is Completed")}</label>
         <input
           id="isCompleted"
           type="checkbox"
@@ -105,14 +108,14 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
           checked={isCompleted}
           onChange={(e) => setIsCompleted(e.target.checked)}
         />
-        <label htmlFor="assignedUserId">Assigned User</label>
+        <label htmlFor="assignedUserId">{translate("Assigned User")}</label>
         <select
           id="assignedUserId"
           name="assignedUserId"
           value={assignedUserId}
           onChange={(e) => setAssignedUserId(e.target.value)}
         >
-          <option value="">Select User</option>
+          <option value="">{translate("Select User")}</option>
           {users.map((user) => (
             <option key={user.id} value={user.id}>
               {user.email}
