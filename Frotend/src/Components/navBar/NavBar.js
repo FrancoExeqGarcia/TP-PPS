@@ -4,6 +4,7 @@ import { useAuth } from "../../services/authenticationContext/authentication.con
 import { useNavigate } from "react-router";
 import { ThemeContext } from "../../services/themeContext/theme.context";
 import { Dropdown, Navbar } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function NavBar() {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ function NavBar() {
   const handleThemeToggle = () => {
     toggleTheme();
   };
+
   return (
     <Navbar
       variant={theme === "oscuro" ? "dark" : "light"}
@@ -37,13 +39,15 @@ function NavBar() {
         color: theme === "oscuro" ? "white" : "black",
       }}
     >
-      <Navbar.Brand className="mr-4 ms-auto me-auto border-black rounded p-6 text-black">
-        TASK MINDER
-      </Navbar.Brand>
+      <Link to="/home"className="navbar-brand-container">
+        <Navbar.Brand className="navbar-brand-custom mr-4 ms-auto me-auto border-black rounded p-6 text-black">
+          TASK MINDER
+        </Navbar.Brand>
+      </Link>
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end">
         <Navbar.Text className="mr-4 ms-auto me-auto border-gray rounded font-weight-bold">
-          {translate("hi")} {user.UserName}!
+          {translate("hi")} {user.UserType}!
         </Navbar.Text>
         <Dropdown align="end">
           <Dropdown.Toggle variant="outline-primary" id="dropdown-basic">

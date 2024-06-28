@@ -34,7 +34,7 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
 
     try {
       const response = await axiosInstance.put(
-        `https://localhost:7165/api/user/${id}`,
+        `/user/${id}`,
         updatedUser
       );
       setUsers(users.map((user) => (user.id === id ? response.data : user)));

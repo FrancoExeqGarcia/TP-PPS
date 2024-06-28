@@ -4,7 +4,7 @@ import Swal from "sweetalert2";
 import { useAuth } from "../../services/authenticationContext/authentication.context";
 import { useNavigate } from "react-router";
 
-const LogOut = () => {
+const LogOut = ({className}) => {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
@@ -35,7 +35,7 @@ const LogOut = () => {
   return (
     <button
       style={{ marginLeft: "12px" }}
-      className="muted-button"
+      className={className}
       onClick={handleLogout}
     >
       Logout

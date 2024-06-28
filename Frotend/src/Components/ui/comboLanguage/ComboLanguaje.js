@@ -18,7 +18,7 @@ const ComboLanguage = () => {
       value={language}
       aria-label="Select Language"
       style={{ maxWidth: "150px" }}
-      className="w-25 mb-4"
+      className="w-25 mb-4 btn btn-primary"
     >
       <option value="es">{translate("spanish_lang")}</option>
       <option value="en">{translate("english_lang")}</option>

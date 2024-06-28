@@ -39,7 +39,7 @@ const EditProject = ({
 
     try {
       const response = await axiosInstance.put(
-        `https://localhost:7165/api/project/${id}`,
+        `/project/${id}`,
         updatedProject
       );
       setProjects(
@@ -110,10 +110,10 @@ const EditProject = ({
           onChange={(e) => setStatus(e.target.checked)}
         />
         <div style={{ marginTop: "30px" }}>
-          <input type="submit" value="Update" />
+          <input type="submit" className="btn btn-primary" value="Update" />
           <input
             style={{ marginLeft: "12px" }}
-            className="muted-button"
+            className="btn btn-primary"
             type="button"
             value="Cancel"
             onClick={() => setIsEditing(false)}

@@ -1,9 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import Header from "../header/Header";
 import { ThemeContext } from "../../services/themeContext/theme.context";
 import { useAuth } from "../../services/authenticationContext/authentication.context";
+import NavBar from "../navBar/NavBar";
 
 const Profile = () => {
   const { user, fetchUserProfile, updateUser } = useAuth();
@@ -46,8 +47,8 @@ const Profile = () => {
   };
 
   return (
-    <div className={`wrapper ${theme === "oscuro" ? "dark-theme" : ""}`}>
-      <Header />
+    <Container fluid >
+      <NavBar />
       <div className="container mt-1 shadow p-4 border-gray content">
         <div className="row">
           <div className="col-md-3">
@@ -107,13 +108,13 @@ const Profile = () => {
                 Save Changes
               </Button>
             </Form>
-            <Button variant="info" onClick={handleBackToHome} className="mt-3">
+            <Button variant="primary" onClick={handleBackToHome} className="mt-3">
               Back to Home/Dashboard
             </Button>
           </div>
         </div>
       </div>
-    </div>
+ </Container>
   );
 };
 

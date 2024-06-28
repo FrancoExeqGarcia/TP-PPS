@@ -33,7 +33,7 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
 
     try {
       const response = await axiosInstance.post(
-        "https://localhost:7165/api/todo",
+        "/todo",
         newToDo
       );
       setTodos([...todos, response.data]);
@@ -112,14 +112,17 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
           {users.map((user) => (
             <option key={user.id} value={user.id}>
               {user.email}
+              console.log(response.data)
             </option>
           ))}
         </select>
         <div style={{ marginTop: "30px" }}>
-          <input type="submit" value="Add" />
+          <input type="submit"
+            className="btn btn-primary"
+            value="Add" />
           <input
             style={{ marginLeft: "12px" }}
-            className="muted-button"
+            className="btn btn-primary"
             type="button"
             value="Cancel"
             onClick={() => setIsAdding(false)}

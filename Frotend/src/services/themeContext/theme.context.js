@@ -1,12 +1,20 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+
 export const ThemeContext = createContext();
 
 export const ThemeContextProvider = ({ children }) => {
-  const [theme, setTheme] = useState("claro");
+  // Inicializa el tema desde el almacenamiento local o usa 'claro' como predeterminado
+  const [theme, setTheme] = useState(localStorage.getItem('theme') || 'claro');
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "claro" ? "oscuro" : "claro"));
+    const newTheme = theme === "claro" ? "oscuro" : "claro";
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme); // Guardar el tema en el almacenamiento local
   };
+
+  useEffect(() => {
+    document.body.className = theme; // Aplicar clase al body para controlar el tema global
+  }, [theme]);
 
   return (
     <ThemeContext.Provider value={{ toggleTheme, theme }}>

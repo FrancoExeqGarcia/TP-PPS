@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
 import { useAuth } from "../../services/authenticationContext/authentication.context";
@@ -7,8 +7,11 @@ import ToDoHeader from "./ToDoHeader";
 import ToDoTable from "./ToDoTable";
 import AddToDo from "./AddToDo";
 import EditToDo from "./EditToDo";
+import { ThemeContext } from "../../services/themeContext/theme.context";
 
 const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
+  const { theme } = useContext(ThemeContext);
+  const className = `project-dashboard ${theme === 'oscuro' ? 'dark-theme' : 'light-theme'}`;
   const { user } = useAuth();
 
   const [todos, setTodos] = useState([]);
@@ -18,6 +21,7 @@ const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
+    if (!projectId) return;
     // Fetch todos for the selected project
     const fetchToDos = async () => {
       try {
@@ -96,7 +100,7 @@ const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
   };
 
   return (
-    <div className="container">
+    <div className={className}>
       {!isAdding && !isEditing && (
         <>
           <ToDoHeader

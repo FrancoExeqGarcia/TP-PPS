@@ -5,7 +5,12 @@ const ProjectHeader = ({ setIsAdding, setIsAuthenticated }) => {
     <header>
       <h1>Projects</h1>
       <div style={{ marginTop: "30px", marginBottom: "18px" }}>
-        <button onClick={() => setIsAdding(true)}>Add Project</button>
+        <button 
+          onClick={() => setIsAdding(true)} 
+          className="btn btn-primary"
+        >
+          Add Project
+        </button>
       </div>
     </header>
   );

@@ -15,7 +15,7 @@ const UserTable = ({ users, setUsers, handleEdit }) => {
     }).then(async (result) => {
       if (result.value) {
         try {
-          await axiosInstance.delete(`https://localhost:7165/api/user/${id}`);
+          await axiosInstance.delete(`/user/${id}`);
           const usersCopy = users.filter((user) => user.id !== id);
           setUsers(usersCopy);
 

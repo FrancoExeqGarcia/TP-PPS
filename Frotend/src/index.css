@@ -415,6 +415,20 @@ h6 {
   font-weight: 600;
   color: #404040;
 }
+.btn-primary {
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-text);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #4c1c8c;
+  color: #fff; /* Asegura que el texto se mantenga blanco */
+}
 
 a {
   text-decoration: none;
@@ -496,7 +510,7 @@ ul {
 
 /* Navbar */
 .navbar {
-  background-color: #0366ee;
+  background-color: #4c1c8c;
   color: #ffffff;
   padding: 1rem;
   display: flex;
@@ -530,7 +544,7 @@ ul {
 }
 
 .navbar-links li a:hover {
-  background-color: #0250bc;
+  background-color: #4c1c8c;
 }
 
 /* Dashboard */
@@ -603,7 +617,7 @@ ul {
     margin-top: 0.5rem;
   }
 }
-/* AddProject and EditProject Page Styles */
+
 .add-edit-project {
   max-width: 800px;
   margin: 2rem auto;
@@ -643,7 +657,7 @@ ul {
 
 .add-edit-project form button {
   padding: 0.75rem 1rem;
-  background-color: #0366ee;
+  background-color: #4c1c8c;
   color: #ffffff;
   border: none;
   border-radius: 4px;
@@ -653,7 +667,7 @@ ul {
 }
 
 .add-edit-project form button:hover {
-  background-color: #0250bc;
+  background-color: #4c1c8c;
 }
 
 .add-edit-project form .form-group {
@@ -668,4 +682,37 @@ ul {
   .add-edit-project h2 {
     font-size: 1.5rem;
   }
+}
+.container-fluid {
+  width: 100%;
+  min-height: 100vh;
+  height: 100%; 
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.user-table-container {
+  flex: 1;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.user-table th,
+.user-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.user-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
 }

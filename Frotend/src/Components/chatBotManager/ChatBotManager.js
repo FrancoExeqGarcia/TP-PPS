@@ -14,9 +14,14 @@ const ChatBotManager = () => {
     },
     footer: {
       text: <p>Creado por TaskMinder</p>,
-    },
-    tooltip: {
+    }, tooltip: {
       text: "Hablame! 😊",
+      style: {
+        backgroundColor: "#007bff", 
+        color: "#ffffff",
+        padding: "10px",
+        borderRadius: "5px"
+      }
     },
     chatHistory: {
       viewChatHistoryButtonText: "Cargar Historial ⟳",

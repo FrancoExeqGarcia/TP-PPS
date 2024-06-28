@@ -7,11 +7,81 @@
   --text-color-dark: #ffffff; /* Color de texto oscuro */
   --border-color-light: rgba(0, 0, 0, 0.384); /* Color del borde claro */
   --border-color-dark: white; /* Color del borde oscuro */
-  --button-primary-bg: #007bff; /* Fondo del botón primario */
+  --button-primary-bg: #4c1c8c; /* Fondo del botón primario */
   --button-primary-text: #fff; /* Texto del botón primario */
   --button-danger-bg: #dc3545; /* Fondo del botón de peligro */
   --button-danger-text: #fff; /* Texto del botón de peligro */
   --form-background: #ffffff;
+  
+}
+.light-theme .navbar-brand-container:hover .navbar-brand-custom {
+  background-color: #4c1c8c;
+  color: #fff; /* Color de texto en hover */
+}
+* Estilos específicos para el tema oscuro */
+.dark-theme {
+  --button-primary-bg: #333; /* Fondo del botón primario para tema oscuro */
+  --button-primary-text: #ccc; /* Texto del botón primario para tema oscuro */
+  background-color: var(--secondary-background);
+  color: var(--text-color-dark);
+  height: 100%;
+}
+
+.dark-theme .btn-primary {
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-text);
+}
+
+.dark-theme .navbar-brand-container:hover .navbar-brand-custom {
+  background-color: #4c1c8c; /* Fondo en hover */
+  color: #fff; /* Color de texto en hover */
+}
+
+/* Otros estilos */
+.border-gray {
+  border: 1px solid #837e7e;
+}
+
+.rounded {
+  border-radius: 10px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  min-width: 100%;
+}
+
+.content {
+  flex: 1;
+  margin-left: 2px;
+}
+
+.project-dashboard.dark-theme,
+.todo-dashboard.dark-theme {
+  background-color: var(--secondary-background);
+  color: var(--text-color-dark);
+}
+
+.project-dashboard.light-theme,
+.todo-dashboard.light-theme {
+  background-color: var(--primary-background);
+  color: var(--text-color-light);
+}
+.btn-primary {
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-text);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #4c1c8c;
+  color: #fff; /* Asegura que el texto se mantenga blanco */
 }
 
 * {
@@ -30,6 +100,8 @@
 }
 
 .dark-theme {
+  --button-primary-bg: #333; /* Fondo del botón primario para tema oscuro */
+  --button-primary-text: #ccc; /* Texto del botón primario para tema oscuro */
   background-color: var(--secondary-background);
   color: var(--text-color-dark);
   height: 100%;
@@ -55,4 +127,18 @@
 .content {
   flex: 1;
   margin-left:2px;
+}
+.btn-primary {
+  background-color: var(--button-primary-bg);
+  color: var(--button-primary-text);
+}
+
+.project-dashboard.dark-theme, .todo-dashboard.dark-theme {
+  background-color: var(--secondary-background);
+  color: var(--text-color-dark);
+}
+
+.project-dashboard.light-theme, .todo-dashboard.light-theme {
+  background-color: var(--primary-background);
+  color: var(--text-color-light);
 }

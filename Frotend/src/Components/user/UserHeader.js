@@ -6,8 +6,11 @@ const UserHeader = ({ setIsAdding, setIsAuthenticated }) => {
     <header>
       <h1>Users</h1>
       <div style={{ marginTop: "30px", marginBottom: "18px" }}>
-        <button onClick={() => setIsAdding(true)}>Add User</button>
-        <LogOut setIsAuthenticated={setIsAuthenticated} />
+        <button 
+        className="btn btn-primary"
+        onClick={() => setIsAdding(true)}>Add User</button>
+        <LogOut setIsAuthenticated={setIsAuthenticated} 
+        className="btn btn-primary"/>
       </div>
     </header>
   );

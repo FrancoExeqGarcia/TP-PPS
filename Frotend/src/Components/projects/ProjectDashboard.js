@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Swal from "sweetalert2";
 
 import axiosInstance from "../../data/axiosConfig";
@@ -8,8 +8,12 @@ import ProjectHeader from "./ProjectHeader";
 import ProjectTable from "./ProjectTable";
 import AddProject from "./AddProject";
 import EditProject from "./EditProject";
+import { ThemeContext } from "../../services/themeContext/theme.context";
 
 const ProjectDashboard = ({ setIsAuthenticated }) => {
+  const { theme } = useContext(ThemeContext);
+  const className = `project-dashboard ${theme === 'oscuro' ? 'dark-theme' : 'light-theme'}`;
+
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
@@ -54,7 +58,7 @@ const ProjectDashboard = ({ setIsAuthenticated }) => {
       if (result.value) {
         try {
           await axiosInstance.delete(
-            `https://localhost:7165/api/project/${id}`
+            `/project/${id}`
           );
           const projectsCopy = projects.filter((project) => project.id !== id);
           setProjects(projectsCopy);
@@ -80,6 +84,7 @@ const ProjectDashboard = ({ setIsAuthenticated }) => {
   };
 
   return (
+    <div>
     <div   sm>
       {!isAdding && !isEditing && (
         <>
@@ -91,6 +96,7 @@ const ProjectDashboard = ({ setIsAuthenticated }) => {
             projects={projects}
             handleEdit={handleEdit}
             handleDelete={handleDelete}
+            
           />
         </>
       )}
@@ -109,6 +115,7 @@ const ProjectDashboard = ({ setIsAuthenticated }) => {
           setIsEditing={setIsEditing}
         />
       )}
+    </div>
     </div>
   );
 };

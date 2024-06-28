@@ -1,11 +1,14 @@
-import React from "react";
+import React, {useContext} from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
 import Table from 'react-bootstrap/Table';
-
+import { ThemeContext } from "../../services/themeContext/theme.context";
 
 
 const ProjectTable = ({ projects, setProjects, handleEdit }) => {
+  const { theme } = useContext(ThemeContext);
+  const className = `project-dashboard ${theme === 'oscuro' ? 'dark-theme' : 'light-theme'}`;
+  
   const handleDelete = async (id) => {
     Swal.fire({
       icon: "warning",
@@ -18,7 +21,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
       if (result.value) {
         try {
           await axiosInstance.delete(
-            `https://localhost:7165/api/project/${id}`
+            `/project/${id}`
           );
           const projectsCopy = projects.filter((project) => project.id !== id);
           setProjects(projectsCopy);
@@ -48,7 +51,8 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
   });
 
   return (
-      <Table striped bordered hover responsive="sm">
+    <div>
+      <Table striped bordered hover responsive="sm" >
         <thead>
           <tr>
             <th>No.</th>
@@ -75,7 +79,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
                 <td className="text-right">
                   <button
                     onClick={() => handleEdit(project.id)}
-                    className="button muted-button"
+                    className="btn btn-primary"
                   >
                     Edit
                   </button>
@@ -83,7 +87,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
                 <td className="text-left">
                   <button
                     onClick={() => handleDelete(project.id)}
-                    className="button muted-button" sm
+                    className="btn btn-primary" sm
                   >
                     Delete
                   </button>
@@ -97,6 +101,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
           )}
         </tbody>
       </Table>
+      </div>
   );
 };
 

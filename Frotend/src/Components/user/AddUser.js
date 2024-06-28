@@ -31,7 +31,7 @@ const AddUser = ({ users, setUsers, setIsAdding }) => {
 
     try {
       const response = await axiosInstance.post(
-        "https://localhost:7165/api/user",
+        "/user",
         newUser
       );
       setUsers([...users, response.data]);
