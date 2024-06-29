@@ -14,7 +14,6 @@ const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
   const className = `project-dashboard ${
     theme === "oscuro" ? "dark-theme" : "light-theme"
   }`;
-  const { user } = useAuth();
 
   const [todos, setTodos] = useState([]);
   const [users, setUsers] = useState([]);
@@ -23,8 +22,10 @@ const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
+    debugger;
     if (!projectId) return;
     // Fetch todos for the selected project
+  
     const fetchToDos = async () => {
       try {
         const response = await axiosInstance.get(

@@ -17,7 +17,7 @@ const Dashboard = ({ oneProjectClick }) => {
   }`;
   const cardClassName = theme === "oscuro" ? "dark-card" : "light-card";
   const [projects, setProjects] = useState([]);
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProjectId, setSelectedProjectId] = useState(null);
 
   useEffect(() => {
     // Fetch projects from the API using Axios
@@ -39,7 +39,7 @@ const Dashboard = ({ oneProjectClick }) => {
   }, []);
 
   const handleProjectClick = (project) => {
-    setSelectedProject(project);
+    setSelectedProjectId(project);
   };
 
   return (
@@ -59,12 +59,12 @@ const Dashboard = ({ oneProjectClick }) => {
       </Row>
       <Row className="mt-4">
         <Col >
-          {selectedProject && (
+          {selectedProjectId && (
             <Card>
               <Card.Body className={cardClassName}>
                 <ToDoDashboard
-                  projectId={selectedProject.id}
-                  setSelectedProject={setSelectedProject}
+                  projectId={selectedProjectId}
+                  setSelectedProjectId={setSelectedProjectId}
                 />
               </Card.Body>
             </Card>
