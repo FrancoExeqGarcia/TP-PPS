@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
-import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const AddProject = ({ projects, setProjects, setIsAdding }) => {
   const [name, setName] = useState("");
@@ -9,7 +8,6 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [status, setStatus] = useState(true);
-  const translate = useTranslation();
 
   const handleAdd = async (e) => {
     e.preventDefault();
@@ -32,10 +30,7 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
     };
 
     try {
-      const response = await axiosInstance.post(
-        "/project",
-        newProject
-      );
+      const response = await axiosInstance.post("/project", newProject);
       setProjects([...projects, response.data]);
       setIsAdding(false);
 
@@ -60,8 +55,8 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
   return (
     <div className="small-container">
       <form onSubmit={handleAdd}>
-        <h1>{translate("Add Project")}</h1>
-        <label htmlFor="name">{translate("Name")}</label>
+        <h1>Add Project</h1>
+        <label htmlFor="name">Name</label>
         <input
           id="name"
           type="text"
@@ -69,7 +64,7 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <label htmlFor="description">{translate("Description")}</label>
+        <label htmlFor="description">Description</label>
         <input
           id="description"
           type="text"
@@ -77,23 +72,23 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
-        <label htmlFor="startDate">{translate("Start Date")}</label>
+        <label htmlFor="startDate">Start Date</label>
         <input
           id="startDate"
-          type="datetime-local"
+          type="date"
           name="startDate"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
         />
-        <label htmlFor="endDate">{translate("End Date")}</label>
+        <label htmlFor="endDate">End Date</label>
         <input
           id="endDate"
-          type="datetime-local"
+          type="date"
           name="endDate"
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
         />
-        <label htmlFor="status">{translate("Status")}</label>
+        <label htmlFor="status">Status</label>
         <input
           id="status"
           type="checkbox"

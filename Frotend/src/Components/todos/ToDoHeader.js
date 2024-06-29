@@ -1,22 +1,12 @@
 import React from "react";
-import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const ToDoHeader = ({ setIsAdding, setSelectedProjectId }) => {
-  const translate = useTranslation();
-  
   return (
     <header>
-      <h1>{translate("Todo List")}</h1>
+      <h1>Todo List</h1>
       <div style={{ marginTop: "30px", marginBottom: "18px" }}>
-        <button 
-        className="btn btn-primary"
-        onClick={() => setIsAdding(true)}>{translate("Add ToDo")}</button>
-        <button
-          onClick={() => setSelectedProjectId(null)}
-          style={{ marginLeft: "12px" }}
-          className="btn btn-primary"
-        >
-          {translate("Back to Projects")}
+        <button className="btn btn-primary" onClick={() => setIsAdding(true)}>
+          Add ToDo
         </button>
       </div>
     </header>

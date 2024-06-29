@@ -1,12 +1,10 @@
 import React from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
-import Table from 'react-bootstrap/Table';
-import useTranslation from "../../custom/useTranslation/useTranslation";
+import Table from "react-bootstrap/Table";
+import { Button } from "react-bootstrap";
 
 const UserTable = ({ users, setUsers, handleEdit }) => {
-  const translate = useTranslation();
-  
   const handleDelete = async (id) => {
     Swal.fire({
       icon: "warning",
@@ -52,12 +50,12 @@ const UserTable = ({ users, setUsers, handleEdit }) => {
         <thead>
           <tr>
             <th>No.</th>
-            <th>{translate("Name")}</th>
-            <th>{translate("Email")}</th>
-            <th>{translate("User Type")}</th>
-            <th>{translate("State")}</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>User Type</th>
+            <th>State</th>
             <th colSpan={2} className="text-center">
-            {translate("Actions")}
+              Actions
             </th>
           </tr>
         </thead>
@@ -70,27 +68,28 @@ const UserTable = ({ users, setUsers, handleEdit }) => {
                 <td>{user.email}</td>
                 <td>{user.userType}</td>
                 <td>{user.state ? "Active" : "Inactive"}</td>
-                <td className="text-right">
-                  <button
+                <td className="text-center">
+                  <Button
                     onClick={() => handleEdit(user.id)}
                     className="button muted-button"
                   >
-                    {translate("Edit")}
-                  </button>
+                    Edit
+                  </Button>
                 </td>
-                <td className="text-left">
-                  <button
+                <td className="text-center">
+                  <Button
                     onClick={() => handleDelete(user.id)}
                     className="button muted-button"
+                    variant="danger"
                   >
-                    {translate("Delete")}
-                  </button>
+                    Delete
+                  </Button>
                 </td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan={7}>{translate("No Users")}</td>
+              <td colSpan={7}>No Users</td>
             </tr>
           )}
         </tbody>

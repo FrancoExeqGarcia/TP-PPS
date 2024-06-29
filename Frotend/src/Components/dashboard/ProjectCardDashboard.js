@@ -1,4 +1,4 @@
-import React, {useContext, useState, useEffect} from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Col, Container, Row, Card } from "react-bootstrap";
 import axiosInstance from "../../data/axiosConfig";
 import Swal from "sweetalert2";
@@ -11,9 +11,11 @@ import { ThemeContext } from "../../services/themeContext/theme.context";
 import ProjectCards from "../dashboard/ProjectCards";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 
-const Dashboard = ({oneProjectClick}) => {
+const Dashboard = ({ oneProjectClick }) => {
   const { theme } = useContext(ThemeContext);
-  const className = `project-dashboard ${theme === 'oscuro' ? 'dark-theme' : 'light-theme'}`;
+  const className = `project-dashboard ${
+    theme === "oscuro" ? "dark-theme" : "light-theme"
+  }`;
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const translate = useTranslation();
@@ -41,56 +43,50 @@ const Dashboard = ({oneProjectClick}) => {
     setSelectedProject(project);
   };
   return (
-    <Container fluid >
+    <Container fluid>
       <NavBar />
       <ComboLanguage />
       <Row className="mt-4">
         <Col sm>
           <Card>
-            <Card.Body className={className}>
-              <ProjectDashboard/>
+            <Card.Body className={cardClassName}>
+              <ProjectDashboard />
             </Card.Body>
           </Card>
         </Col>
       </Row>
       <Row className="mt-4">
-        </Row>
-        {/* <Row className="mt-4">
         <Col sm>
-          <Card>
-            <Card.Body className={className}>
-              <ToDoDashboard 
-              projectId={selectedProject.id}
-              setSelectedProject={setSelectedProject}/>
-            </Card.Body>
-          </Card>
+          <h2 className="text-center">Tareas</h2>
         </Col>
       </Row>
-      <Row>
-          <ProjectCards
-            projects={projects}
-            onProjectClick={handleProjectClick}
-          />
-        </Row> */}
-        <Row className="mt-4">
-          <Col sm>
-          <ProjectCards
-            projects={projects}
-            onProjectClick={handleProjectClick}
-          />
+      <Row className="mt-4">
+        <Col sm>
           {selectedProject && (
-            <ToDoDashboard
-              projectId={selectedProject.id}
-              setSelectedProject={setSelectedProject}
-            />
+            <Card>
+              <Card.Body className={cardClassName}>
+                <ToDoDashboard
+                  projectId={selectedProject.id}
+                  setSelectedProject={setSelectedProject}
+                />
+              </Card.Body>
+            </Card>
           )}
-          </Col>
-        </Row>
-      <Row className="mt-4">
-        <Col sm>
-          <ChatBotManager />
         </Col>
       </Row>
+      <Row className="mt-4">
+        <Col>
+          <Card>
+            <Card.Body className={cardClassName}>
+              <ProjectCards
+                projects={projects}
+                onProjectClick={handleProjectClick}
+              />
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+      <ChatBotManager />
     </Container>
   );
 };

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
-import useTranslation from "../../custom/useTranslation/useTranslation";
-
 const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
   const id = selectedToDo.id;
 
@@ -11,7 +9,6 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
   const [endDate, setEndDate] = useState(selectedToDo.endDate);
   const [state, setState] = useState(selectedToDo.state);
   const [isCompleted, setIsCompleted] = useState(selectedToDo.isCompleted);
-  const translate = useTranslation();
   const [assignedUserId, setAssignedUserId] = useState(
     selectedToDo.assignedUserId || ""
   );
@@ -39,10 +36,7 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
     };
 
     try {
-      const response = await axiosInstance.put(
-        `/todo/${id}`,
-        updatedToDo
-      );
+      const response = await axiosInstance.put(`/todo/${id}`, updatedToDo);
       setTodos(todos.map((todo) => (todo.id === id ? response.data : todo)));
       setIsEditing(false);
 
@@ -65,72 +59,104 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
   };
 
   return (
-    <div className="small-container">
+    <div className="container">
       <form onSubmit={handleUpdate}>
-        <h1>{translate("Edit ToDo")}</h1>
-        <label htmlFor="name">{translate("Name")}</label>
-        <input
-          id="name"
-          type="text"
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <label htmlFor="startDate">{translate("Start Date")}</label>
-        <input
-          id="startDate"
-          type="datetime-local"
-          name="startDate"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
-        <label htmlFor="endDate">{translate("End Date")}</label>
-        <input
-          id="endDate"
-          type="datetime-local"
-          name="endDate"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-        />
-        <label htmlFor="state">{translate("State")}</label>
-        <input
-          id="state"
-          type="checkbox"
-          name="state"
-          checked={state}
-          onChange={(e) => setState(e.target.checked)}
-        />
-        <label htmlFor="isCompleted">{translate("Is Completed")}</label>
-        <input
-          id="isCompleted"
-          type="checkbox"
-          name="isCompleted"
-          checked={isCompleted}
-          onChange={(e) => setIsCompleted(e.target.checked)}
-        />
-        <label htmlFor="assignedUserId">{translate("Assigned User")}</label>
-        <select
-          id="assignedUserId"
-          name="assignedUserId"
-          value={assignedUserId}
-          onChange={(e) => setAssignedUserId(e.target.value)}
-        >
-          <option value="">{translate("Select User")}</option>
-          {users.map((user) => (
-            <option key={user.id} value={user.id}>
-              {user.email}
-            </option>
-          ))}
-        </select>
-        <div style={{ marginTop: "30px" }}>
-          <input type="submit" value="Update" />
+        <h1>Edit ToDo</h1>
+        <div className="mb-3">
+          <label htmlFor="name" className="form-label">
+            Name
+          </label>
           <input
-            style={{ marginLeft: "12px" }}
-            className="muted-button"
-            type="button"
-            value="Cancel"
-            onClick={() => setIsEditing(false)}
+            id="name"
+            type="text"
+            className="form-control"
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="startDate" className="form-label">
+            Start Date
+          </label>
+          <input
+            id="startDate"
+            type="date"
+            className="form-control"
+            name="startDate"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="endDate" className="form-label">
+            End Date
+          </label>
+          <input
+            id="endDate"
+            type="date"
+            className="form-control"
+            name="endDate"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+        </div>
+        <div className="mb-3 form-check">
+          <input
+            id="state"
+            type="checkbox"
+            className="form-check-input"
+            name="state"
+            checked={state}
+            onChange={(e) => setState(e.target.checked)}
+          />
+          <label htmlFor="state" className="form-check-label">
+            State
+          </label>
+        </div>
+        <div className="mb-3 form-check">
+          <input
+            id="isCompleted"
+            type="checkbox"
+            className="form-check-input"
+            name="isCompleted"
+            checked={isCompleted}
+            onChange={(e) => setIsCompleted(e.target.checked)}
+          />
+          <label htmlFor="isCompleted" className="form-check-label">
+            Is Completed
+          </label>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="assignedUserId" className="form-label">
+            Assigned User
+          </label>
+          <select
+            id="assignedUserId"
+            className="form-select"
+            name="assignedUserId"
+            value={assignedUserId}
+            onChange={(e) => setAssignedUserId(e.target.value)}
+          >
+            <option value="">Select User</option>
+            {users.map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.email}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="mb-3">
+          <button type="submit" className="btn btn-primary me-2">
+            Update
+          </button>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            onClick={() => setIsEditing(false)}
+          >
+            Cancel
+          </button>
         </div>
       </form>
     </div>

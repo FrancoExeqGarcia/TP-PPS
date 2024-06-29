@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
-import useTranslation from "../../custom/useTranslation/useTranslation";
+import { Form, Button, Container } from "react-bootstrap";
 
 const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
   const [name, setName] = useState("");
@@ -10,7 +10,6 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
   const [state, setState] = useState(true);
   const [isCompleted, setIsCompleted] = useState(false);
   const [assignedUserId, setAssignedUserId] = useState("");
-  const translate = useTranslation();
 
   const handleAdd = async (e) => {
     e.preventDefault();
@@ -35,10 +34,7 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
     };
 
     try {
-      const response = await axiosInstance.post(
-        "/todo",
-        newToDo
-      );
+      const response = await axiosInstance.post("/todo", newToDo);
       setTodos([...todos, response.data]);
       setIsAdding(false);
 
@@ -61,78 +57,74 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
   };
 
   return (
-    <div className="small-container">
-      <form onSubmit={handleAdd}>
-        <h1>{translate("Add ToDo")}</h1>
-        <label htmlFor="name">{translate("Name")}</label>
-        <input
-          id="name"
-          type="text"
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <label htmlFor="startDate">{translate("Start Date")}</label>
-        <input
-          id="startDate"
-          type="datetime-local"
-          name="startDate"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
-        <label htmlFor="endDate">{translate("End Date")}</label>
-        <input
-          id="endDate"
-          type="datetime-local"
-          name="endDate"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-        />
-        <label htmlFor="state">{translate("State")}</label>
-        <input
-          id="state"
-          type="checkbox"
-          name="state"
-          checked={state}
-          onChange={(e) => setState(e.target.checked)}
-        />
-        <label htmlFor="isCompleted">{translate("Is Completed")}</label>
-        <input
-          id="isCompleted"
-          type="checkbox"
-          name="isCompleted"
-          checked={isCompleted}
-          onChange={(e) => setIsCompleted(e.target.checked)}
-        />
-        <label htmlFor="assignedUserId">{translate("Assigned User")}</label>
-        <select
-          id="assignedUserId"
-          name="assignedUserId"
-          value={assignedUserId}
-          onChange={(e) => setAssignedUserId(e.target.value)}
-        >
-          <option value="">{translate("Select User")}</option>
-          {users.map((user) => (
-            <option key={user.id} value={user.id}>
-              {user.email}
-              console.log(response.data)
-            </option>
-          ))}
-        </select>
-        <div style={{ marginTop: "30px" }}>
-          <input type="submit"
-            className="btn btn-primary"
-            value="Add" />
-          <input
-            style={{ marginLeft: "12px" }}
-            className="btn btn-primary"
-            type="button"
-            value="Cancel"
-            onClick={() => setIsAdding(false)}
+    <Container className="small-container">
+      <Form onSubmit={handleAdd}>
+        <h1>Add ToDo</h1>
+        <Form.Group controlId="name">
+          <Form.Label>Name</Form.Label>
+          <Form.Control
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
+        </Form.Group>
+        <Form.Group controlId="startDate">
+          <Form.Label>Start Date</Form.Label>
+          <Form.Control
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group controlId="endDate">
+          <Form.Label>End Date</Form.Label>
+          <Form.Control
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+        </Form.Group>
+        <Form.Group controlId="state">
+          <Form.Check
+            type="checkbox"
+            label="State"
+            checked={state}
+            onChange={(e) => setState(e.target.checked)}
+          />
+        </Form.Group>
+        <Form.Group controlId="isCompleted">
+          <Form.Check
+            type="checkbox"
+            label="Is Completed"
+            checked={isCompleted}
+            onChange={(e) => setIsCompleted(e.target.checked)}
+          />
+        </Form.Group>
+        <Form.Group controlId="assignedUserId">
+          <Form.Label>Assigned User</Form.Label>
+          <Form.Control
+            as="select"
+            value={assignedUserId}
+            onChange={(e) => setAssignedUserId(e.target.value)}
+          >
+            <option value="">Select User</option>
+            {users.map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.email}
+              </option>
+            ))}
+          </Form.Control>
+        </Form.Group>
+        <div className="mt-3">
+          <Button type="submit" className="me-2">
+            Add
+          </Button>
+          <Button variant="secondary" onClick={() => setIsAdding(false)}>
+            Cancel
+          </Button>
         </div>
-      </form>
-    </div>
+      </Form>
+    </Container>
   );
 };
 

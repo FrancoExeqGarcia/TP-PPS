@@ -39,15 +39,15 @@ function NavBar() {
         color: theme === "oscuro" ? "white" : "black",
       }}
     >
-      <Link to="/home"className="navbar-brand-container">
+      <Link to="/home" className="navbar-brand-container">
         <Navbar.Brand className="navbar-brand-custom mr-4 ms-auto me-auto border-black rounded p-6 text-black">
-          TASK MANAGER
+          TASK MINDER
         </Navbar.Brand>
       </Link>
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end">
         <Navbar.Text className="mr-4 ms-auto me-auto border-gray rounded font-weight-bold">
-          {translate("hi")} {localStorage.getItem("Name")}!
+          {translate("hi")} {user.UserName}!
         </Navbar.Text>
         <Dropdown align="end">
           <Dropdown.Toggle variant="outline-primary" id="dropdown-basic">
@@ -56,11 +56,11 @@ function NavBar() {
           <Dropdown.Menu>
             {user.UserType === "SuperAdmin" && (
               <Dropdown.Item onClick={handleCreateUser}>
-                {translate("Users")}
+                {translate("users")}
               </Dropdown.Item>
             )}
             <Dropdown.Item onClick={handleProfile}>
-              {translate("Profile")}
+              {translate("profile")}
             </Dropdown.Item>
             <Dropdown.Item onClick={handleThemeToggle}>
               {theme === "oscuro"

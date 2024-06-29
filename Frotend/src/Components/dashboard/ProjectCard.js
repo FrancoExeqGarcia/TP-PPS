@@ -1,21 +1,45 @@
-import React from 'react';
+import React from "react";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const ProjectCard = ({ project, onProjectClick }) => {
   const translate = useTranslation();
-  
+
   const handleCardClick = () => {
     onProjectClick(project);
   };
 
   return (
-    <div className="card" onClick={handleCardClick}>
-      <h2>{project.name}</h2>
-      <p>{project.description}</p>
-      <p>{translate("Start Date")}: {project.startDate}</p>
-      <p>{translate("End Date")}: {project.endDate}</p>
-      <p>{translate("Status")}: {project.status ? 'Active' : 'Inactive'}</p>
-    </div>
+    <Card
+      style={{
+        width: "18rem",
+        cursor: "pointer",
+        boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+        border: isSelected ? `2px solid #502689` : "1px solid #ccc",
+        transition: "border-color 0.3s ease",
+      }}
+      className={`project-card ${isSelected ? "selected" : ""}`}
+      onClick={handleCardClick}
+    >
+      <Card.Body>
+        <Card.Title
+          style={{ fontSize: "1.5rem", color: "#502689", fontWeight: "bold" }}
+        >
+          {project.name}
+        </Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">
+          {project.description}
+        </Card.Subtitle>
+        <Card.Text>
+          <strong>Start Date:</strong> {project.startDate}
+        </Card.Text>
+        <Card.Text>
+          <strong>End Date:</strong> {project.endDate}
+        </Card.Text>
+        <Card.Text>
+          <strong>Status:</strong> {project.status ? "Active" : "Inactive"}
+        </Card.Text>
+      </Card.Body>
+    </Card>
   );
 };
 

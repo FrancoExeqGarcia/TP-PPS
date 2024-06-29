@@ -1,29 +1,27 @@
 import React from "react";
-import Table from 'react-bootstrap/Table';
-import useTranslation from "../../custom/useTranslation/useTranslation";
+import Table from "react-bootstrap/Table";
+import Button from "react-bootstrap/Button";
 
 const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
-
-  const translate = useTranslation();
   const getUserEmailById = (id) => {
     const user = users.find((user) => user.id === id);
     return user ? user.email : "Unassigned";
   };
 
   return (
-    <div className="contain-table">
+    <div>
       <Table striped bordered hover responsive="sm">
         <thead>
           <tr>
             <th>No.</th>
-            <th>{translate("Name")}</th>
-            <th>{translate("Start Date")}</th>
-            <th>{translate("End Date")}</th>
-            <th>{translate("State")}</th>
-            <th>{translate("Is Completed")}</th>
-            <th>{translate("Assigned User")}</th>
+            <th>Name</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>State</th>
+            <th>Is Completed</th>
+            <th>Assigned User</th>
             <th colSpan={2} className="text-center">
-            {translate("Actions")}
+              Actions
             </th>
           </tr>
         </thead>
@@ -38,27 +36,30 @@ const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
                 <td>{todo.state ? "Active" : "Inactive"}</td>
                 <td>{todo.isCompleted ? "Yes" : "No"}</td>
                 <td>{getUserEmailById(todo.assignedUserId)}</td>
-                <td className="text-right">
-                  <button
+                <td className="text-center">
+                  <Button
                     onClick={() => handleEdit(todo.id)}
-                    className="btn btn-primary"
+                    variant="primary"
+                    className="item-center"
                   >
-                    {translate("Edit")}
-                  </button>
+                    Edit
+                  </Button>
                 </td>
-                <td className="text-left">
-                  <button
+                <td className="text-center">
+                  <Button
                     onClick={() => handleDelete(todo.id)}
-                    className="btn btn-primary"
+                    variant="danger"
                   >
-                    {translate("Delete")}
-                  </button>
+                    Delete
+                  </Button>
                 </td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan={9}>{translate("No ToDos")}</td>
+              <td colSpan={9} className="text-center">
+                No ToDos
+              </td>
             </tr>
           )}
         </tbody>

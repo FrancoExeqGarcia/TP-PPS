@@ -12,7 +12,9 @@ import { ThemeContext } from "../../services/themeContext/theme.context";
 
 const ProjectDashboard = ({ setIsAuthenticated }) => {
   const { theme } = useContext(ThemeContext);
-  const className = `project-dashboard ${theme === 'oscuro' ? 'dark-theme' : 'light-theme'}`;
+  const className = `project-dashboard ${
+    theme === "oscuro" ? "dark-theme" : "light-theme"
+  }`;
 
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -22,9 +24,7 @@ const ProjectDashboard = ({ setIsAuthenticated }) => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axiosInstance.get(
-          "/project"
-        );
+        const response = await axiosInstance.get("/project");
         setProjects(response.data);
       } catch (error) {
         console.error("Error fetching projects:", error);
@@ -57,9 +57,7 @@ const ProjectDashboard = ({ setIsAuthenticated }) => {
     }).then(async (result) => {
       if (result.value) {
         try {
-          await axiosInstance.delete(
-            `/project/${id}`
-          );
+          await axiosInstance.delete(`/project/${id}`);
           const projectsCopy = projects.filter((project) => project.id !== id);
           setProjects(projectsCopy);
 
@@ -85,37 +83,36 @@ const ProjectDashboard = ({ setIsAuthenticated }) => {
 
   return (
     <div>
-    <div  >
-      {!isAdding && !isEditing && (
-        <>
-          <ProjectHeader
-            setIsAdding={setIsAdding}
-            setIsAuthenticated={setIsAuthenticated}
-          />
-          <ProjectTable
+      <div sm>
+        {!isAdding && !isEditing && (
+          <>
+            <ProjectHeader
+              setIsAdding={setIsAdding}
+              setIsAuthenticated={setIsAuthenticated}
+            />
+            <ProjectTable
+              projects={projects}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
+          </>
+        )}
+        {isAdding && (
+          <AddProject
             projects={projects}
-            handleEdit={handleEdit}
-            handleDelete={handleDelete}
-            
+            setProjects={setProjects}
+            setIsAdding={setIsAdding}
           />
-        </>
-      )}
-      {isAdding && (
-        <AddProject
-          projects={projects}
-          setProjects={setProjects}
-          setIsAdding={setIsAdding}
-        />
-      )}
-      {isEditing && (
-        <EditProject
-          projects={projects}
-          selectedProject={selectedProject}
-          setProjects={setProjects}
-          setIsEditing={setIsEditing}
-        />
-      )}
-    </div>
+        )}
+        {isEditing && (
+          <EditProject
+            projects={projects}
+            selectedProject={selectedProject}
+            setProjects={setProjects}
+            setIsEditing={setIsEditing}
+          />
+        )}
+      </div>
     </div>
   );
 };

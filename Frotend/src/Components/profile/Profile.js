@@ -47,74 +47,76 @@ const Profile = () => {
   };
 
   return (
-    <Container fluid >
+    <Container fluid>
       <NavBar />
-      <div className="container mt-1 shadow p-4 border-gray content">
-        <div className="row">
-          <div className="col-md-3">
-            <h2>Profile</h2>
-            {error && <p className="text-danger">{error}</p>}
-            <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="formUserName">
-                <Form.Label>Nombre Completo</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                />
-              </Form.Group>
+      <Row>
+        <div className="col-md-8 mx-auto">
+          <h2 className="mb-4">Profile</h2>
+          {error && <p className="text-danger">{error}</p>}
+          <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="formUserName">
+              <Form.Label>Nombre Completo</Form.Label>
+              <Form.Control
+                type="text"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+              />
+            </Form.Group>
 
-              <Form.Group controlId="formUserType">
-                <Form.Label>Rol</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={userType}
-                  onChange={(e) => setUserType(e.target.value)}
-                  readOnly
-                />
-              </Form.Group>
+            <Form.Group controlId="formUserType">
+              <Form.Label>Rol</Form.Label>
+              <Form.Control
+                type="text"
+                value={userType}
+                onChange={(e) => setUserType(e.target.value)}
+                readOnly
+              />
+            </Form.Group>
 
-              <Form.Group controlId="formEmail">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  readOnly
-                />
-              </Form.Group>
+            <Form.Group controlId="formEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                readOnly
+              />
+            </Form.Group>
 
-              <Form.Group controlId="formCurrentPassword">
-                <Form.Label>Current Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  value={currentPassword}
-                  onChange={(e) => setCurrentPassword(e.target.value)}
-                  required
-                />
-              </Form.Group>
+            <Form.Group controlId="formCurrentPassword">
+              <Form.Label>Current Password</Form.Label>
+              <Form.Control
+                type="password"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                required
+              />
+            </Form.Group>
 
-              <Form.Group controlId="formNewPassword">
-                <Form.Label>New Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  required
-                />
-              </Form.Group>
+            <Form.Group controlId="formNewPassword">
+              <Form.Label>New Password</Form.Label>
+              <Form.Control
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                required
+              />
+            </Form.Group>
 
-              <Button variant="primary" type="submit">
-                Save Changes
-              </Button>
-            </Form>
-            <Button variant="primary" onClick={handleBackToHome} className="mt-3">
-              Back to Home/Dashboard
+            <Button variant="primary" type="submit">
+              Save Changes
             </Button>
-          </div>
+          </Form>
+          <Button
+            variant="outline-primary"
+            onClick={handleBackToHome}
+            className="mt-3"
+          >
+            Back to Home/Dashboard
+          </Button>
         </div>
-      </div>
- </Container>
+      </Row>
+    </Container>
   );
 };
 

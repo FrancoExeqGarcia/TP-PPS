@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
-import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const AddUser = ({ users, setUsers, setIsAdding }) => {
   const [name, setName] = useState("");
@@ -9,7 +8,6 @@ const AddUser = ({ users, setUsers, setIsAdding }) => {
   const [password, setPassword] = useState("");
   const [userType, setUserType] = useState("Programmer"); // Default value
   const [state, setState] = useState(true);
-  const translate = useTranslation();
 
   const handleAdd = async (e) => {
     e.preventDefault();
@@ -32,10 +30,7 @@ const AddUser = ({ users, setUsers, setIsAdding }) => {
     };
 
     try {
-      const response = await axiosInstance.post(
-        "/user",
-        newUser
-      );
+      const response = await axiosInstance.post("/user", newUser);
       setUsers([...users, response.data]);
       setIsAdding(false);
 
@@ -60,8 +55,8 @@ const AddUser = ({ users, setUsers, setIsAdding }) => {
   return (
     <div className="small-container">
       <form onSubmit={handleAdd}>
-        <h1>{translate("Add User")}</h1>
-        <label htmlFor="name">{translate("Name")}</label>
+        <h1>Add User</h1>
+        <label htmlFor="name">Name</label>
         <input
           id="name"
           type="text"
@@ -69,7 +64,7 @@ const AddUser = ({ users, setUsers, setIsAdding }) => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <label htmlFor="email">{translate("Email")}</label>
+        <label htmlFor="email">Email</label>
         <input
           id="email"
           type="email"
@@ -77,7 +72,7 @@ const AddUser = ({ users, setUsers, setIsAdding }) => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <label htmlFor="password">{translate("Password")}</label>
+        <label htmlFor="password">Password</label>
         <input
           id="password"
           type="password"
@@ -85,18 +80,18 @@ const AddUser = ({ users, setUsers, setIsAdding }) => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <label htmlFor="userType">{translate("User Type")}</label>
+        <label htmlFor="userType">User Type</label>
         <select
           id="userType"
           name="userType"
           value={userType}
           onChange={(e) => setUserType(e.target.value)}
         >
-          <option value="Programmer">{translate("Programmer")}</option>
-          <option value="Admin">{translate("Admin")}</option>
-          <option value="SuperAdmin">{translate("Super Admin")}</option>
+          <option value="Programmer">Programmer</option>
+          <option value="Admin">Admin</option>
+          <option value="SuperAdmin">Super Admin</option>
         </select>
-        <label htmlFor="state">{translate("State")}</label>
+        <label htmlFor="state">State</label>
         <input
           id="state"
           type="checkbox"

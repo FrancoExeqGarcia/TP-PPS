@@ -19,9 +19,7 @@ const UserDashboard = ({ setIsAuthenticated }) => {
     // Fetch users from the API using Axios
     const fetchUsers = async () => {
       try {
-        const response = await axiosInstance.get(
-          "/user"
-        );
+        const response = await axiosInstance.get("/user");
         setUsers(response.data);
       } catch (error) {
         console.error("Error fetching users:", error);
@@ -63,7 +61,11 @@ const UserDashboard = ({ setIsAuthenticated }) => {
           </>
         )}
         {isAdding && (
-          <AddUser users={users} setUsers={setUsers} setIsAdding={setIsAdding} />
+          <AddUser
+            users={users}
+            setUsers={setUsers}
+            setIsAdding={setIsAdding}
+          />
         )}
         {isEditing && (
           <EditUser

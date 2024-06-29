@@ -11,7 +11,9 @@ import { ThemeContext } from "../../services/themeContext/theme.context";
 
 const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
   const { theme } = useContext(ThemeContext);
-  const className = `project-dashboard ${theme === 'oscuro' ? 'dark-theme' : 'light-theme'}`;
+  const className = `project-dashboard ${
+    theme === "oscuro" ? "dark-theme" : "light-theme"
+  }`;
   const { user } = useAuth();
 
   const [todos, setTodos] = useState([]);

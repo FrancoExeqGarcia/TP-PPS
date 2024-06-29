@@ -1,16 +1,16 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
-import Table from 'react-bootstrap/Table';
+import Table from "react-bootstrap/Table";
 import { ThemeContext } from "../../services/themeContext/theme.context";
-import useTranslation from "../../custom/useTranslation/useTranslation";
-
+import { Button } from "react-bootstrap";
 
 const ProjectTable = ({ projects, setProjects, handleEdit }) => {
   const { theme } = useContext(ThemeContext);
-  const translate = useTranslation();
-  const className = `project-dashboard ${theme === 'oscuro' ? 'dark-theme' : 'light-theme'}`;
-  
+  const className = `project-dashboard ${
+    theme === "oscuro" ? "dark-theme" : "light-theme"
+  }`;
+
   const handleDelete = async (id) => {
     Swal.fire({
       icon: "warning",
@@ -22,9 +22,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
     }).then(async (result) => {
       if (result.value) {
         try {
-          await axiosInstance.delete(
-            `/project/${id}`
-          );
+          await axiosInstance.delete(`/project/${id}`);
           const projectsCopy = projects.filter((project) => project.id !== id);
           setProjects(projectsCopy);
 
@@ -54,17 +52,17 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
 
   return (
     <div>
-      <Table striped bordered hover responsive="sm" >
+      <Table striped bordered hover responsive="sm">
         <thead>
           <tr>
             <th>No.</th>
-            <th>{translate("Name")}</th>
-            <th>{translate("Description")}</th>
-            <th>{translate("Start Date")}</th>
-            <th>{translate("End Date")}</th>
-            <th>{translate("Status")}</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Status</th>
             <th colSpan={2} className="text-center">
-            {translate("Actions")}
+              Actions
             </th>
           </tr>
         </thead>
@@ -78,32 +76,34 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
                 <td>{project.startDate}</td>
                 <td>{project.endDate}</td>
                 <td>{project.status ? "Active" : "Inactive"}</td>
-                <td className="text-right">
-                  <button
+                <td className="text-center">
+                  <Button
                     onClick={() => handleEdit(project.id)}
-                    className="btn btn-primary"
+                    variant="primary"
                   >
-                    {translate("Edit")}
-                  </button>
+                    Edit
+                  </Button>
                 </td>
-                <td className="text-left">
-                  <button
+                <td className="text-center">
+                  <Button
                     onClick={() => handleDelete(project.id)}
-                    className="btn btn-primary"
+                    variant="danger"
                   >
-                    {translate("Delete")}
-                  </button>
+                    Delete
+                  </Button>
                 </td>
               </tr>
             ))
           ) : (
-            <tr responsive="sm">
-              <td colSpan={7}>{translate("No Projects")}</td>
+            <tr>
+              <td colSpan={8} className="text-center">
+                No Projects
+              </td>
             </tr>
           )}
         </tbody>
       </Table>
-      </div>
+    </div>
   );
 };
 
