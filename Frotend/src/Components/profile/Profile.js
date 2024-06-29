@@ -6,6 +6,7 @@ import { ThemeContext } from "../../services/themeContext/theme.context";
 import { useAuth } from "../../services/authenticationContext/authentication.context";
 import NavBar from "../navBar/NavBar";
 import useTranslation from "../../custom/useTranslation/useTranslation";
+import ComboLanguage from "../ui/comboLanguage/ComboLanguaje";
 
 const Profile = () => {
   const { user, fetchUserProfile, updateUser } = useAuth();
@@ -51,6 +52,7 @@ const Profile = () => {
   return (
     <Container fluid>
       <NavBar />
+      <ComboLanguage />
       <div className="container mt-1 shadow p-4 border-gray content">
         <div className="row">
           <div className="col-md-3">
