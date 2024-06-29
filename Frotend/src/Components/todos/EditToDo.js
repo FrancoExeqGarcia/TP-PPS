@@ -84,7 +84,7 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
           </label>
           <input
             id="startDate"
-            type="date"
+            type="datetime-local"
             className="form-control"
             name="startDate"
             value={startDate}
@@ -97,7 +97,7 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
           </label>
           <input
             id="endDate"
-            type="date"
+            type="datetime-local"
             className="form-control"
             name="endDate"
             value={endDate}

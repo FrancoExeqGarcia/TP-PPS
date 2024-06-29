@@ -73,7 +73,7 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
         <Form.Group controlId="startDate">
           <Form.Label>{translate("Start Date")}</Form.Label>
           <Form.Control
-            type="date"
+            type="datetime-local"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
           />
@@ -81,7 +81,7 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
         <Form.Group controlId="endDate">
           <Form.Label>{translate("End Date")}</Form.Label>
           <Form.Control
-            type="date"
+            type="datetime-local"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
           />

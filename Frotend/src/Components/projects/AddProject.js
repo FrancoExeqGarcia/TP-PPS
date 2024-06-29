@@ -77,7 +77,7 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
         <label htmlFor="startDate">{translate("Start Date")}</label>
         <input
           id="startDate"
-          type="date"
+          type="datetime-local"
           name="startDate"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
@@ -85,7 +85,7 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
         <label htmlFor="endDate">{translate("End Date")}</label>
         <input
           id="endDate"
-          type="date"
+          type="datetime-local"
           name="endDate"
           value={endDate}
           onChange={(e) => setEndDate(e.target.value)}
