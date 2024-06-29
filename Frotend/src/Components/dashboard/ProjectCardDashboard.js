@@ -16,6 +16,7 @@ const Dashboard = ({ oneProjectClick }) => {
   const className = `project-dashboard ${
     theme === "oscuro" ? "dark-theme" : "light-theme"
   }`;
+  const cardClassName = theme === "oscuro" ? "dark-card" : "light-card";
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const translate = useTranslation();
@@ -42,6 +43,7 @@ const Dashboard = ({ oneProjectClick }) => {
   const handleProjectClick = (project) => {
     setSelectedProject(project);
   };
+
   return (
     <Container fluid>
       <NavBar />

@@ -1,7 +1,8 @@
 import React from "react";
 import useTranslation from "../../custom/useTranslation/useTranslation";
+import { Card } from "react-bootstrap";
 
-const ProjectCard = ({ project, onProjectClick }) => {
+const ProjectCard = ({ project, onProjectClick, isSelected }) => {
   const translate = useTranslation();
 
   const handleCardClick = () => {
