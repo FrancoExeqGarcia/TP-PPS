@@ -121,7 +121,7 @@ export const dictionary_translations = {
     { key: "Edit User", value: "Editar Usuario" },
     { key: "No Users", value: "No hay Usuarios" },
     { key: "Back to Projects", value: "Volver a Proyectos" },  
-    { key: "Todo List", value: "Lista de Tares" },  
+    { key: "Todo List", value: "Lista de Tareas" },  
     { key: "Profile", value: "Perfil" },  
     { key: "Users", value: "Usuarios" },
     { key: "Full Name", value: "Nombre Completo" },  
