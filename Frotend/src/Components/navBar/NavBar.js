@@ -47,7 +47,7 @@ function NavBar() {
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end">
         <Navbar.Text className="mr-4 ms-auto me-auto border-gray rounded font-weight-bold">
-          {translate("hi")} {user.name}!
+          {translate("hi")} {localStorage.getItem("Name")}!
         </Navbar.Text>
         <Dropdown align="end">
           <Dropdown.Toggle variant="outline-primary" id="dropdown-basic">
