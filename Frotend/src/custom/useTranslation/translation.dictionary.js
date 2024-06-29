@@ -123,7 +123,11 @@ export const dictionary_translations = {
     { key: "Back to Projects", value: "Volver a Proyectos" },  
     { key: "Todo List", value: "Lista de Tares" },  
     { key: "Profile", value: "Perfil" },  
-    { key: "Users", value: "Usuarios" },  
+    { key: "Users", value: "Usuarios" },
+    { key: "Full Name", value: "Nombre Completo" },  
+    { key: "Role", value: "Rol" },  
+    { key: "Current Password", value: "Contraseña Actual" },  
+    { key: "New Password", value: "Nueva Contraseña" },   
     { key: "user_list", value: "Lista de usuarios" }
   ],
   en: [
