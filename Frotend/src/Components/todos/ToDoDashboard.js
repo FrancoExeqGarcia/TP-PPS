@@ -22,7 +22,6 @@ const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    debugger;
     if (!projectId) return;
     // Fetch todos for the selected project
   
