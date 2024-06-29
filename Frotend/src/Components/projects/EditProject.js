@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
 import { Form, Button, Container } from "react-bootstrap";
+import useTranslation from "../../custom/useTranslation/useTranslation";
+
 
 const EditProject = ({
   projects,
@@ -16,6 +18,7 @@ const EditProject = ({
   const [startDate, setStartDate] = useState(selectedProject.startDate);
   const [endDate, setEndDate] = useState(selectedProject.endDate);
   const [status, setStatus] = useState(selectedProject.status);
+  const translate = useTranslation();
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -69,9 +72,9 @@ const EditProject = ({
   return (
     <Container className="small-container">
       <Form onSubmit={handleUpdate}>
-        <h1>Edit Project</h1>
+        <h1>{translate("Edit Project")}</h1>
         <Form.Group controlId="name">
-          <Form.Label>Name</Form.Label>
+          <Form.Label>{translate("Name")}</Form.Label>
           <Form.Control
             type="text"
             value={name}
@@ -79,7 +82,7 @@ const EditProject = ({
           />
         </Form.Group>
         <Form.Group controlId="description">
-          <Form.Label>Description</Form.Label>
+          <Form.Label>{translate("Description")}</Form.Label>
           <Form.Control
             type="text"
             value={description}
@@ -87,7 +90,7 @@ const EditProject = ({
           />
         </Form.Group>
         <Form.Group controlId="startDate">
-          <Form.Label>Start Date</Form.Label>
+          <Form.Label>{translate("Start Date")}</Form.Label>
           <Form.Control
             type="date"
             value={startDate}
@@ -95,7 +98,7 @@ const EditProject = ({
           />
         </Form.Group>
         <Form.Group controlId="endDate">
-          <Form.Label>End Date</Form.Label>
+          <Form.Label>{translate("End Date")}</Form.Label>
           <Form.Control
             type="date"
             value={endDate}
@@ -112,10 +115,10 @@ const EditProject = ({
         </Form.Group>
         <div className="mt-3">
           <Button type="submit" className="me-2">
-            Update
+            {translate("Update")}
           </Button>
           <Button variant="secondary" onClick={() => setIsEditing(false)}>
-            Cancel
+           {translate("Cancel")}
           </Button>
         </div>
       </Form>

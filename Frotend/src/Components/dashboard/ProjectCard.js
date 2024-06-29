@@ -31,13 +31,13 @@ const ProjectCard = ({ project, onProjectClick, isSelected }) => {
           {project.description}
         </Card.Subtitle>
         <Card.Text>
-          <strong>Start Date:</strong> {project.startDate}
+          <strong>{translate("Start Date")}:</strong> {project.startDate}
         </Card.Text>
         <Card.Text>
-          <strong>End Date:</strong> {project.endDate}
+          <strong>{translate("End Date")}:</strong> {project.endDate}
         </Card.Text>
         <Card.Text>
-          <strong>Status:</strong> {project.status ? "Active" : "Inactive"}
+          <strong>{translate("Status")}:</strong> {project.status ? "Active" : "Inactive"}
         </Card.Text>
       </Card.Body>
     </Card>

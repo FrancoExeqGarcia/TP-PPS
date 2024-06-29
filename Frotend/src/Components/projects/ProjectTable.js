@@ -4,9 +4,12 @@ import axiosInstance from "../../data/axiosConfig";
 import Table from "react-bootstrap/Table";
 import { ThemeContext } from "../../services/themeContext/theme.context";
 import { Button } from "react-bootstrap";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const ProjectTable = ({ projects, setProjects, handleEdit }) => {
   const { theme } = useContext(ThemeContext);
+  const translate = useTranslation();
+
   const className = `project-dashboard ${
     theme === "oscuro" ? "dark-theme" : "light-theme"
   }`;
@@ -56,13 +59,13 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
         <thead>
           <tr>
             <th>No.</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Status</th>
+            <th>{translate("Name")}</th>
+            <th>{translate("Description")}</th>
+            <th>{translate("Start Date")}</th>
+            <th>{translate("End Date")}</th>
+            <th>{translate("Status")}</th>
             <th colSpan={2} className="text-center">
-              Actions
+            {translate("Actions")}
             </th>
           </tr>
         </thead>
@@ -81,7 +84,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
                     onClick={() => handleEdit(project.id)}
                     variant="primary"
                   >
-                    Edit
+                    {translate("Edit")}
                   </Button>
                 </td>
                 <td className="text-center">
@@ -89,7 +92,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
                     onClick={() => handleDelete(project.id)}
                     variant="danger"
                   >
-                    Delete
+                    {translate("Delete")}
                   </Button>
                 </td>
               </tr>
@@ -97,7 +100,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
           ) : (
             <tr>
               <td colSpan={8} className="text-center">
-                No Projects
+              {translate("No Projects")}
               </td>
             </tr>
           )}

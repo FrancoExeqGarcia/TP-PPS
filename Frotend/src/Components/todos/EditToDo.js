@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
+import useTranslation from "../../custom/useTranslation/useTranslation";
+
 const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
   const id = selectedToDo.id;
 
@@ -9,6 +11,7 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
   const [endDate, setEndDate] = useState(selectedToDo.endDate);
   const [state, setState] = useState(selectedToDo.state);
   const [isCompleted, setIsCompleted] = useState(selectedToDo.isCompleted);
+  const translate = useTranslation();
   const [assignedUserId, setAssignedUserId] = useState(
     selectedToDo.assignedUserId || ""
   );
@@ -61,10 +64,10 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
   return (
     <div className="container">
       <form onSubmit={handleUpdate}>
-        <h1>Edit ToDo</h1>
+        <h1>{translate("Edit ToDo")}</h1>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
-            Name
+          {translate("Name")}
           </label>
           <input
             id="name"
@@ -77,7 +80,7 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
         </div>
         <div className="mb-3">
           <label htmlFor="startDate" className="form-label">
-            Start Date
+          {translate("Start Date")}
           </label>
           <input
             id="startDate"
@@ -90,7 +93,7 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
         </div>
         <div className="mb-3">
           <label htmlFor="endDate" className="form-label">
-            End Date
+          {translate("End Date")}
           </label>
           <input
             id="endDate"
@@ -111,7 +114,7 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
             onChange={(e) => setState(e.target.checked)}
           />
           <label htmlFor="state" className="form-check-label">
-            State
+          {translate("State")}
           </label>
         </div>
         <div className="mb-3 form-check">
@@ -124,12 +127,12 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
             onChange={(e) => setIsCompleted(e.target.checked)}
           />
           <label htmlFor="isCompleted" className="form-check-label">
-            Is Completed
+          {translate("Is Completed")}
           </label>
         </div>
         <div className="mb-3">
           <label htmlFor="assignedUserId" className="form-label">
-            Assigned User
+          {translate("Assigned User")}
           </label>
           <select
             id="assignedUserId"
@@ -138,7 +141,7 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
             value={assignedUserId}
             onChange={(e) => setAssignedUserId(e.target.value)}
           >
-            <option value="">Select User</option>
+            <option value="">{translate("Select User")}</option>
             {users.map((user) => (
               <option key={user.id} value={user.id}>
                 {user.email}
@@ -148,14 +151,14 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
         </div>
         <div className="mb-3">
           <button type="submit" className="btn btn-primary me-2">
-            Update
+            {translate("Update")}
           </button>
           <button
             type="button"
             className="btn btn-secondary"
             onClick={() => setIsEditing(false)}
           >
-            Cancel
+            {translate("Cancel")}
           </button>
         </div>
       </form>

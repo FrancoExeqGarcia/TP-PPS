@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
 import { Form, Button, Container } from "react-bootstrap";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
   const [name, setName] = useState("");
@@ -10,6 +11,7 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
   const [state, setState] = useState(true);
   const [isCompleted, setIsCompleted] = useState(false);
   const [assignedUserId, setAssignedUserId] = useState("");
+  const translate = useTranslation();
 
   const handleAdd = async (e) => {
     e.preventDefault();
@@ -59,9 +61,9 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
   return (
     <Container className="small-container">
       <Form onSubmit={handleAdd}>
-        <h1>Add ToDo</h1>
+        <h1>{translate("Add ToDo")}</h1>
         <Form.Group controlId="name">
-          <Form.Label>Name</Form.Label>
+          <Form.Label>{translate("Name")}</Form.Label>
           <Form.Control
             type="text"
             value={name}
@@ -69,7 +71,7 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
           />
         </Form.Group>
         <Form.Group controlId="startDate">
-          <Form.Label>Start Date</Form.Label>
+          <Form.Label>{translate("Start Date")}</Form.Label>
           <Form.Control
             type="date"
             value={startDate}
@@ -77,7 +79,7 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
           />
         </Form.Group>
         <Form.Group controlId="endDate">
-          <Form.Label>End Date</Form.Label>
+          <Form.Label>{translate("End Date")}</Form.Label>
           <Form.Control
             type="date"
             value={endDate}
@@ -101,13 +103,13 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
           />
         </Form.Group>
         <Form.Group controlId="assignedUserId">
-          <Form.Label>Assigned User</Form.Label>
+          <Form.Label>{translate("Assigned User")}</Form.Label>
           <Form.Control
             as="select"
             value={assignedUserId}
             onChange={(e) => setAssignedUserId(e.target.value)}
           >
-            <option value="">Select User</option>
+            <option value="">{translate("Select User")}</option>
             {users.map((user) => (
               <option key={user.id} value={user.id}>
                 {user.email}
@@ -117,10 +119,10 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
         </Form.Group>
         <div className="mt-3">
           <Button type="submit" className="me-2">
-            Add
+            {translate("Add")}
           </Button>
           <Button variant="secondary" onClick={() => setIsAdding(false)}>
-            Cancel
+           {translate("Cancel")}
           </Button>
         </div>
       </Form>

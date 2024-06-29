@@ -9,7 +9,6 @@ import NavBar from "../navBar/NavBar";
 import ToDoDashboard from "../todos/ToDoDashboard";
 import { ThemeContext } from "../../services/themeContext/theme.context";
 import ProjectCards from "../dashboard/ProjectCards";
-import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const Dashboard = ({ oneProjectClick }) => {
   const { theme } = useContext(ThemeContext);
@@ -19,7 +18,6 @@ const Dashboard = ({ oneProjectClick }) => {
   const cardClassName = theme === "oscuro" ? "dark-card" : "light-card";
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
-  const translate = useTranslation();
 
   useEffect(() => {
     // Fetch projects from the API using Axios
@@ -49,7 +47,7 @@ const Dashboard = ({ oneProjectClick }) => {
       <NavBar />
       <ComboLanguage />
       <Row className="mt-4">
-        <Col sm>
+        <Col >
           <Card>
             <Card.Body className={cardClassName}>
               <ProjectDashboard />
@@ -58,12 +56,9 @@ const Dashboard = ({ oneProjectClick }) => {
         </Col>
       </Row>
       <Row className="mt-4">
-        <Col sm>
-          <h2 className="text-center">Tareas</h2>
-        </Col>
       </Row>
       <Row className="mt-4">
-        <Col sm>
+        <Col >
           {selectedProject && (
             <Card>
               <Card.Body className={cardClassName}>

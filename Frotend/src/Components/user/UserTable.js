@@ -3,8 +3,11 @@ import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
 import Table from "react-bootstrap/Table";
 import { Button } from "react-bootstrap";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const UserTable = ({ users, setUsers, handleEdit }) => {
+  const translate = useTranslation();
+
   const handleDelete = async (id) => {
     Swal.fire({
       icon: "warning",
@@ -50,12 +53,12 @@ const UserTable = ({ users, setUsers, handleEdit }) => {
         <thead>
           <tr>
             <th>No.</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>User Type</th>
-            <th>State</th>
+            <th>{translate("Name")}</th>
+            <th>{translate("Email")}</th>
+            <th>{translate("User Type")}</th>
+            <th>{translate("State")}</th>
             <th colSpan={2} className="text-center">
-              Actions
+            {translate("Actions")}
             </th>
           </tr>
         </thead>
@@ -73,7 +76,7 @@ const UserTable = ({ users, setUsers, handleEdit }) => {
                     onClick={() => handleEdit(user.id)}
                     className="button muted-button"
                   >
-                    Edit
+                    {translate("Edit")}
                   </Button>
                 </td>
                 <td className="text-center">
@@ -82,14 +85,14 @@ const UserTable = ({ users, setUsers, handleEdit }) => {
                     className="button muted-button"
                     variant="danger"
                   >
-                    Delete
+                    {translate("Delete")}
                   </Button>
                 </td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan={7}>No Users</td>
+              <td colSpan={7}>{translate("No Users")}</td>
             </tr>
           )}
         </tbody>
