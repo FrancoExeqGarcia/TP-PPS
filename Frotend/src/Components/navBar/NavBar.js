@@ -41,7 +41,7 @@ function NavBar() {
     >
       <Link to="/home"className="navbar-brand-container">
         <Navbar.Brand className="navbar-brand-custom mr-4 ms-auto me-auto border-black rounded p-6 text-black">
-          TASK MINDER
+          TASK MANAGER
         </Navbar.Brand>
       </Link>
       <Navbar.Toggle />
@@ -56,11 +56,11 @@ function NavBar() {
           <Dropdown.Menu>
             {user.UserType === "SuperAdmin" && (
               <Dropdown.Item onClick={handleCreateUser}>
-                {translate("users")}
+                {translate("Users")}
               </Dropdown.Item>
             )}
             <Dropdown.Item onClick={handleProfile}>
-              {translate("profile")}
+              {translate("Profile")}
             </Dropdown.Item>
             <Dropdown.Item onClick={handleThemeToggle}>
               {theme === "oscuro"

@@ -1,6 +1,9 @@
 import React from 'react';
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const ProjectCard = ({ project, onProjectClick }) => {
+  const translate = useTranslation();
+  
   const handleCardClick = () => {
     onProjectClick(project);
   };
@@ -9,9 +12,9 @@ const ProjectCard = ({ project, onProjectClick }) => {
     <div className="card" onClick={handleCardClick}>
       <h2>{project.name}</h2>
       <p>{project.description}</p>
-      <p>Start Date: {project.startDate}</p>
-      <p>End Date: {project.endDate}</p>
-      <p>Status: {project.status ? 'Active' : 'Inactive'}</p>
+      <p>{translate("Start Date")}: {project.startDate}</p>
+      <p>{translate("End Date")}: {project.endDate}</p>
+      <p>{translate("Status")}: {project.status ? 'Active' : 'Inactive'}</p>
     </div>
   );
 };

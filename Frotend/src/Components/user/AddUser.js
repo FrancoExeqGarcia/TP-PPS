@@ -60,7 +60,7 @@ const AddUser = ({ users, setUsers, setIsAdding }) => {
   return (
     <div className="small-container">
       <form onSubmit={handleAdd}>
-        <h1>Add User</h1>
+        <h1>{translate("Add User")}</h1>
         <label htmlFor="name">{translate("Name")}</label>
         <input
           id="name"

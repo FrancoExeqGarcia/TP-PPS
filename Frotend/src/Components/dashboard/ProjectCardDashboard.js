@@ -9,12 +9,14 @@ import NavBar from "../navBar/NavBar";
 import ToDoDashboard from "../todos/ToDoDashboard";
 import { ThemeContext } from "../../services/themeContext/theme.context";
 import ProjectCards from "../dashboard/ProjectCards";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const Dashboard = ({oneProjectClick}) => {
   const { theme } = useContext(ThemeContext);
   const className = `project-dashboard ${theme === 'oscuro' ? 'dark-theme' : 'light-theme'}`;
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
+  const translate = useTranslation();
 
   useEffect(() => {
     // Fetch projects from the API using Axios
@@ -52,9 +54,6 @@ const Dashboard = ({oneProjectClick}) => {
         </Col>
       </Row>
       <Row className="mt-4">
-        <Col sm className="text-center">
-          <h2>Tareas</h2>
-        </Col>
         </Row>
         {/* <Row className="mt-4">
         <Col sm>

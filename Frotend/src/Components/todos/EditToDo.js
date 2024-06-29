@@ -67,7 +67,7 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
   return (
     <div className="small-container">
       <form onSubmit={handleUpdate}>
-        <h1>Edit ToDo</h1>
+        <h1>{translate("Edit ToDo")}</h1>
         <label htmlFor="name">{translate("Name")}</label>
         <input
           id="name"

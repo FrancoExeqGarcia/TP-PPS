@@ -60,7 +60,7 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
   return (
     <div className="small-container">
       <form onSubmit={handleAdd}>
-        <h1>Add Project</h1>
+        <h1>{translate("Add Project")}</h1>
         <label htmlFor="name">{translate("Name")}</label>
         <input
           id="name"

@@ -1,7 +1,10 @@
 import React from 'react';
 import ProjectCard from './ProjectCard';
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const ProjectCards = ({ projects, onProjectClick }) => {
+  const translate = useTranslation();
+
   return (
     <div className="cards-container">
       {projects.length > 0 ? (
@@ -13,7 +16,7 @@ const ProjectCards = ({ projects, onProjectClick }) => {
           />
         ))
       ) : (
-        <p>No Projects</p>
+        <p>{translate("No Projects")}</p>
       )}
     </div>
   );

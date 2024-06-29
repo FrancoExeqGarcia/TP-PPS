@@ -58,7 +58,7 @@ const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
             ))
           ) : (
             <tr>
-              <td colSpan={9}>{translate("There are not assigned ToDos")}</td>
+              <td colSpan={9}>{translate("No ToDos")}</td>
             </tr>
           )}
         </tbody>
