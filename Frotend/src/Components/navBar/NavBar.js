@@ -46,7 +46,13 @@ function NavBar() {
       </Link>
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end">
-        <Navbar.Text className="mr-4 ms-auto me-auto border-gray rounded font-weight-bold">
+        <Navbar.Text style={{
+          padding:'10px',
+        border: `2px solid ${theme === "oscuro" ? "white" : "black"}`,
+        backgroundColor: theme === "oscuro" ? "#333" : "#f8f9fa",
+        color: theme === "oscuro" ? "white" : "black",
+      }}
+      className="mr-4 ms-auto me-auto border-gray rounded font-weight-bold">
           {translate("hi")} {user.UserName}!
         </Navbar.Text>
         <Dropdown align="end">
