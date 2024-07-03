@@ -82,8 +82,8 @@ const ProjectDashboard = ({ setIsAuthenticated }) => {
   };
 
   return (
-    <div>
-      <div >
+
+      <div className={className}>
         {!isAdding && !isEditing && (
           <>
             <ProjectHeader
@@ -113,7 +113,7 @@ const ProjectDashboard = ({ setIsAuthenticated }) => {
           />
         )}
       </div>
-    </div>
+
   );
 };
 

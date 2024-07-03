@@ -43,15 +43,13 @@ const Dashboard = ({ oneProjectClick }) => {
   };
 
   return (
-    <Container fluid>
+    <Container fluid  >
       <NavBar />
       <ComboLanguage />
-      <Row className="mt-4">
+      <Row variant={theme === "oscuro" ? "dark" : "light"} className="mt-4" >
         <Col >
           <Card>
-            <Card.Body className={cardClassName}>
               <ProjectDashboard />
-            </Card.Body>
           </Card>
         </Col>
       </Row>
@@ -59,28 +57,25 @@ const Dashboard = ({ oneProjectClick }) => {
       </Row>
       <Row className="mt-4">
         <Col >
-          {selectedProjectId && (
-            <Card>
-              <Card.Body className={cardClassName}>
-                <ToDoDashboard
-                  projectId={selectedProjectId}
-                  setSelectedProjectId={setSelectedProjectId}
-                />
-              </Card.Body>
-            </Card>
-          )}
-        </Col>
-      </Row>
-      <Row className="mt-4">
-        <Col>
-          <Card>
-            <Card.Body className={cardClassName}>
+          <Card className={className}>
               <ProjectCards
                 projects={projects}
                 onProjectClick={handleProjectClick}
               />
-            </Card.Body>
+
           </Card>
+        </Col>
+      </Row>
+      <Row className="mt-4" >
+        <Col >
+          {selectedProjectId && (
+            <Card>
+                <ToDoDashboard
+                  projectId={selectedProjectId}
+                  setSelectedProjectId={setSelectedProjectId}
+                />
+            </Card>
+          )}
         </Col>
       </Row>
       <ChatBotManager />

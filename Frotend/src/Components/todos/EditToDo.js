@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState,useContext  } from "react";
 import Swal from "sweetalert2";
+import { Container, Form, Button } from 'react-bootstrap';
 import axiosInstance from "../../data/axiosConfig";
 import useTranslation from "../../custom/useTranslation/useTranslation";
+import { ThemeContext } from "../../services/themeContext/theme.context";
 
 const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
   const id = selectedToDo.id;
@@ -15,6 +17,10 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
   const [assignedUserId, setAssignedUserId] = useState(
     selectedToDo.assignedUserId || ""
   );
+  const { theme } = useContext(ThemeContext);
+  const className = `h1 ${
+    theme === "oscuro" ? "dark-theme" : "light-theme"
+  }`;
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -62,108 +68,88 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
   };
 
   return (
-    <div className="container">
-      <form onSubmit={handleUpdate}>
-        <h1>{translate("Edit ToDo")}</h1>
-        <div className="mb-3">
-          <label htmlFor="name" className="form-label">
-          {translate("Name")}
-          </label>
-          <input
-            id="name"
-            type="text"
-            className="form-control"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="startDate" className="form-label">
-          {translate("Start Date")}
-          </label>
-          <input
-            id="startDate"
-            type="datetime-local"
-            className="form-control"
-            name="startDate"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="endDate" className="form-label">
-          {translate("End Date")}
-          </label>
-          <input
-            id="endDate"
-            type="datetime-local"
-            className="form-control"
-            name="endDate"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          />
-        </div>
-        <div className="mb-3 form-check">
-          <input
-            id="state"
-            type="checkbox"
-            className="form-check-input"
-            name="state"
-            checked={state}
-            onChange={(e) => setState(e.target.checked)}
-          />
-          <label htmlFor="state" className="form-check-label">
-          {translate("State")}
-          </label>
-        </div>
-        <div className="mb-3 form-check">
-          <input
-            id="isCompleted"
-            type="checkbox"
-            className="form-check-input"
-            name="isCompleted"
-            checked={isCompleted}
-            onChange={(e) => setIsCompleted(e.target.checked)}
-          />
-          <label htmlFor="isCompleted" className="form-check-label">
-          {translate("Is Completed")}
-          </label>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="assignedUserId" className="form-label">
-          {translate("Assigned User")}
-          </label>
-          <select
-            id="assignedUserId"
-            className="form-select"
-            name="assignedUserId"
-            value={assignedUserId}
-            onChange={(e) => setAssignedUserId(e.target.value)}
-          >
-            <option value="">{translate("Select User")}</option>
-            {users.map((user) => (
-              <option key={user.id} value={user.id}>
-                {user.email}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div className="mb-3">
-          <button type="submit" className="btn btn-primary me-2">
-            {translate("Update")}
-          </button>
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={() => setIsEditing(false)}
-          >
-            {translate("Cancel")}
-          </button>
-        </div>
-      </form>
-    </div>
-  );
+    <Container>
+    <Form onSubmit={handleUpdate}>
+      <h1 className={className}>{translate("Edit ToDo")}</h1>
+      
+      <Form.Group className="mb-3" controlId="name">
+        <Form.Label>{translate("Name")}</Form.Label>
+        <Form.Control
+          type="text"
+          name="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+      </Form.Group>
+      
+      <Form.Group className="mb-3" controlId="startDate">
+        <Form.Label>{translate("Start Date")}</Form.Label>
+        <Form.Control
+          type="datetime-local"
+          name="startDate"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+        />
+      </Form.Group>
+      
+      <Form.Group className="mb-3" controlId="endDate">
+        <Form.Label>{translate("End Date")}</Form.Label>
+        <Form.Control
+          type="datetime-local"
+          name="endDate"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+        />
+      </Form.Group>
+      
+      <Form.Group className="mb-3" controlId="state">
+        <Form.Check
+          type="checkbox"
+          name="state"
+          checked={state}
+          onChange={(e) => setState(e.target.checked)}
+          label={translate("State")}
+        />
+      </Form.Group>
+      
+      <Form.Group className="mb-3" controlId="isCompleted">
+        <Form.Check
+          type="checkbox"
+          name="isCompleted"
+          checked={isCompleted}
+          onChange={(e) => setIsCompleted(e.target.checked)}
+          label={translate("Is Completed")}
+        />
+      </Form.Group>
+      
+      <Form.Group className="mb-3" controlId="assignedUserId">
+        <Form.Label>{translate("Assigned User")}</Form.Label>
+        <Form.Select
+          name="assignedUserId"
+          value={assignedUserId}
+          onChange={(e) => setAssignedUserId(e.target.value)}
+        >
+          <option value="">{translate("Select User")}</option>
+          {users.map((user) => (
+            <option key={user.id} value={user.id}>
+              {user.email}
+            </option>
+          ))}
+        </Form.Select>
+      </Form.Group>
+      
+      <Button variant="primary" type="submit" className="me-2">
+        {translate("Update")}
+      </Button>
+      <Button
+        variant="secondary"
+        onClick={() => setIsEditing(false)}
+      >
+        {translate("Cancel")}
+      </Button>
+    </Form>
+  </Container>
+);
 };
 
 export default EditToDo;

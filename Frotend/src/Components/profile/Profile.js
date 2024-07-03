@@ -20,6 +20,10 @@ const Profile = () => {
   const { theme } = useContext(ThemeContext);
   const translate = useTranslation();
 
+  const className = `h1 ${
+    theme === "oscuro" ? "dark-theme" : "light-theme"
+  }`;
+
   useEffect(() => {
     const getUserData = async () => {
       await fetchUserProfile();
@@ -56,7 +60,7 @@ const Profile = () => {
       <div className="container mt-1 shadow p-4 border-gray content">
         <div className="row">
           <div className="col-md-3">
-            <h2>{translate("Profile")}</h2>
+            <h1 className={className}>{translate("Profile")}</h1>
             {error && <p className="text-danger">{error}</p>}
             <Form onSubmit={handleSubmit}>
               <Form.Group controlId="formUserName">

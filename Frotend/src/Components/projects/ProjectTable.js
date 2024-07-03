@@ -55,7 +55,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
 
   return (
     <div>
-      <Table striped bordered hover responsive="sm">
+      <Table striped bordered hover responsive="sm" variant={theme === "oscuro" ? "dark" : "light"}>
         <thead>
           <tr>
             <th>No.</th>

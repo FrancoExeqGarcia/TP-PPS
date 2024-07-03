@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
 import { Form, Button, Container } from "react-bootstrap";
 import useTranslation from "../../custom/useTranslation/useTranslation";
-
+import { ThemeContext } from "../../services/themeContext/theme.context";
 
 const EditProject = ({
   projects,
@@ -19,6 +19,10 @@ const EditProject = ({
   const [endDate, setEndDate] = useState(selectedProject.endDate);
   const [status, setStatus] = useState(selectedProject.status);
   const translate = useTranslation();
+  const { theme } = useContext(ThemeContext);
+  const className = `h1 ${
+    theme === "oscuro" ? "dark-theme" : "light-theme"
+  }`;
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -72,7 +76,7 @@ const EditProject = ({
   return (
     <Container className="small-container">
       <Form onSubmit={handleUpdate}>
-        <h1>{translate("Edit Project")}</h1>
+        <h1 className={className}>{translate("Edit Project")}</h1>
         <Form.Group controlId="name">
           <Form.Label>{translate("Name")}</Form.Label>
           <Form.Control

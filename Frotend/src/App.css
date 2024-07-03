@@ -62,12 +62,20 @@
 .todo-dashboard.dark-theme {
   background-color: var(--secondary-background);
   color: var(--text-color-dark);
+  
 }
 
 .project-dashboard.light-theme,
 .todo-dashboard.light-theme {
   background-color: var(--primary-background);
   color: var(--text-color-light);
+}
+
+.h1.dark-theme
+{
+  color: var(--text-color-dark); 
+  font-family: "Inika", serif;
+  height: auto;
 }
 .btn-primary {
   background-color: var(--button-primary-bg);

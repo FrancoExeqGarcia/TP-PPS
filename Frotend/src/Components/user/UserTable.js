@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
 import Table from "react-bootstrap/Table";
 import { Button } from "react-bootstrap";
 import useTranslation from "../../custom/useTranslation/useTranslation";
+import { ThemeContext } from "../../services/themeContext/theme.context";
 
 const UserTable = ({ users, setUsers, handleEdit }) => {
   const translate = useTranslation();
+  const { theme } = useContext(ThemeContext);
 
   const handleDelete = async (id) => {
     Swal.fire({
@@ -49,7 +51,7 @@ const UserTable = ({ users, setUsers, handleEdit }) => {
 
   return (
     <div className="contain-table">
-      <Table striped bordered hover responsive="sm">
+      <Table striped bordered hover responsive="sm" variant={theme === "oscuro" ? "dark" : "light"}>
         <thead>
           <tr>
             <th>No.</th>

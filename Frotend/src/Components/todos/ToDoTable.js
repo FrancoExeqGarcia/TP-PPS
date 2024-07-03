@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import useTranslation from "../../custom/useTranslation/useTranslation";
+import { ThemeContext } from "../../services/themeContext/theme.context";
 
 const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
   const translate = useTranslation();
+  const { theme } = useContext(ThemeContext);
 
   const getUserEmailById = (id) => {
     const user = users.find((user) => user.id === id);
@@ -13,7 +15,7 @@ const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
 
   return (
     <div>
-      <Table striped bordered hover responsive="sm">
+      <Table striped bordered hover responsive="sm" variant={theme === "oscuro" ? "dark" : "light"}>
         <thead>
           <tr>
             <th>No.</th>

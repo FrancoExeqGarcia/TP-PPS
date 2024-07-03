@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState,useContext }from "react";
 import Swal from "sweetalert2";
+import { Container, Form, Button } from 'react-bootstrap';
+
 import axiosInstance from "../../data/axiosConfig";
 import useTranslation from "../../custom/useTranslation/useTranslation";
+import { ThemeContext } from "../../services/themeContext/theme.context";
 
 const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
   const id = selectedUser.id;
@@ -12,6 +15,10 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
   const [userType, setUserType] = useState(selectedUser.userType);
   const [state, setState] = useState(selectedUser.state);
   const translate = useTranslation();
+  const { theme } = useContext(ThemeContext);
+  const className = `h1 ${
+    theme === "oscuro" ? "dark-theme" : "light-theme"
+  }`;
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -58,65 +65,78 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
   };
 
   return (
-    <div className="small-container">
-      <form onSubmit={handleUpdate}>
-      <h1>{translate("Edit User")}</h1>
-      <label htmlFor="name">{translate("Name")}</label>
-        <input
-          id="name"
-          type="text"
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <label htmlFor="email">{translate("Email")}</label>
-        <input
-          id="email"
-          type="email"
-          name="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <label htmlFor="password">{translate("Password")}</label>
-        <input
-          id="password"
-          type="password"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <label htmlFor="userType">{translate("User Type")}</label>
-        <select
-          id="userType"
-          name="userType"
-          value={userType}
-          onChange={(e) => setUserType(e.target.value)}
-        >
-          <option value="Programmer">{translate("Programmer")}</option>
-          <option value="Admin">{translate("Admin")}</option>
-          <option value="SuperAdmin">{translate("Super Admin")}</option>
-        </select>
-        <label htmlFor="state">{translate("State")}</label>
-        <input
-          id="state"
-          type="checkbox"
-          name="state"
-          checked={state}
-          onChange={(e) => setState(e.target.checked)}
-        />
-        <div style={{ marginTop: "30px" }}>
-          <input type="submit" value="Update" />
-          <input
-            style={{ marginLeft: "12px" }}
-            className="muted-button"
-            type="button"
-            value="Cancel"
-            onClick={() => setIsEditing(false)}
-          />
-        </div>
-      </form>
-    </div>
-  );
+      <Container className="small-container">
+        <Form onSubmit={handleUpdate}>
+          <h1 className={className}>{translate("Edit User")}</h1>
+          
+          <Form.Group className="mb-3" controlId="name">
+            <Form.Label>{translate("Name")}</Form.Label>
+            <Form.Control
+              type="text"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </Form.Group>
+          
+          <Form.Group className="mb-3" controlId="email">
+            <Form.Label>{translate("Email")}</Form.Label>
+            <Form.Control
+              type="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Form.Group>
+          
+          <Form.Group className="mb-3" controlId="password">
+            <Form.Label>{translate("Password")}</Form.Label>
+            <Form.Control
+              type="password"
+              name="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Form.Group>
+          
+          <Form.Group className="mb-3" controlId="userType">
+            <Form.Label>{translate("User Type")}</Form.Label>
+            <Form.Select
+              name="userType"
+              value={userType}
+              onChange={(e) => setUserType(e.target.value)}
+            >
+              <option value="Programmer">{translate("Programmer")}</option>
+              <option value="Admin">{translate("Admin")}</option>
+              <option value="SuperAdmin">{translate("Super Admin")}</option>
+            </Form.Select>
+          </Form.Group>
+          
+          <Form.Group className="mb-3" controlId="state">
+            <Form.Check
+              type="checkbox"
+              name="state"
+              checked={state}
+              onChange={(e) => setState(e.target.checked)}
+              label={translate("State")}
+            />
+          </Form.Group>
+          
+          <div style={{ marginTop: "30px" }}>
+            <Button variant="primary" type="submit">
+              {translate("Update")}
+            </Button>
+            <Button
+              variant="secondary"
+              style={{ marginLeft: "12px" }}
+              onClick={() => setIsEditing(false)}
+            >
+              {translate("Cancel")}
+            </Button>
+          </div>
+        </Form>
+      </Container>
+    );
 };
 
 export default EditUser;
