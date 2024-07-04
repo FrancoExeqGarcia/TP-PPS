@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Form, Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router";
-import Header from "../header/Header";
 import { ThemeContext } from "../../services/themeContext/theme.context";
 import { useAuth } from "../../services/authenticationContext/authentication.context";
 import NavBar from "../navBar/NavBar";
@@ -9,7 +8,7 @@ import useTranslation from "../../custom/useTranslation/useTranslation";
 import ComboLanguage from "../ui/comboLanguage/ComboLanguaje";
 
 const Profile = () => {
-  const { user, fetchUserProfile, updateUser } = useAuth();
+  const { user, updateUser } = useAuth();
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [userType, setUserType] = useState("");
