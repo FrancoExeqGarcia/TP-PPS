@@ -25,7 +25,7 @@ export const AuthenticationContextProvider = ({ children }) => {
       const decodedToken = jwtDecode(token);
       if (decodedToken.exp * 1000 > Date.now()) {
         setUser({
-          UserId: decodedToken.nameid,
+          UserId: decodedToken.sub,
           Email: decodedToken.email,
           UserName: decodedToken.username,
           UserType: decodedToken.role,
@@ -52,7 +52,7 @@ export const AuthenticationContextProvider = ({ children }) => {
       if (decodedToken.exp * 1000 > Date.now()) {
         saveTokenLS(token);
         setUser({
-          UserId: decodedToken.nameid,
+          UserId: decodedToken.sub,
           Email: decodedToken.email,
           UserName: decodedToken.username,
           UserType: decodedToken.role,

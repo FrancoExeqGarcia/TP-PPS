@@ -24,12 +24,7 @@ const Profile = () => {
     theme === "oscuro" ? "dark-theme" : "light-theme"
   }`;
 
-  useEffect(() => {
-    const getUserData = async () => {
-      await fetchUserProfile();
-    };
-    getUserData();
-  }, []);
+
 
   useEffect(() => {
     if (user) {
