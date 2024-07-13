@@ -17,6 +17,7 @@ import { Spinner } from "react-bootstrap";
 import Profile from "./Components/profile/Profile";
 import { useAuth } from "./services/authenticationContext/authentication.context";
 import UserDashboard from "./Components/user/User";
+import SearchProject from "./Components/searchProject/SearchProject";
 
 function App() {
   const { isLogin, setIsLogin } = useAuth();
@@ -61,6 +62,14 @@ function App() {
       element: (
         <Protected isSignedIn={isLogin}>
           <Profile />
+        </Protected>
+      ),
+    },
+    {
+      path: "/projects",
+      element: (
+        <Protected isSignedIn={isLogin}>
+          <SearchProject />
         </Protected>
       ),
     },

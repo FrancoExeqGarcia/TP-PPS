@@ -20,6 +20,9 @@ function NavBar() {
   const handleCreateUser = () => {
     navigate("/Users");
   };
+  const handleSearchProject = () => {
+    navigate("/projects");
+  };
 
   const handleProfile = () => {
     navigate("/profile");
@@ -63,6 +66,11 @@ function NavBar() {
             {user.UserType === "SuperAdmin" && (
               <Dropdown.Item onClick={handleCreateUser}>
                 {translate("Users")}
+              </Dropdown.Item>
+            )}
+            {user.UserType === "SuperAdmin" && (
+              <Dropdown.Item onClick={handleSearchProject}>
+                {translate("Projects")}
               </Dropdown.Item>
             )}
             <Dropdown.Item onClick={handleProfile}>

@@ -83,6 +83,11 @@ namespace TODOLIST.Controllers
         public ActionResult<IEnumerable<ToDo>> GetByStatus([FromQuery] bool status)
             => Ok(_toDoService.GetByStatus(status));
 
-
+        [HttpGet("all")]
+        public ActionResult<ICollection<ToDoDto>> GetAllTodos()
+        {
+            var todos = _toDoService.GetAll();
+            return Ok(todos);
+        }
     }
 }
