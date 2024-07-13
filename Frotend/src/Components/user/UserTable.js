@@ -45,10 +45,6 @@ const UserTable = ({ users, setUsers, handleEdit }) => {
     });
   };
 
-  users.forEach((user, i) => {
-    user.id = i + 1;
-  });
-
   return (
     <div className="contain-table">
       <Table striped bordered hover responsive="sm" variant={theme === "oscuro" ? "dark" : "light"}>
@@ -60,7 +56,7 @@ const UserTable = ({ users, setUsers, handleEdit }) => {
             <th>{translate("User Type")}</th>
             <th>{translate("State")}</th>
             <th colSpan={2} className="text-center">
-            {translate("Actions")}
+              {translate("Actions")}
             </th>
           </tr>
         </thead>

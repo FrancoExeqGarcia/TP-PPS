@@ -40,7 +40,7 @@ namespace TODOLIST.Services.Implementations
                 ProjectAssigned = createdUser.ProjectAssigned,
                 ToDosAssigned = createdUser.ToDosAssigned,
                 Id = createdUser.Id,
-                //UserType = createdUser.UserType,
+                UserType = createdUser.UserType.ToString(),
                 State = createdUser.State
             };
 

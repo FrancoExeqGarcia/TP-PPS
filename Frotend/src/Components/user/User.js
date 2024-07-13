@@ -16,7 +16,6 @@ const UserDashboard = ({ setIsAuthenticated }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   useEffect(() => {
-    // Fetch users from the API using Axios
     const fetchUsers = async () => {
       try {
         const response = await axiosInstance.get("/user");

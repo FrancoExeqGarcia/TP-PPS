@@ -1,5 +1,5 @@
 import React, { useContext, useState, createContext, useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 import axiosInstance from "../../data/axiosConfig";
 
 const AuthenticationContext = createContext();
@@ -67,29 +67,6 @@ export const AuthenticationContextProvider = ({ children }) => {
       throw error;
     }
   };
-  // const login = async (email, password) => {
-  //   // Simulate a delay to mimic network latency (optional)
-  //   await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  //   // Hardcoded login credentials for testing
-  //   if (email === "superadmin@gmail.com" && password === "123456") {
-  //     const token =
-  //       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwidXNlcm5hbWUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQGdtYWlsLmNvbSIsInJvbGUiOiJQcm9ncmFtZXIifQ.tiUxUoF0SQtfEiRJ8F-eIsG1t3M1uJRqYUqVgmEVpRg"; // Provide a hardcoded token
-  //     const decodedToken = jwtDecode(token);
-
-  //     saveTokenLS(token);
-  //     setUser({
-  //       UserId: decodedToken.nameid,
-  //       Email: decodedToken.email,
-  //       UserName: decodedToken.username,
-  //       UserType: decodedToken.role,
-  //       token: token,
-  //     });
-  //     setIsLogin(true);
-  //   } else {
-  //     throw new Error("Invalid email or password");
-  //   }
-  // };
 
   const logout = () => {
     localStorage.removeItem(TOKEN_KEY);
@@ -103,22 +80,16 @@ export const AuthenticationContextProvider = ({ children }) => {
     setIsLogin(false);
   };
 
-  const fetchUserProfile = async () => {
-    try {
-      const response = await axiosInstance.get(`/User/profile`);
-      setUser((prevUser) => ({ ...prevUser, ...response.data }));
-    } catch (error) {
-      console.error("Error fetching user profile:", error);
-    }
-  };
-
   const updateUser = async (updatedUser) => {
     try {
-      const response = await axiosInstance.put(
-        `/User/${user.UserId}`,
-        updatedUser
-      );
-      setUser((prevUser) => ({ ...prevUser, ...response.data }));
+      const response = await axiosInstance.put(`/User/${user.UserId}`, updatedUser);
+      const updatedData = response.data;
+
+      setUser((prevUser) => ({
+        ...prevUser,
+        UserName: updatedData.userName,
+        Email: updatedData.email,
+      }));
     } catch (error) {
       console.error("Error updating user data:", error);
     }
@@ -132,7 +103,6 @@ export const AuthenticationContextProvider = ({ children }) => {
         setUser,
         logout,
         isLogin,
-        fetchUserProfile,
         updateUser,
       }}
     >

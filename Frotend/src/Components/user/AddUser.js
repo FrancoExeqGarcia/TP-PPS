@@ -33,7 +33,10 @@ const AddUser = ({ users, setUsers, setIsAdding }) => {
 
     try {
       const response = await axiosInstance.post("/user", newUser);
-      setUsers([...users, response.data]);
+      const addedUser = response.data;
+
+      setUsers([...users, addedUser]);
+
       setIsAdding(false);
 
       Swal.fire({

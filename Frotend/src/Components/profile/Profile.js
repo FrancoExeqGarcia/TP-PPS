@@ -6,11 +6,13 @@ import { useAuth } from "../../services/authenticationContext/authentication.con
 import NavBar from "../navBar/NavBar";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import ComboLanguage from "../ui/comboLanguage/ComboLanguaje";
+import Swal from "sweetalert2";
+import axiosInstance from "../../data/axiosConfig";
 
 const Profile = () => {
-  const { user, updateUser } = useAuth();
+  const { user, setUser } = useAuth();
   const [email, setEmail] = useState("");
-  const [userName, setUserName] = useState("");
+  const [name, setName] = useState("");
   const [userType, setUserType] = useState("");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -19,26 +21,58 @@ const Profile = () => {
   const { theme } = useContext(ThemeContext);
   const translate = useTranslation();
 
-  const className = `h1 ${
-    theme === "oscuro" ? "dark-theme" : "light-theme"
-  }`;
-
-
+  const className = `h1 ${theme === "oscuro" ? "dark-theme" : "light-theme"}`;
 
   useEffect(() => {
     if (user) {
       setEmail(user.Email);
-      setUserName(user.UserName);
+      setName(user.UserName);
       setUserType(user.UserType);
     }
   }, [user]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!name || !email || !currentPassword) {
+      return Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "All fields are required.",
+        showConfirmButton: true,
+      });
+    }
+
+    const updatedUser = {
+      id: user.UserId,
+      name,
+      email,
+      password: newPassword || currentPassword,
+      userType,
+      state: true // Assuming state is always true for profile update
+    };
+
     try {
-      await updateUser({ email, userName, userType, password: newPassword });
+      const response = await axiosInstance.put(`/user/${user.UserId}`, updatedUser);
+
+      setUser({
+        ...user,
+        UserName: response.data.name,
+        Email: response.data.email,
+        UserType: response.data.userType
+      });
+
+      Swal.fire({
+        icon: "success",
+        title: "Updated!",
+        text: `${name}'s data has been updated.`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
       navigate("/home");
     } catch (error) {
+      console.error("Error updating user:", error);
       setError("Error updating user profile.");
     }
   };
@@ -61,8 +95,8 @@ const Profile = () => {
                 <Form.Label>{translate("Full Name")}</Form.Label>
                 <Form.Control
                   type="text"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </Form.Group>
 
@@ -102,7 +136,6 @@ const Profile = () => {
                   type="password"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  required
                 />
               </Form.Group>
 
@@ -110,7 +143,11 @@ const Profile = () => {
                 {translate("Save Changes")}
               </Button>
             </Form>
-            <Button variant="primary" onClick={handleBackToHome} className="mt-3">
+            <Button
+              variant="primary"
+              onClick={handleBackToHome}
+              className="mt-3"
+            >
               {translate("Back to Home")}
             </Button>
           </div>
