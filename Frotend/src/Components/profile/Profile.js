@@ -43,16 +43,30 @@ const Profile = () => {
       });
     }
 
-    const updatedUser = {
-      id: user.UserId,
-      name,
-      email,
-      password: newPassword || currentPassword,
-      userType,
-      state: true // Assuming state is always true for profile update
-    };
-
     try {
+      const verifyResponse = await axiosInstance.post("/user/verifyPassword", {
+        userId: user.UserId,
+        password: currentPassword,
+      });
+
+      if (!verifyResponse.data.valid) {
+        return Swal.fire({
+          icon: "error",
+          title: "Error!",
+          text: "Current password is incorrect.",
+          showConfirmButton: true,
+        });
+      }
+
+      const updatedUser = {
+        id: user.UserId,
+        name,
+        email,
+        password: newPassword || currentPassword,
+        userType,
+        state: true 
+      };
+
       const response = await axiosInstance.put(`/user/${user.UserId}`, updatedUser);
 
       setUser({

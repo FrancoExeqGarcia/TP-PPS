@@ -104,5 +104,39 @@ namespace TODOLIST.Controllers
             var users = _userService.GetProgrammerUsers();
             return Ok(users);
         }
+        [HttpPost("verifyPassword")]
+        public async Task<ActionResult> VerifyPassword([FromBody] VerifyPasswordRequest request)
+        {
+            try
+            {
+
+                Console.WriteLine($"Verifying password for userId: {request.UserId}");
+
+                var isPasswordValid = await _userService.VerifyPasswordAsync(request.UserId, request.Password);
+
+                if (!isPasswordValid)
+                {
+                    Console.WriteLine("Password verification failed");
+                    return Unauthorized(new { valid = false });
+                }
+
+                Console.WriteLine("Password verification succeeded");
+                return Ok(new { valid = true });
+            }
+            catch (NotFoundException ex)
+            {
+                Console.WriteLine($"User not found: {ex.Message}");
+                return NotFound(new { valid = false, message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error: {ex.Message}");
+                return StatusCode(500, new { valid = false, message = ex.Message });
+            }
+        }
+
+
+
     }
 }

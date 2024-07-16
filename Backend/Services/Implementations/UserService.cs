@@ -210,5 +210,18 @@ namespace TODOLIST.Services.Implementations
 
             return userDto;
         }
+        public async Task<bool> VerifyPasswordAsync(int userId, string password)
+        {
+            var user = await _repository.GetByIdAsync(userId);
+
+            if (user == null)
+            {
+                throw new NotFoundException("User not found");
+            }
+
+            return BCrypt.Net.BCrypt.Verify(password, user.Password);
+        }
+
+
     }
 }

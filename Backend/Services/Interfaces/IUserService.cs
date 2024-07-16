@@ -16,5 +16,7 @@ namespace TODOLIST.Services.Interfaces
         List<UserDto> GetSuperAdminUsers();
         List<UserDto> GetAdminUsers();
         List<UserDto> GetProgrammerUsers();
+        Task<bool> VerifyPasswordAsync(int userId, string password);
+
     }
 }
