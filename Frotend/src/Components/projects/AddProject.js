@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
 import useTranslation from "../../custom/useTranslation/useTranslation";
+import { Container, Form, Button } from 'react-bootstrap';
 
 const AddProject = ({ projects, setProjects, setIsAdding }) => {
   const [name, setName] = useState("");
@@ -55,61 +56,74 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
   };
 
   return (
-    <div className="small-container">
-      <form onSubmit={handleAdd}>
-        <h1>{translate("Add Project")}</h1>
-        <label htmlFor="name">{translate("Name")}</label>
-        <input
-          id="name"
-          type="text"
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <label htmlFor="description">{translate("Description")}</label>
-        <input
-          id="description"
-          type="text"
-          name="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <label htmlFor="startDate">{translate("Start Date")}</label>
-        <input
-          id="startDate"
-          type="datetime-local"
-          name="startDate"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
-        <label htmlFor="endDate">{translate("End Date")}</label>
-        <input
-          id="endDate"
-          type="datetime-local"
-          name="endDate"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-        />
-        <label htmlFor="status">{translate("Status")}</label>
-        <input
-          id="status"
-          type="checkbox"
-          name="status"
-          checked={status}
-          onChange={(e) => setStatus(e.target.checked)}
-        />
-        <div style={{ marginTop: "30px" }}>
-          <input type="submit" value="Add" />
-          <input
-            style={{ marginLeft: "12px" }}
-            className="muted-button"
-            type="button"
-            value="Cancel"
-            onClick={() => setIsAdding(false)}
-          />
-        </div>
-      </form>
-    </div>
+      <Container className="small-container">
+        <Form onSubmit={handleAdd}>
+          <h1>{translate("Add Project")}</h1>
+          
+          <Form.Group className="mb-3" controlId="name">
+            <Form.Label>{translate("Name")}</Form.Label>
+            <Form.Control
+              type="text"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </Form.Group>
+          
+          <Form.Group className="mb-3" controlId="description">
+            <Form.Label>{translate("Description")}</Form.Label>
+            <Form.Control
+              type="text"
+              name="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </Form.Group>
+          
+          <Form.Group className="mb-3" controlId="startDate">
+            <Form.Label>{translate("Start Date")}</Form.Label>
+            <Form.Control
+              type="datetime-local"
+              name="startDate"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+            />
+          </Form.Group>
+          
+          <Form.Group className="mb-3" controlId="endDate">
+            <Form.Label>{translate("End Date")}</Form.Label>
+            <Form.Control
+              type="datetime-local"
+              name="endDate"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+            />
+          </Form.Group>
+          
+          <Form.Group className="mb-3" controlId="status">
+            <Form.Check
+              type="checkbox"
+              name="status"
+              checked={status}
+              onChange={(e) => setStatus(e.target.checked)}
+              label={translate("Status")}
+            />
+          </Form.Group>
+          
+          <div style={{ marginTop: "30px" }}>
+            <Button variant="primary" type="submit">
+              {translate("Add")}
+            </Button>
+            <Button
+              variant="secondary"
+              style={{ marginLeft: "12px" }}
+              onClick={() => setIsAdding(false)}
+            >
+              {translate("Cancel")}
+            </Button>
+          </div>
+        </Form>
+      </Container>
   );
 };
 
