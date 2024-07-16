@@ -8112,19 +8112,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Franco\\.nuget\\packages\\": {}
+    "C:\\Users\\Ramiro\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\repos\\TP-PPS\\Tests\\Tests.csproj",
+      "projectUniqueName": "D:\\escritorio\\TP-PPS\\Tests\\Tests.csproj",
       "projectName": "Tests",
-      "projectPath": "C:\\repos\\TP-PPS\\Tests\\Tests.csproj",
-      "packagesPath": "C:\\Users\\Franco\\.nuget\\packages\\",
-      "outputPath": "C:\\repos\\TP-PPS\\Tests\\obj\\",
+      "projectPath": "D:\\escritorio\\TP-PPS\\Tests\\Tests.csproj",
+      "packagesPath": "D:\\escritorio\\.nuget\\packages\\",
+      "outputPath": "D:\\escritorio\\TP-PPS\\Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Franco\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Ramiro\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8140,8 +8140,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\repos\\TP-PPS\\Backend\\TODOLIST.csproj": {
-              "projectPath": "C:\\repos\\TP-PPS\\Backend\\TODOLIST.csproj"
+            "D:\\escritorio\\TP-PPS\\Backend\\TODOLIST.csproj": {
+              "projectPath": "D:\\escritorio\\TP-PPS\\Backend\\TODOLIST.csproj"
             }
           }
         }
