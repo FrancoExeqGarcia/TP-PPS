@@ -47,9 +47,9 @@ const Profile = () => {
       const verifyResponse = await axiosInstance.post("/user/verifyPassword", {
         userId: user.UserId,
         password: currentPassword,
+        newPassword: newPassword,
       });
-
-      if (!verifyResponse.data.valid) {
+      if (verifyResponse.status !== 200) {
         return Swal.fire({
           icon: "error",
           title: "Error!",

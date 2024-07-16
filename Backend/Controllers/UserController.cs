@@ -120,8 +120,12 @@ namespace TODOLIST.Controllers
                     return Unauthorized(new { valid = false });
                 }
 
-                Console.WriteLine("Password verification succeeded");
-                return Ok(new { valid = true });
+                var updateUserPasswordRequest = new UpdateUserPasswordRequest();
+                updateUserPasswordRequest.NewPassword = request.NewPassword;
+                updateUserPasswordRequest.Id = request.UserId;
+                var userDto = _userService.UpdatePassword(updateUserPasswordRequest);
+
+                return Ok(userDto);
             }
             catch (NotFoundException ex)
             {
@@ -130,13 +134,9 @@ namespace TODOLIST.Controllers
             }
             catch (Exception ex)
             {
-                // Log the exception
                 Console.WriteLine($"Error: {ex.Message}");
                 return StatusCode(500, new { valid = false, message = ex.Message });
             }
         }
-
-
-
     }
 }

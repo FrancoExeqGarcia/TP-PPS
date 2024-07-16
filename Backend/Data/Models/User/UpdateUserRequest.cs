@@ -9,5 +9,7 @@ namespace TODOLIST.Data.Models.User
         public string Password { get; set; } = string.Empty;
         public bool State { get; set; } = true;
         public string UserType { get; set; } = UserRoleEnum.Programmer.ToString();
+
     }
+   
 }
