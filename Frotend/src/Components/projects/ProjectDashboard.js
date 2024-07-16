@@ -12,6 +12,7 @@ import { ThemeContext } from "../../services/themeContext/theme.context";
 
 const ProjectDashboard = ({ setIsAuthenticated }) => {
   const { theme } = useContext(ThemeContext);
+  const { user } = useAuth();
   const className = `project-dashboard ${
     theme === "oscuro" ? "dark-theme" : "light-theme"
   }`;
@@ -97,12 +98,14 @@ const ProjectDashboard = ({ setIsAuthenticated }) => {
             />
           </>
         )}
-        {isAdding && (
-          <AddProject
-            projects={projects}
-            setProjects={setProjects}
-            setIsAdding={setIsAdding}
-          />
+        {user.UserType === "SuperAdmin" && (
+          isAdding && (
+            <AddProject
+              projects={projects}
+              setProjects={setProjects}
+              setIsAdding={setIsAdding}
+            />
+          )
         )}
         {isEditing && (
           <EditProject
