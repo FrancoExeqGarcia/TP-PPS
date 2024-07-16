@@ -10,11 +10,14 @@ namespace TODOLIST.Services.Interfaces
         UserDto GetById(int id);
         UserDto Create(CreateUserRequest request);
         UserDto Update(int id, UpdateUserRequest dto);
+        UserDto UpdatePassword(UpdateUserPasswordRequest dto);
         void Delete(int id);
 
         UserDto GetByEmailAndPassword(string email, string password);
         List<UserDto> GetSuperAdminUsers();
         List<UserDto> GetAdminUsers();
         List<UserDto> GetProgrammerUsers();
+        Task<bool> VerifyPasswordAsync(int userId, string password);
+
     }
 }

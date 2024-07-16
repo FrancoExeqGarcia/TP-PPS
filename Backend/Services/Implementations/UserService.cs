@@ -5,6 +5,7 @@ using TODOLIST.Services.Interfaces;
 using TODOLIST.DBContext;
 using TODOLIST.Enums;
 using TODOLIST.Exceptions;
+using Azure.Core;
 
 namespace TODOLIST.Services.Implementations
 {
@@ -209,6 +210,41 @@ namespace TODOLIST.Services.Implementations
             };
 
             return userDto;
+        }
+        public async Task<bool> VerifyPasswordAsync(int userId, string password)
+        {
+            var user = await _repository.GetByIdAsync(userId);
+
+            if (user == null)
+            {
+                throw new NotFoundException("User not found");
+            }
+
+            return password == user.Password;
+        }
+
+        public UserDto UpdatePassword(UpdateUserPasswordRequest dto)
+        {
+            var foundUser = _repository.GetById(dto.Id)
+                            ?? throw new NotFoundException("User not found");
+
+            foundUser.Password = dto.NewPassword;
+
+            var updatedUser = _repository.Update(dto.Id, foundUser);
+
+            var updatedUserDto = new UserDto()
+            {
+                Email = updatedUser.Email,
+                Name = updatedUser.Name,
+                Password = updatedUser.Password,
+                ProjectAssigned = updatedUser.ProjectAssigned,
+                ToDosAssigned = updatedUser.ToDosAssigned,
+                Id = updatedUser.Id,
+                UserType = updatedUser.UserType.ToString(),
+                State = updatedUser.State
+            };
+
+            return updatedUserDto;
         }
     }
 }

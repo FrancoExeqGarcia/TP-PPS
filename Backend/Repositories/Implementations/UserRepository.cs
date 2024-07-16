@@ -1,4 +1,5 @@
-﻿using TODOLIST.Data.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using TODOLIST.Data.Entities;
 using TODOLIST.DBContext;
 using TODOLIST.Repositories.Interfaces;
 
@@ -47,6 +48,10 @@ namespace TODOLIST.Repositories.Implementations
                 .First(e => e.Email == email && e.Password == password);
 
             return user;
+        }
+        public async Task<User> GetByIdAsync(int id)
+        {
+            return await _dbContext.Users.FindAsync(id);
         }
     }
 }
