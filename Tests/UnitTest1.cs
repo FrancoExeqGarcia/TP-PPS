@@ -21,7 +21,7 @@ namespace Tests
         }
         [Theory]
         [InlineData(1)] // Datos que causarán que la prueba falle
-        public void GetAllAlwaysFail(int expectedCount)
+        public void AlwaysFailGetAll(int expectedCount)
         {
             // Arrange
             var projects = GetTestProjects();
