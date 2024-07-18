@@ -6,9 +6,8 @@ const ProjectCard = ({ project, onProjectClick, isSelected }) => {
   const translate = useTranslation();
 
   const handleCardClick = () => {
-    onProjectClick(project);
+    onProjectClick(project.id);  
   };
-
   return (
     <Card
       style={{
