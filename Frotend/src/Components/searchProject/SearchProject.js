@@ -112,7 +112,7 @@ function SearchProject() {
     };
 
     return (
-        <Container>
+        <Container className={`${theme === "oscuro" ? "search-project dark-theme" : "search-project light-theme"}`}>
             <NavBar />
             <ComboLanguage/>
             <Form className="mb-4">
@@ -132,7 +132,7 @@ function SearchProject() {
                     </Form.Control>
                 </Form.Group>
             </Form>
-            <Row className={`mt-4 ${theme === "oscuro" ? "dark-theme" : "light-theme"}`}>
+            <Row className="mt-4">
                 {projects.length > 0 ? (
                     projects.map((project) => (
                         <Col key={project.id} xs={12} sm={6} md={4} lg={3}>
@@ -151,14 +151,14 @@ function SearchProject() {
                     </Col>
                 )}
             </Row>
-            <Row className={`mt-4 ${theme === "oscuro" ? "dark-theme" : "light-theme"}`}>
+            <Row className="mt-4">
                 {todos.length > 0 ? (
                     todos.map((todo) => (
-                        <Col key={todo.id} xs={12} sm={6} md={4} lg={3}>
+                        <Col key={todo.id} xs={12} sm={6} md={4}>
                             <ToDoCard todo={todo} />
                         </Col>
                     ))
-                ) : (
+                ) : ( 
                     <Col>
                         <Card>
                             <Card.Body>No todos found</Card.Body>
@@ -166,7 +166,7 @@ function SearchProject() {
                     </Col>
                 )}
             </Row>
-        </Container>
+            </Container>
     );
 }
 
