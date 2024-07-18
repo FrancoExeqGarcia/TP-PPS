@@ -44,7 +44,7 @@ const UserDashboard = ({ setIsAuthenticated }) => {
     <Container fluid className="container-fluid">
       <NavBar />
       <ComboLanguage />
-      <div className="user-table-container">
+      <div className="user-table-container container-lg">
         {!isAdding && !isEditing && (
           <>
             <UserHeader

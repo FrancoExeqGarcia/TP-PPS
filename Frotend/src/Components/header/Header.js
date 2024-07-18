@@ -43,6 +43,7 @@ const Header = () => {
       >
         TASK MINDER
       </CustomLink>
+
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end">
         <Navbar.Text className="mr-4 ms-auto me-auto border-gray rounded">

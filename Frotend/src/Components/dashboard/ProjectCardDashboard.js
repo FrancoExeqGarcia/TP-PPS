@@ -46,39 +46,44 @@ const Dashboard = () => {
     <Container fluid>
       <NavBar />
       <ComboLanguage />
-      <Row variant={theme === "oscuro" ? "dark" : "light"} className="mt-4">
-        <Col>
-          {user.UserType !== "Programmer" && (
-            <Card>
-              <ProjectDashboard projects={projects} setProjects={setProjects} />
-            </Card>
-          )}
-        </Col>
-      </Row>
-      <Row className="mt-4"></Row>
-      <Row className="mt-4">
-        <Col>
-          <Card className={className}>
-            <ProjectCards
-              projects={projects}
-              onProjectClick={handleProjectClick}
-            />
-          </Card>
-        </Col>
-      </Row>
-      <Row className="mt-4">
-        <Col>
-          {selectedProjectId && (
-            <Card>
-              <ToDoDashboard
-                projectId={selectedProjectId}
-                setSelectedProjectId={setSelectedProjectId}
+      <div className="container-lg">
+        <Row variant={theme === "oscuro" ? "dark" : "light"} className="mt-4">
+          <Col>
+            {user.UserType !== "Programmer" && (
+              <Card>
+                <ProjectDashboard
+                  projects={projects}
+                  setProjects={setProjects}
+                />
+              </Card>
+            )}
+          </Col>
+        </Row>
+        <Row className="mt-4"></Row>
+        <Row className="mt-4">
+          <Col>
+            <Card className={className}>
+              <ProjectCards
+                projects={projects}
+                onProjectClick={handleProjectClick}
               />
             </Card>
-          )}
-        </Col>
-      </Row>
-      <ChatBotManager />
+          </Col>
+        </Row>
+        <Row className="mt-4">
+          <Col>
+            {selectedProjectId && (
+              <Card>
+                <ToDoDashboard
+                  projectId={selectedProjectId}
+                  setSelectedProjectId={setSelectedProjectId}
+                />
+              </Card>
+            )}
+          </Col>
+        </Row>
+        <ChatBotManager />
+      </div>
     </Container>
   );
 };
