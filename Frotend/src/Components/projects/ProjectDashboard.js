@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import Swal from "sweetalert2";
-
 import axiosInstance from "../../data/axiosConfig";
 import { useAuth } from "../../services/authenticationContext/authentication.context";
 
@@ -40,9 +39,7 @@ const ProjectDashboard = ({ setIsAuthenticated }) => {
     fetchProjects();
   }, []);
 
-  const handleEdit = (id) => {
-    const [project] = projects.filter((project) => project.id === id);
-
+  const handleEdit = (project) => {
     setSelectedProject(project);
     setIsEditing(true);
   };
@@ -83,40 +80,39 @@ const ProjectDashboard = ({ setIsAuthenticated }) => {
   };
 
   return (
-
-      <div className={className}>
-        {!isAdding && !isEditing && (
-          <>
-            <ProjectHeader
-              setIsAdding={setIsAdding}
-              setIsAuthenticated={setIsAuthenticated}
-            />
-            <ProjectTable
-              projects={projects}
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-            />
-          </>
-        )}
-        {user.UserType === "SuperAdmin" && (
-          isAdding && (
-            <AddProject
-              projects={projects}
-              setProjects={setProjects}
-              setIsAdding={setIsAdding}
-            />
-          )
-        )}
-        {isEditing && (
-          <EditProject
-            projects={projects}
-            selectedProject={selectedProject}
-            setProjects={setProjects}
-            setIsEditing={setIsEditing}
+    <div className={className}>
+      {!isAdding && !isEditing && (
+        <>
+          <ProjectHeader
+            setIsAdding={setIsAdding}
+            setIsAuthenticated={setIsAuthenticated}
           />
-        )}
-      </div>
-
+          <ProjectTable
+            projects={projects}
+            setProjects={setProjects}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+          />
+        </>
+      )}
+      {user.UserType === "SuperAdmin" && (
+        isAdding && (
+          <AddProject
+            projects={projects}
+            setProjects={setProjects}
+            setIsAdding={setIsAdding}
+          />
+        )
+      )}
+      {isEditing && (
+        <EditProject
+          projects={projects}
+          selectedProject={selectedProject}
+          setProjects={setProjects}
+          setIsEditing={setIsEditing}
+        />
+      )}
+    </div>
   );
 };
 
