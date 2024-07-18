@@ -9,10 +9,14 @@ import NavBar from "../navBar/NavBar";
 import ToDoDashboard from "../todos/ToDoDashboard";
 import { ThemeContext } from "../../services/themeContext/theme.context";
 import ProjectCards from "../dashboard/ProjectCards";
+import { useAuth } from "../../services/authenticationContext/authentication.context";
 
 const Dashboard = () => {
   const { theme } = useContext(ThemeContext);
-  const className = `project-dashboard ${theme === "oscuro" ? "dark-theme" : "light-theme"}`;
+  const className = `project-dashboard ${
+    theme === "oscuro" ? "dark-theme" : "light-theme"
+  }`;
+  const { user } = useAuth();
   const [projects, setProjects] = useState([]);
   const [selectedProjectId, setSelectedProjectId] = useState(null);
 
@@ -44,16 +48,21 @@ const Dashboard = () => {
       <ComboLanguage />
       <Row variant={theme === "oscuro" ? "dark" : "light"} className="mt-4">
         <Col>
-          <Card>
-            <ProjectDashboard projects={projects} setProjects={setProjects} />
-          </Card>
+          {user.UserType !== "Programmer" && (
+            <Card>
+              <ProjectDashboard projects={projects} setProjects={setProjects} />
+            </Card>
+          )}
         </Col>
       </Row>
       <Row className="mt-4"></Row>
       <Row className="mt-4">
         <Col>
           <Card className={className}>
-            <ProjectCards projects={projects} onProjectClick={handleProjectClick} />
+            <ProjectCards
+              projects={projects}
+              onProjectClick={handleProjectClick}
+            />
           </Card>
         </Col>
       </Row>
@@ -61,7 +70,10 @@ const Dashboard = () => {
         <Col>
           {selectedProjectId && (
             <Card>
-              <ToDoDashboard projectId={selectedProjectId} setSelectedProjectId={setSelectedProjectId} />
+              <ToDoDashboard
+                projectId={selectedProjectId}
+                setSelectedProjectId={setSelectedProjectId}
+              />
             </Card>
           )}
         </Col>

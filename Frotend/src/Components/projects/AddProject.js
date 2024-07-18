@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
 import useTranslation from "../../custom/useTranslation/useTranslation";
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form, Button } from "react-bootstrap";
 import { ThemeContext } from "../../services/themeContext/theme.context";
 
 const AddProject = ({ projects, setProjects, setIsAdding }) => {
@@ -10,7 +10,7 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [status, setStatus] = useState(true);
+  const [state, setState] = useState(true);
   const translate = useTranslation();
   const { theme } = useContext(ThemeContext);
   const className = `h1 ${theme === "oscuro" ? "dark-theme" : "light-theme"}`;
@@ -32,7 +32,7 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
       description,
       startDate,
       endDate,
-      status,
+      state,
     };
 
     try {
@@ -62,7 +62,7 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
     <Container className="small-container">
       <Form onSubmit={handleAdd}>
         <h1 className={className}>{translate("Add Project")}</h1>
-        
+
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>{translate("Name")}</Form.Label>
           <Form.Control
@@ -72,7 +72,7 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
             onChange={(e) => setName(e.target.value)}
           />
         </Form.Group>
-        
+
         <Form.Group className="mb-3" controlId="description">
           <Form.Label>{translate("Description")}</Form.Label>
           <Form.Control
@@ -82,7 +82,7 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </Form.Group>
-        
+
         <Form.Group className="mb-3" controlId="startDate">
           <Form.Label>{translate("Start Date")}</Form.Label>
           <Form.Control
@@ -92,7 +92,7 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
             onChange={(e) => setStartDate(e.target.value)}
           />
         </Form.Group>
-        
+
         <Form.Group className="mb-3" controlId="endDate">
           <Form.Label>{translate("End Date")}</Form.Label>
           <Form.Control
@@ -102,17 +102,17 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
             onChange={(e) => setEndDate(e.target.value)}
           />
         </Form.Group>
-        
-        <Form.Group className="mb-3" controlId="status">
+
+        <Form.Group className="mb-3" controlId="state">
           <Form.Check
             type="checkbox"
-            name="status"
-            checked={status}
-            onChange={(e) => setStatus(e.target.checked)}
+            name="state"
+            checked={state}
+            onChange={(e) => setState(e.target.checked)}
             label={translate("Status")}
           />
         </Form.Group>
-        
+
         <div style={{ marginTop: "30px" }}>
           <Button variant="primary" type="submit">
             {translate("Add")}

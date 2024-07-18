@@ -36,7 +36,6 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
             showConfirmButton: false,
             timer: 1500,
           });
-
         } catch (error) {
           console.error("Error deleting project:", error);
           Swal.fire({
@@ -52,7 +51,13 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
 
   return (
     <div>
-      <Table striped bordered hover responsive="sm" variant={theme === "oscuro" ? "dark" : "light"}>
+      <Table
+        striped
+        bordered
+        hover
+        responsive="sm"
+        variant={theme === "oscuro" ? "dark" : "light"}
+      >
         <thead>
           <tr>
             <th>No.</th>
@@ -62,7 +67,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
             <th>{translate("End Date")}</th>
             <th>{translate("Status")}</th>
             <th colSpan={2} className="text-center">
-            {translate("Actions")}
+              {translate("Actions")}
             </th>
           </tr>
         </thead>
@@ -75,12 +80,9 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
                 <td>{project.description}</td>
                 <td>{project.startDate}</td>
                 <td>{project.endDate}</td>
-                <td>{project.status ? "Active" : "Inactive"}</td>
+                <td>{project.state === true ? "Active" : "Inactive"}</td>
                 <td className="text-center">
-                  <Button
-                    onClick={() => handleEdit(project)}
-                    variant="primary"
-                  >
+                  <Button onClick={() => handleEdit(project)} variant="primary">
                     {translate("Edit")}
                   </Button>
                 </td>
@@ -97,7 +99,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
           ) : (
             <tr>
               <td colSpan={8} className="text-center">
-              {translate("No Projects")}
+                {translate("No Projects")}
               </td>
             </tr>
           )}

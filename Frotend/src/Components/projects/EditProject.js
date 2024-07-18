@@ -16,12 +16,10 @@ const EditProject = ({
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [status, setStatus] = useState(false);
+  const [state, setState] = useState(false);
   const translate = useTranslation();
   const { theme } = useContext(ThemeContext);
-  const className = `h1 ${
-    theme === "oscuro" ? "dark-theme" : "light-theme"
-  }`;
+  const className = `h1 ${theme === "oscuro" ? "dark-theme" : "light-theme"}`;
 
   useEffect(() => {
     if (selectedProject) {
@@ -30,7 +28,7 @@ const EditProject = ({
       setDescription(selectedProject.description);
       setStartDate(selectedProject.startDate);
       setEndDate(selectedProject.endDate);
-      setStatus(selectedProject.status);
+      setState(selectedProject.state);
     }
   }, [selectedProject]);
 
@@ -52,7 +50,7 @@ const EditProject = ({
       description,
       startDate,
       endDate,
-      status,
+      state,
     };
 
     try {
@@ -123,12 +121,12 @@ const EditProject = ({
             onChange={(e) => setEndDate(e.target.value)}
           />
         </Form.Group>
-        <Form.Group controlId="status">
+        <Form.Group controlId="state">
           <Form.Check
             type="checkbox"
-            label="Status"
-            checked={status}
-            onChange={(e) => setStatus(e.target.checked)}
+            label="state"
+            checked={state}
+            onChange={(e) => setState(e.target.checked)}
           />
         </Form.Group>
         <div className="mt-3">
@@ -136,7 +134,7 @@ const EditProject = ({
             {translate("Update")}
           </Button>
           <Button variant="secondary" onClick={() => setIsEditing(false)}>
-           {translate("Cancel")}
+            {translate("Cancel")}
           </Button>
         </div>
       </Form>
