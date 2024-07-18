@@ -25,7 +25,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
     }).then(async (result) => {
       if (result.value) {
         try {
-          await axiosInstance.delete(`/project/${id}`);
+          const response = await axiosInstance.delete(`/project/${id}`);
           const projectsCopy = projects.filter((project) => project.id !== id);
           setProjects(projectsCopy);
 
@@ -36,6 +36,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
             showConfirmButton: false,
             timer: 1500,
           });
+
         } catch (error) {
           console.error("Error deleting project:", error);
           Swal.fire({
@@ -48,10 +49,6 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
       }
     });
   };
-
-  projects.forEach((project, i) => {
-    project.id = i + 1;
-  });
 
   return (
     <div>
@@ -81,7 +78,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
                 <td>{project.status ? "Active" : "Inactive"}</td>
                 <td className="text-center">
                   <Button
-                    onClick={() => handleEdit(project.id)}
+                    onClick={() => handleEdit(project)}
                     variant="primary"
                   >
                     {translate("Edit")}

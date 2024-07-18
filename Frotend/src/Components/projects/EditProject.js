@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
 import { Form, Button, Container } from "react-bootstrap";
@@ -11,18 +11,28 @@ const EditProject = ({
   setProjects,
   setIsEditing,
 }) => {
-  const id = selectedProject.id;
-
-  const [name, setName] = useState(selectedProject.name);
-  const [description, setDescription] = useState(selectedProject.description);
-  const [startDate, setStartDate] = useState(selectedProject.startDate);
-  const [endDate, setEndDate] = useState(selectedProject.endDate);
-  const [status, setStatus] = useState(selectedProject.status);
+  const [id, setId] = useState(null);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [status, setStatus] = useState(false);
   const translate = useTranslation();
   const { theme } = useContext(ThemeContext);
   const className = `h1 ${
     theme === "oscuro" ? "dark-theme" : "light-theme"
   }`;
+
+  useEffect(() => {
+    if (selectedProject) {
+      setId(selectedProject.id);
+      setName(selectedProject.name);
+      setDescription(selectedProject.description);
+      setStartDate(selectedProject.startDate);
+      setEndDate(selectedProject.endDate);
+      setStatus(selectedProject.status);
+    }
+  }, [selectedProject]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -72,6 +82,10 @@ const EditProject = ({
       });
     }
   };
+
+  if (!selectedProject) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Container className="small-container">
