@@ -1,43 +1,20 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
 import { useAuth } from "../../services/authenticationContext/authentication.context";
-
 import ProjectHeader from "./ProjectHeader";
 import ProjectTable from "./ProjectTable";
 import AddProject from "./AddProject";
 import EditProject from "./EditProject";
 import { ThemeContext } from "../../services/themeContext/theme.context";
 
-const ProjectDashboard = ({ setIsAuthenticated }) => {
+const ProjectDashboard = ({ projects, setProjects }) => {
   const { theme } = useContext(ThemeContext);
   const { user } = useAuth();
-  const className = `project-dashboard ${
-    theme === "oscuro" ? "dark-theme" : "light-theme"
-  }`;
-
-  const [projects, setProjects] = useState([]);
+  const className = `project-dashboard ${theme === "oscuro" ? "dark-theme" : "light-theme"}`;
   const [selectedProject, setSelectedProject] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await axiosInstance.get("/project");
-        setProjects(response.data);
-      } catch (error) {
-        console.error("Error fetching projects:", error);
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Something went wrong while fetching the projects!",
-        });
-      }
-    };
-
-    fetchProjects();
-  }, []);
 
   const handleEdit = (project) => {
     setSelectedProject(project);
@@ -83,10 +60,7 @@ const ProjectDashboard = ({ setIsAuthenticated }) => {
     <div className={className}>
       {!isAdding && !isEditing && (
         <>
-          <ProjectHeader
-            setIsAdding={setIsAdding}
-            setIsAuthenticated={setIsAuthenticated}
-          />
+          <ProjectHeader setIsAdding={setIsAdding} />
           <ProjectTable
             projects={projects}
             setProjects={setProjects}
@@ -95,14 +69,12 @@ const ProjectDashboard = ({ setIsAuthenticated }) => {
           />
         </>
       )}
-      {user.UserType === "SuperAdmin" && (
-        isAdding && (
-          <AddProject
-            projects={projects}
-            setProjects={setProjects}
-            setIsAdding={setIsAdding}
-          />
-        )
+      {user.UserType === "SuperAdmin" && isAdding && (
+        <AddProject
+          projects={projects}
+          setProjects={setProjects}
+          setIsAdding={setIsAdding}
+        />
       )}
       {isEditing && (
         <EditProject
