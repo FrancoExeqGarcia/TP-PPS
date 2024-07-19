@@ -3,6 +3,7 @@ import ChatBot from "react-chatbotify";
 import chatIcon from "../../assets/chatIcon.svg";
 import { useAuth } from "../../services/authenticationContext/authentication.context";
 import axiosInstance from "../../data/axiosConfig";
+import Swal from "sweetalert2";
 
 const ChatBotManager = () => {
   const [form, setForm] = useState({});
@@ -87,8 +88,20 @@ const ChatBotManager = () => {
     const url = type === "report" ? "/chat/send-report" : "/chat/contact-admin";
     try {
       await axiosInstance.post(url, data);
+      Swal.fire({
+        title: "Éxito",
+        text: "La solicitud se ha enviado correctamente.",
+        icon: "success",
+        confirmButtonText: "Aceptar",
+      });
       console.log("Request sent successfully");
     } catch (error) {
+      Swal.fire({
+        title: "Error",
+        text: "Hubo un problema al enviar la solicitud.",
+        icon: "error",
+        confirmButtonText: "Aceptar",
+      });
       console.error("Error sending request:", error);
     }
   };
