@@ -1,34 +1,53 @@
-﻿using TODOLIST.Exceptions;
+﻿using TODOLIST.Data.Entities;
+using TODOLIST.Data.Models.Project;
+using TODOLIST.Exceptions;
 using TODOLIST.Repositories.Interfaces;
 using TODOLIST.Services.Interfaces;
-using TODOLIST.Data.Models.Project;
-using TODOLIST.Services;
-using TODOLIST.Data.Models;
-using TODOLIST.Data.Models.ToDo;
-using TODOLIST.Data.Entities;
 
-namespace TODOLIST.Services.Implementations
+public class ProjectService : IProjectService
 {
-    public class ProjectService : IProjectService
+    private readonly IProjectRepository _repository;
+
+    public ProjectService(IProjectRepository repository)
     {
-        private readonly IProjectRepository _repository;
+        _repository = repository;
+    }
 
-        public ProjectService(IProjectRepository repository)
+    public void Delete(int id)
+        => _repository.Delete(id);
+
+    public ProjectDto GetById(int id)
+    {
+        var project = _repository.GetById(id);
+
+        if (project == null)
+            throw new NotFoundException("Project not found");
+
+        var projectDto = new ProjectDto()
         {
-            _repository = repository;
-        }
+            Id = project.Id,
+            Name = project.Name,
+            Description = project.Description,
+            StartDate = project.StartDate,
+            EndDate = project.EndDate,
+            CreatedByUserId = project.CreatedByUserId,
+            State = project.State ? 1 : 0,
+            ProjectState = project.ProjectState,
+            Collaborators = project.Collaborators
+        };
 
-        public void Delete(int id)
-            => _repository.Delete(id);
+        return projectDto;
+    }
 
-        public ProjectDto GetById(int id)
+    public List<ProjectDto> GetAll()
+    {
+        var projects = _repository.GetAll();
+
+        var projectDtoList = new List<ProjectDto>();
+
+        foreach (var project in projects)
         {
-            var project = _repository.GetById(id);
-
-            if (project == null)
-                throw new NotFoundException("Project not found");
-
-            var projectDto = new ProjectDto()
+            projectDtoList.Add(new ProjectDto()
             {
                 Id = project.Id,
                 Name = project.Name,
@@ -37,94 +56,71 @@ namespace TODOLIST.Services.Implementations
                 EndDate = project.EndDate,
                 CreatedByUserId = project.CreatedByUserId,
                 State = project.State ? 1 : 0,
+                ProjectState = project.ProjectState,
                 Collaborators = project.Collaborators
-            };
+            });
+        };
 
-            return projectDto;
-        }
+        return projectDtoList;
+    }
 
-        public List<ProjectDto> GetAll()
+    public ProjectDto Update(int id, UpdateProjectRequest dto)
+    {
+        var foundProject = _repository.GetById(id)
+            ?? throw new NotFoundException("Project not found");
+
+        foundProject.Name = dto.Name;
+        foundProject.Description = dto.Description;
+        foundProject.StartDate = dto.StartDate;
+        foundProject.EndDate = dto.EndDate;
+        foundProject.State = dto.State == 1 ? true : false;
+        foundProject.ProjectState = dto.ProjectState;
+
+        var updatedProject = _repository.Update(id, foundProject);
+
+        var updatedProjectDto = new ProjectDto()
         {
-            var projects = _repository.GetAll();
+            Id = foundProject.Id,
+            Name = foundProject.Name,
+            Description = foundProject.Description,
+            StartDate = foundProject.StartDate,
+            EndDate = foundProject.EndDate,
+            CreatedByUserId = foundProject.CreatedByUserId,
+            State = foundProject.State ? 1 : 0,
+            ProjectState = foundProject.ProjectState,
+            Collaborators = foundProject.Collaborators
+        };
 
-            var projectDtoList = new List<ProjectDto>();
+        return updatedProjectDto;
+    }
 
-            foreach (var project in projects)
-            {
-                projectDtoList.Add(new ProjectDto()
-                {
-                    Id = project.Id,
-                    Name = project.Name,
-                    Description = project.Description,
-                    StartDate = project.StartDate,
-                    EndDate = project.EndDate,
-                    CreatedByUserId = project.CreatedByUserId,
-                    State = project.State ? 1 : 0,
-                    Collaborators = project.Collaborators
-                });
-            };
-
-            return projectDtoList;
-        }
-
-        public ProjectDto Update(int id, UpdateProjectRequest dto)
+    public ProjectDto Create(CreateProjectRequest request)
+    {
+        var project = new Project()
         {
-            var foundProject = _repository.GetById(id)
-                ?? throw new NotFoundException("Project not found");
+            Name = request.Name,
+            Description = request.Description ?? string.Empty,
+            StartDate = request.StartDate,
+            EndDate = request.EndDate,
+            ProjectState = request.ProjectState,
+            Collaborators = request.CollaboratorIds.Select(id => new User { Id = id }).ToList()
+        };
 
-            foundProject.Name = dto.Name;
-            foundProject.Description = dto.Description;
-            foundProject.StartDate = dto.StartDate;
-            foundProject.EndDate = dto.EndDate;
-            foundProject.State = dto.State == 1 ? true : false;
+        var createdProject = _repository.Create(project);
 
-            // foundProject.Collaborators = dto.CollaboratorsIds;
-
-            var updatedProject = _repository.Update(id, foundProject);
-
-            var updatedProjectDto = new ProjectDto()
-            {
-                Id = foundProject.Id,
-                Name = foundProject.Name,
-                Description = foundProject.Description,
-                StartDate = foundProject.StartDate,
-                EndDate = foundProject.EndDate,
-                CreatedByUserId = foundProject.CreatedByUserId,
-                State = foundProject.State ? 1 : 0,
-                Collaborators = foundProject.Collaborators
-            };
-
-            return updatedProjectDto;
-        }
-
-        public ProjectDto Create(CreateProjectRequest request)
+        var projectDto = new ProjectDto()
         {
-            var project =
-                ProjectBuilder
-                    .Init()
-                    .WithName(request.Name)
-                    .WithDescripcion(request.Description ?? string.Empty)
-                    .WithStartDate(request.StartDate)
-                    .WithEndDate(request.EndDate)
-                    .AddCollaborators([.. request.CollaboratorIds])
-                    //.WithToDos([.. request.ToDos])
-                    .Build();
+            Id = createdProject.Id,
+            Name = createdProject.Name,
+            Description = createdProject.Description,
+            StartDate = createdProject.StartDate,
+            EndDate = createdProject.EndDate,
+            CreatedByUserId = createdProject.CreatedByUserId,
+            State = createdProject.State ? 1 : 0,
+            ProjectState = createdProject.ProjectState,
+            Collaborators = createdProject.Collaborators
+        };
 
-            var createdProject = _repository.Create(project);
-
-            var projectDto = new ProjectDto()
-            {
-                Id = project.Id,
-                Name = project.Name,
-                Description = project.Description,
-                StartDate = project.StartDate,
-                EndDate = project.EndDate,
-                CreatedByUserId = project.CreatedByUserId,
-                State = project.State ? 1 : 0,
-                Collaborators = project.Collaborators
-            };
-
-            return projectDto;
-        }
+        return projectDto;
     }
 }

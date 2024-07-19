@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TODOLIST.Enums;
 
 namespace TODOLIST.Data.Entities
 {
@@ -14,6 +15,8 @@ namespace TODOLIST.Data.Entities
         public string? Description { get; set; }
 
         public bool State { get; set; } = true;
+
+        public ProjectStates ProjectState { get; set; } = ProjectStates.NotStarted;
 
         public ICollection<ToDo> ToDos { get; set; } = new List<ToDo>();
 

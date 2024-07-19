@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import Swal from "sweetalert2";
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form, Button } from "react-bootstrap";
 import axiosInstance from "../../data/axiosConfig";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import { ThemeContext } from "../../services/themeContext/theme.context";
@@ -38,9 +38,14 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
       state,
     };
 
+    console.log("Updated user data being sent:", updatedUser);
+
     try {
       const response = await axiosInstance.put(`/user/${id}`, updatedUser);
-      const updatedUsers = users.map(user => user.id === id ? response.data : user);
+      console.log("Response from server:", response.data);
+      const updatedUsers = users.map((user) =>
+        user.id === id ? response.data : user
+      );
       setUsers(updatedUsers);
       setIsEditing(false);
 
@@ -66,7 +71,7 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
     <Container className="small-container">
       <Form onSubmit={handleUpdate}>
         <h1 className={className}>{translate("Edit User")}</h1>
-        
+
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>{translate("Name")}</Form.Label>
           <Form.Control
@@ -76,7 +81,7 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
             onChange={(e) => setName(e.target.value)}
           />
         </Form.Group>
-        
+
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>{translate("Email")}</Form.Label>
           <Form.Control
@@ -86,7 +91,7 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>
-        
+
         <Form.Group className="mb-3" controlId="password">
           <Form.Label>{translate("Password")}</Form.Label>
           <Form.Control
@@ -96,7 +101,7 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        
+
         <Form.Group className="mb-3" controlId="userType">
           <Form.Label>{translate("User Type")}</Form.Label>
           <Form.Select
@@ -109,7 +114,7 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
             <option value="SuperAdmin">{translate("Super Admin")}</option>
           </Form.Select>
         </Form.Group>
-        
+
         <Form.Group className="mb-3" controlId="state">
           <Form.Check
             type="checkbox"
@@ -119,7 +124,7 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
             label={translate("State")}
           />
         </Form.Group>
-        
+
         <div style={{ marginTop: "30px" }}>
           <Button variant="primary" type="submit">
             {translate("Update")}

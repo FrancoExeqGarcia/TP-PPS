@@ -6,6 +6,13 @@ import { ThemeContext } from "../../services/themeContext/theme.context";
 import { Button } from "react-bootstrap";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 
+// Enum para los estados del proyecto
+const ProjectStates = {
+  0: "Not Started",
+  1: "In Progress",
+  2: "Done",
+};
+
 const ProjectTable = ({ projects, setProjects, handleEdit }) => {
   const { theme } = useContext(ThemeContext);
   const translate = useTranslation();
@@ -66,6 +73,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
             <th>{translate("Start Date")}</th>
             <th>{translate("End Date")}</th>
             <th>{translate("Status")}</th>
+            <th>{translate("Project State")}</th>
             <th colSpan={2} className="text-center">
               {translate("Actions")}
             </th>
@@ -73,15 +81,15 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
         </thead>
         <tbody>
           {projects.length > 0 ? (
-            projects.map((project, i) => (
+            projects.map((project) => (
               <tr key={project.id}>
                 <td>{project.id}</td>
                 <td>{project.name}</td>
                 <td>{project.description}</td>
                 <td>{project.startDate}</td>
                 <td>{project.endDate}</td>
-                <td>{project.status === 1 ? "Active" : "Inactive"}</td>
-
+                <td>{project.state ? "Active" : "Inactive"}</td>
+                <td>{ProjectStates[project.projectState]}</td>
                 <td className="text-center">
                   <Button onClick={() => handleEdit(project)} variant="primary">
                     {translate("Edit")}
@@ -99,7 +107,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
             ))
           ) : (
             <tr>
-              <td colSpan={8} className="text-center">
+              <td colSpan={9} className="text-center">
                 {translate("No Projects")}
               </td>
             </tr>

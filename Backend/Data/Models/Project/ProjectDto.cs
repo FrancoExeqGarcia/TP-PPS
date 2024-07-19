@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using TODOLIST.Enums;
 
 namespace TODOLIST.Data.Models.Project
 {
@@ -23,6 +24,8 @@ namespace TODOLIST.Data.Models.Project
         public int State { get; set; }
 
         public ICollection<Entities.ToDo> ToDos { get; set; } = new List<Entities.ToDo>();
+
+        public ProjectStates ProjectState { get; set; } = ProjectStates.NotStarted;
 
         //[ForeignKey("CreatedByUserId")]
         public int CreatedByUserId { get; set; }

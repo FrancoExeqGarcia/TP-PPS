@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using TODOLIST.Enums;
 
 namespace TODOLIST.Data.Models.Project
 {
@@ -17,6 +18,8 @@ namespace TODOLIST.Data.Models.Project
         public DateTime EndDate { get; set; }
 
         public string? Description { get; set; }
+
+        public ProjectStates ProjectState { get; set; } = ProjectStates.NotStarted;
 
         [Required]
         public int State { get; set; }
