@@ -1,6 +1,6 @@
 # README - 
 ## Task Manager 2.0
-Task manager es la aplicacion necesaria para tu empresa de programcion. Faciltia la organizacion interna mediante tareas  y proyectos los cuales podes asignar a tus Protgramadores.
+Task manager es la aplicacion necesaria para tu empresa de programacion. Facilita la organizacion interna mediante tareas  y proyectos los cuales podes asignar a tus Programadores.
 
 
 ## Impelmentaciones proximas:
