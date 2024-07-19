@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ChatBot from "react-chatbotify";
 import chatIcon from "../../assets/chatIcon.svg";
 import { useAuth } from "../../services/authenticationContext/authentication.context";
+import axiosInstance from "../../data/axiosConfig";
 
 const ChatBotManager = () => {
   const [form, setForm] = useState({});
@@ -14,14 +15,15 @@ const ChatBotManager = () => {
     },
     footer: {
       text: <p>Creado por TaskMinder</p>,
-    }, tooltip: {
+    },
+    tooltip: {
       text: "Hablame! 😊",
       style: {
-        backgroundColor: "#007bff", 
+        backgroundColor: "#007bff",
         color: "#ffffff",
         padding: "10px",
-        borderRadius: "5px"
-      }
+        borderRadius: "5px",
+      },
     },
     chatHistory: {
       viewChatHistoryButtonText: "Cargar Historial ⟳",
@@ -45,6 +47,7 @@ const ChatBotManager = () => {
       showCount: true,
     },
   };
+
   const formStyle = {
     border: "1px solid #491d8d",
     padding: "20px",
@@ -53,7 +56,6 @@ const ChatBotManager = () => {
     backgroundColor: "#f8f9fa",
   };
 
-  //Logica de horario
   const getEstimatedResponseTime = () => {
     const now = new Date();
     let estimatedTime = new Date(now.getTime() + 2 * 60 * 60 * 1000);
@@ -79,6 +81,16 @@ const ChatBotManager = () => {
     }
 
     return estimatedTime.toLocaleString();
+  };
+
+  const sendRequest = async (type, data) => {
+    const url = type === "report" ? "/chat/send-report" : "/chat/contact-admin";
+    try {
+      await axiosInstance.post(url, data);
+      console.log("Request sent successfully");
+    } catch (error) {
+      console.error("Error sending request:", error);
+    }
   };
 
   const flow = {
@@ -107,7 +119,7 @@ const ChatBotManager = () => {
         setForm((prevForm) => ({
           ...prevForm,
           asunto: params.userInput,
-          tiempoConsulta: new Date(),
+          tiempoConsulta: getEstimatedResponseTime(),
         }));
       },
       path: "end_contact",
@@ -123,6 +135,13 @@ const ChatBotManager = () => {
           <p>
             <strong>Email de contacto:</strong> {user.Email}
           </p>
+          <button
+            onClick={() =>
+              sendRequest("report", { reportDetails: form.reporte })
+            }
+          >
+            Enviar Reporte
+          </button>
         </div>
       ),
       options: ["Nueva Consulta"],
@@ -143,8 +162,20 @@ const ChatBotManager = () => {
           </p>
           <p>
             <strong>Fecha estimada de respuesta:</strong>{" "}
-            {getEstimatedResponseTime()}
+            {form.tiempoConsulta || "N/A"}
           </p>
+          <button
+            onClick={() =>
+              sendRequest("contact", {
+                subject: form.asunto,
+                message: "Consulta enviada desde el chatbot",
+                contactEmail: user.Email,
+                estimatedResponseTime: form.tiempoConsulta,
+              })
+            }
+          >
+            Enviar Consulta
+          </button>
         </div>
       ),
       options: ["Nueva Consulta"],
