@@ -9,6 +9,13 @@ const ProjectStates = {
   2: "Done",
 };
 
+// Colores asociados a los estados
+const StateColors = {
+  0: "#6c757d", // Gris
+  1: "#007bff", // Azul
+  2: "#28a745", // Verde
+};
+
 const ProjectCards = ({ projects, onProjectClick }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [filter, setFilter] = useState(null); // Estado para filtrar proyectos
@@ -42,6 +49,43 @@ const ProjectCards = ({ projects, onProjectClick }) => {
   return (
     <>
       <h2>Seleccione un Proyecto:</h2>
+
+      {/* Sección de explicación de colores */}
+      <div className="color-explanation mb-4">
+        <h6 className="mb-2">Estados de Proyecto:</h6>
+        <div className="d-flex align-items-center">
+          <div
+            style={{
+              width: "20px",
+              height: "20px",
+              backgroundColor: StateColors[0],
+              marginRight: "10px",
+              borderRadius: "3px",
+            }}
+          ></div>
+          <span className="me-3">Not Started</span>
+          <div
+            style={{
+              width: "20px",
+              height: "20px",
+              backgroundColor: StateColors[1],
+              marginRight: "10px",
+              borderRadius: "3px",
+            }}
+          ></div>
+          <span className="me-3">In Progress</span>
+          <div
+            style={{
+              width: "20px",
+              height: "20px",
+              backgroundColor: StateColors[2],
+              marginRight: "10px",
+              borderRadius: "3px",
+            }}
+          ></div>
+          <span>Done</span>
+        </div>
+      </div>
 
       <div className="filter-section mb-4">
         <h6 className="mb-2">Filtrar por:</h6>
