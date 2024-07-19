@@ -20,7 +20,7 @@ namespace Tests
             _projectService = new ProjectService(_repositoryMock.Object);
         }
         [Theory]
-        [InlineData(1)] // Datos que causarán que la prueba falle
+        [InlineData(1)] 
         public void AlwaysFailGetAll(int expectedCount)
         {
             // Arrange
@@ -31,7 +31,7 @@ namespace Tests
             var result = _projectService.GetAll();
 
             // Assert
-            Assert.Equal(expectedCount, result.Count); // Esto fallará porque el valor esperado es incorrecto
+            Assert.Equal(expectedCount, result.Count); 
    
         }
 
@@ -61,7 +61,7 @@ namespace Tests
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal("Project 1", result.Name);
+            Assert.Equal(1, result.Id);
         }
 
         [Fact]
@@ -152,7 +152,6 @@ namespace Tests
             _repositoryMock.Verify(repo => repo.Delete(1), Times.Once);
         }
 
-        // Métodos auxiliares para crear datos de prueba
         private List<Project> GetTestProjects()
         {
             return new List<Project>

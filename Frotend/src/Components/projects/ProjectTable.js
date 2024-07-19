@@ -88,7 +88,6 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
                 <td>{project.description}</td>
                 <td>{project.startDate}</td>
                 <td>{project.endDate}</td>
-                <td>{project.state ? "Active" : "Inactive"}</td>
                 <td>{ProjectStates[project.projectState]}</td>
                 <td className="text-center">
                   <Button onClick={() => handleEdit(project)} variant="primary">
