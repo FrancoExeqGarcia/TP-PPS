@@ -75,12 +75,13 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
           {projects.length > 0 ? (
             projects.map((project, i) => (
               <tr key={project.id}>
-                <td>{i + 1}</td>
+                <td>{project.id}</td>
                 <td>{project.name}</td>
                 <td>{project.description}</td>
                 <td>{project.startDate}</td>
                 <td>{project.endDate}</td>
-                <td>{project.state === true ? "Active" : "Inactive"}</td>
+                <td>{project.status === 1 ? "Active" : "Inactive"}</td>
+
                 <td className="text-center">
                   <Button onClick={() => handleEdit(project)} variant="primary">
                     {translate("Edit")}

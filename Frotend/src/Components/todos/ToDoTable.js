@@ -34,7 +34,7 @@ const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
           {todos.length > 0 ? (
             todos.map((todo, i) => (
               <tr key={todo.id}>
-                <td>{i + 1}</td>
+                <td>{todo.id}</td>
                 <td>{todo.name}</td>
                 <td>{todo.startDate}</td>
                 <td>{todo.endDate}</td>

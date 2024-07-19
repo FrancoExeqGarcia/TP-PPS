@@ -36,7 +36,7 @@ namespace TODOLIST.Services.Implementations
                 StartDate = project.StartDate,
                 EndDate = project.EndDate,
                 CreatedByUserId = project.CreatedByUserId,
-                State = project.State,
+                State = project.State ? 1 : 0,
                 Collaborators = project.Collaborators
             };
 
@@ -59,7 +59,7 @@ namespace TODOLIST.Services.Implementations
                     StartDate = project.StartDate,
                     EndDate = project.EndDate,
                     CreatedByUserId = project.CreatedByUserId,
-                    State = project.State,
+                    State = project.State ? 1 : 0,
                     Collaborators = project.Collaborators
                 });
             };
@@ -76,7 +76,8 @@ namespace TODOLIST.Services.Implementations
             foundProject.Description = dto.Description;
             foundProject.StartDate = dto.StartDate;
             foundProject.EndDate = dto.EndDate;
-            foundProject.State = dto.State;
+            foundProject.State = dto.State == 1 ? true : false;
+
             // foundProject.Collaborators = dto.CollaboratorsIds;
 
             var updatedProject = _repository.Update(id, foundProject);
@@ -89,7 +90,7 @@ namespace TODOLIST.Services.Implementations
                 StartDate = foundProject.StartDate,
                 EndDate = foundProject.EndDate,
                 CreatedByUserId = foundProject.CreatedByUserId,
-                State = foundProject.State,
+                State = foundProject.State ? 1 : 0,
                 Collaborators = foundProject.Collaborators
             };
 
@@ -119,7 +120,7 @@ namespace TODOLIST.Services.Implementations
                 StartDate = project.StartDate,
                 EndDate = project.EndDate,
                 CreatedByUserId = project.CreatedByUserId,
-                State = project.State,
+                State = project.State ? 1 : 0,
                 Collaborators = project.Collaborators
             };
 
