@@ -32,6 +32,10 @@ function NavBar() {
     navigate("/profile");
   };
 
+  const handleSearchTodos = () => {
+    navigate("/todos");
+  };
+
   const handleThemeToggle = () => {
     toggleTheme();
   };
@@ -108,6 +112,9 @@ function NavBar() {
             )}
             <Dropdown.Item onClick={handleProfile}>
               {translate("Profile")}
+            </Dropdown.Item>
+            <Dropdown.Item onClick={handleSearchTodos}>
+              {translate("my_todos")}
             </Dropdown.Item>
             <Dropdown.Item onClick={handleThemeToggle}>
               {theme === "oscuro"

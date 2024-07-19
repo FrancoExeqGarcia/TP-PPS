@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Container, Row, Col, Card, Form } from "react-bootstrap";
+import { Container, Row, Col, Card, Form, Button } from "react-bootstrap";
 import axiosInstance from "../../data/axiosConfig";
 import Swal from "sweetalert2";
 import { ThemeContext } from "../../services/themeContext/theme.context";
 import ProjectCard from "../dashboard/ProjectCard";
 import ToDoCard from "../dashboard/ToDoCard";
 import NavBar from "../navBar/NavBar";
+import useTranslation from "../../custom/useTranslation/useTranslation";
+import { useNavigate } from "react-router";
 
 function SearchProject() {
   const [projects, setProjects] = useState([]);
@@ -17,6 +19,12 @@ function SearchProject() {
   const [selectedUserId, setSelectedUserId] = useState("");
   const { theme } = useContext(ThemeContext);
 
+  const translate = useTranslation();
+  const navigate = useNavigate();
+
+  const handleBackToHome = () => {
+    navigate("/home");
+  };
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -176,6 +184,9 @@ function SearchProject() {
             </Col>
           )}
         </Row>
+        <Button variant="primary" onClick={handleBackToHome} className="mt-3">
+          {translate("Back to Home")}
+        </Button>
       </div>
     </div>
   );

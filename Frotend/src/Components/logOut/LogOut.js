@@ -3,9 +3,11 @@ import Swal from "sweetalert2";
 
 import { useAuth } from "../../services/authenticationContext/authentication.context";
 import { useNavigate } from "react-router";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
-const LogOut = ({className}) => {
+const LogOut = ({ className }) => {
   const { logout } = useAuth();
+  const translate = useTranslation();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -38,7 +40,7 @@ const LogOut = ({className}) => {
       className={className}
       onClick={handleLogout}
     >
-      Logout
+      {translate("logout")}
     </button>
   );
 };

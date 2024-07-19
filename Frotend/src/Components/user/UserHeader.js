@@ -6,9 +6,7 @@ import { ThemeContext } from "../../services/themeContext/theme.context";
 const UserHeader = ({ setIsAdding, setIsAuthenticated }) => {
   const translate = useTranslation();
   const { theme } = useContext(ThemeContext);
-  const className = `h1 ${
-    theme === "oscuro" ? "dark-theme" : "light-theme"
-  }`;
+  const className = `h1 ${theme === "oscuro" ? "dark-theme" : "light-theme"}`;
 
   return (
     <header>
@@ -17,10 +15,6 @@ const UserHeader = ({ setIsAdding, setIsAuthenticated }) => {
         <button className="btn btn-primary" onClick={() => setIsAdding(true)}>
           {translate("Add User")}
         </button>
-        <LogOut
-          setIsAuthenticated={setIsAuthenticated}
-          className="btn btn-primary"
-        />
       </div>
     </header>
   );

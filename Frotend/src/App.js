@@ -18,6 +18,7 @@ import Profile from "./Components/profile/Profile";
 import { useAuth } from "./services/authenticationContext/authentication.context";
 import UserDashboard from "./Components/user/User";
 import SearchProject from "./Components/searchProject/SearchProject";
+import SearchTodos from "./Components/searchToDos/SearchTodos";
 
 function App() {
   const { isLogin, setIsLogin } = useAuth();
@@ -70,6 +71,14 @@ function App() {
       element: (
         <Protected isSignedIn={isLogin}>
           <SearchProject />
+        </Protected>
+      ),
+    },
+    {
+      path: "/todos",
+      element: (
+        <Protected isSignedIn={isLogin}>
+          <SearchTodos />
         </Protected>
       ),
     },

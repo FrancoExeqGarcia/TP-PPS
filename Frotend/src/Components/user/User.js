@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
-import { Container } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 import UserHeader from "./UserHeader";
 import UserTable from "./UserTable";
 import AddUser from "./AddUser";
 import EditUser from "./EditUser";
 import NavBar from "../navBar/NavBar";
+import useTranslation from "../../custom/useTranslation/useTranslation";
+import { useNavigate } from "react-router";
 
 const UserDashboard = ({ setIsAuthenticated }) => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+
+  const translate = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -31,6 +36,10 @@ const UserDashboard = ({ setIsAuthenticated }) => {
 
     fetchUsers();
   }, []);
+
+  const handleBackToHome = () => {
+    navigate("/home");
+  };
 
   const handleEdit = (id) => {
     const [user] = users.filter((user) => user.id === id);
@@ -72,6 +81,9 @@ const UserDashboard = ({ setIsAuthenticated }) => {
             setIsEditing={setIsEditing}
           />
         )}
+        <Button variant="primary" onClick={handleBackToHome} className="mt-3">
+          {translate("Back to Home")}
+        </Button>
       </div>
     </Container>
   );
