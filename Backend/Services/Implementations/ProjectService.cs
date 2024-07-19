@@ -31,7 +31,7 @@ public class ProjectService : IProjectService
             StartDate = project.StartDate,
             EndDate = project.EndDate,
             CreatedByUserId = project.CreatedByUserId,
-            State = project.State ? 1 : 0,
+            State = project.State,
             ProjectState = project.ProjectState,
             Collaborators = project.Collaborators
         };
@@ -55,7 +55,7 @@ public class ProjectService : IProjectService
                 StartDate = project.StartDate,
                 EndDate = project.EndDate,
                 CreatedByUserId = project.CreatedByUserId,
-                State = project.State ? 1 : 0,
+                State = project.State,
                 ProjectState = project.ProjectState,
                 Collaborators = project.Collaborators
             });
@@ -73,7 +73,7 @@ public class ProjectService : IProjectService
         foundProject.Description = dto.Description;
         foundProject.StartDate = dto.StartDate;
         foundProject.EndDate = dto.EndDate;
-        foundProject.State = dto.State == 1 ? true : false;
+        foundProject.State = dto.State;
         foundProject.ProjectState = dto.ProjectState;
 
         var updatedProject = _repository.Update(id, foundProject);
@@ -86,7 +86,7 @@ public class ProjectService : IProjectService
             StartDate = foundProject.StartDate,
             EndDate = foundProject.EndDate,
             CreatedByUserId = foundProject.CreatedByUserId,
-            State = foundProject.State ? 1 : 0,
+            State = foundProject.State,
             ProjectState = foundProject.ProjectState,
             Collaborators = foundProject.Collaborators
         };
@@ -116,7 +116,7 @@ public class ProjectService : IProjectService
             StartDate = createdProject.StartDate,
             EndDate = createdProject.EndDate,
             CreatedByUserId = createdProject.CreatedByUserId,
-            State = createdProject.State ? 1 : 0,
+            State = createdProject.State,
             ProjectState = createdProject.ProjectState,
             Collaborators = createdProject.Collaborators
         };

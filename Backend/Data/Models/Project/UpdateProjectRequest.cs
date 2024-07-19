@@ -22,7 +22,7 @@ namespace TODOLIST.Data.Models.Project
         public ProjectStates ProjectState { get; set; } = ProjectStates.NotStarted;
 
         [Required]
-        public int State { get; set; }
+        public bool State { get; set; }
 
         public ICollection<int> CollaboratorIds { get; set; } = new List<int>();
     }
