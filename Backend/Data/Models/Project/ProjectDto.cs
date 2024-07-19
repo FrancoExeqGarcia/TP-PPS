@@ -20,7 +20,7 @@ namespace TODOLIST.Data.Models.Project
         public string? Description { get; set; }
 
         [Required]
-        public bool State { get; set; } = true;
+        public int State { get; set; }
 
         public ICollection<Entities.ToDo> ToDos { get; set; } = new List<Entities.ToDo>();
 

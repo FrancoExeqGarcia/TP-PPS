@@ -9,7 +9,6 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [status, setStatus] = useState(true);
   const translate = useTranslation();
 
   const handleAdd = async (e) => {
@@ -29,7 +28,7 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
       description,
       startDate,
       endDate,
-      status,
+      status:1,
     };
 
     try {
@@ -97,16 +96,6 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
               name="endDate"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-            />
-          </Form.Group>
-          
-          <Form.Group className="mb-3" controlId="status">
-            <Form.Check
-              type="checkbox"
-              name="status"
-              checked={status}
-              onChange={(e) => setStatus(e.target.checked)}
-              label={translate("Status")}
             />
           </Form.Group>
           

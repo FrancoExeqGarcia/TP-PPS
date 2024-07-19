@@ -19,7 +19,7 @@ namespace TODOLIST.Data.Models.Project
         public string? Description { get; set; }
 
         [Required]
-        public bool State { get; set; } = true;
+        public int State { get; set; }
 
         public ICollection<int> CollaboratorIds { get; set; } = new List<int>();
     }
