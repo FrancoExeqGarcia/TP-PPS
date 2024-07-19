@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useTransition } from "react";
+import React, { useState, useEffect, useTransition, useContext } from "react";
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import axiosInstance from "../../data/axiosConfig";
 import Swal from "sweetalert2";
@@ -7,11 +7,16 @@ import ToDoCard from "../dashboard/ToDoCard";
 import { useNavigate } from "react-router";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import NavBar from "../navBar/NavBar";
+import { ThemeContext } from "../../services/themeContext/theme.context";
 
 function SearchTodos() {
   const { user } = useAuth();
   const [todos, setTodos] = useState([]);
   const [incompleteTodos, setIncompleteTodos] = useState([]);
+  const { theme } = useContext(ThemeContext);
+  const searchTodoTheme = `search-todo ${
+    theme === "oscuro" ? "dark-theme" : "light-theme"
+  }`;
 
   const translate = useTranslation();
   const navigate = useNavigate();
@@ -53,11 +58,11 @@ function SearchTodos() {
   };
 
   return (
-    <Container fluid>
+    <Container fluid className={searchTodoTheme}>
       <NavBar />
       <div className="container-lg">
-        <h2 className="mt-4">Mis Tareas</h2>
-        <h3>Todas las Tareas</h3>
+        <h2 className="mt-4">{translate("my_todos")}</h2>
+        <h3>{translate("all_todos")}</h3>
         <Row className="mt-4">
           {todos.length > 0 ? (
             todos.map((todo) => (
@@ -68,12 +73,12 @@ function SearchTodos() {
           ) : (
             <Col>
               <Card>
-                <Card.Body>No todos assigned to you.</Card.Body>
+                <Card.Body>{translate("not_todos_assigned")}</Card.Body>
               </Card>
             </Col>
           )}
         </Row>
-        <h3>Tareas Incompletas</h3>
+        <h3>{translate("todos_incompleted")}</h3>
         <Row className="mt-4">
           {incompleteTodos.length > 0 ? (
             incompleteTodos.map((todo) => (
@@ -84,13 +89,13 @@ function SearchTodos() {
           ) : (
             <Col>
               <Card>
-                <Card.Body>No incomplete todos assigned to you.</Card.Body>
+                <Card.Body>{translate("not_todos_incompleted")}</Card.Body>
               </Card>
             </Col>
           )}
         </Row>
         <Button variant="primary" onClick={handleBackToHome} className="mt-3">
-          {translate("Back to Home")}
+          {translate("back_to_home")}
         </Button>
       </div>
     </Container>

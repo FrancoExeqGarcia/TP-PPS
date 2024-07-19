@@ -28,6 +28,8 @@ export const dictionary_translations = {
     { key: "alert_empty_fields", value: "Complete todos los campos" },
     { key: "email_exist", value: "El Email ya está en uso" },
     { key: "alert_delete_user", value: "Usuario eliminado con éxito." },
+    { key: "all_todos", value: "Todas las tareas" },
+    { key: "back_to_home", value: "Volver al inicio" },
     {
       key: "alert_delete_user_error",
       value: "No se pudo eliminar el usuario.",
@@ -132,6 +134,9 @@ export const dictionary_translations = {
     { key: "logout", value: "Cerrar sesión" },
     { key: "state", value: "Estado" },
     { key: "my_todos", value: "Mis Tareas" },
+    { key: "not_todos_assigned", value: "No tienes tareas asignadas" },
+    { key: "not_todos_incompleted", value: "No tienes tareas incompletas" },
+    { key: "todos_incompleted", value: "Tareas sin terminar" },
   ],
   en: [
     { key: "login", value: "Login" },
@@ -217,10 +222,17 @@ export const dictionary_translations = {
     { key: "project_details", value: "Project details" },
     { key: "todos", value: "Todos" },
     { key: "all_projects", value: "All projects" },
-    { key: "all_todos", value: "All todos" },
     { key: "user_list", value: "User list" },
     { key: "logout", value: "Logout" },
     { key: "state", value: "State" },
     { key: "my_todos", value: "My ToDos" },
+    { key: "back_to_home", value: "Back to home" },
+    { key: "all_todos", value: "All Todos" },
+    { key: "not_todos_assigned", value: "No todos assigned to you." },
+    { key: "todos_incompleted", value: "ToDos incompleted" },
+    {
+      key: "not_todos_incompleted",
+      value: "No incomplete todos assigned to you.",
+    },
   ],
 };

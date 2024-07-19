@@ -17,7 +17,6 @@ function SearchProject() {
   const [allTodos, setAllTodos] = useState([]);
   const [users, setUsers] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState("");
-  const { theme } = useContext(ThemeContext);
 
   const translate = useTranslation();
   const navigate = useNavigate();

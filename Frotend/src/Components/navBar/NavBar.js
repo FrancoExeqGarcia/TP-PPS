@@ -69,7 +69,7 @@ function NavBar() {
             fontSize: "1.5rem", // Ajusta el tamaño del texto según sea necesario
           }}
         >
-          TASK MANAGER
+          TASKMINDER
           <FaCheckDouble
             onClick={handleIconClick}
             style={{
