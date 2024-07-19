@@ -78,10 +78,6 @@ const ProjectCard = ({ project, onProjectClick, isSelected }) => {
           <strong>{translate("End Date")}:</strong> {project.endDate}
         </Card.Text>
         <Card.Text>
-          <strong>{translate("Status")}:</strong>{" "}
-          {project.state ? "Active" : "Inactive"}
-        </Card.Text>
-        <Card.Text>
           <strong>{translate("Project State")}:</strong>{" "}
           {ProjectStates[project.projectState] || "Unknown"}
         </Card.Text>

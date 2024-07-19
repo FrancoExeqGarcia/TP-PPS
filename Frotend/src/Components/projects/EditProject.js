@@ -5,13 +5,6 @@ import { Form, Button, Container } from "react-bootstrap";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import { ThemeContext } from "../../services/themeContext/theme.context";
 
-// Enum para los estados del proyecto
-const ProjectStates = {
-  0: "Not Started",
-  1: "In Progress",
-  2: "Done",
-};
-
 const EditProject = ({
   projects,
   selectedProject,
@@ -24,7 +17,6 @@ const EditProject = ({
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [state, setState] = useState(false);
-  const [projectState, setProjectState] = useState(0);
   const translate = useTranslation();
   const { theme } = useContext(ThemeContext);
   const className = `h1 ${theme === "oscuro" ? "dark-theme" : "light-theme"}`;
@@ -37,7 +29,6 @@ const EditProject = ({
       setStartDate(selectedProject.startDate);
       setEndDate(selectedProject.endDate);
       setState(selectedProject.state);
-      setProjectState(selectedProject.projectState);
     }
   }, [selectedProject]);
 
@@ -60,8 +51,8 @@ const EditProject = ({
       startDate,
       endDate,
       state,
-      projectState,
     };
+
     try {
       const response = await axiosInstance.put(
         `/project/${id}`,
@@ -129,28 +120,6 @@ const EditProject = ({
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
           />
-        </Form.Group>
-        <Form.Group controlId="state">
-          <Form.Check
-            type="checkbox"
-            label={translate("State")}
-            checked={state}
-            onChange={(e) => setState(e.target.checked)}
-          />
-        </Form.Group>
-        <Form.Group controlId="projectState">
-          <Form.Label>{translate("Project State")}</Form.Label>
-          <Form.Control
-            as="select"
-            value={projectState}
-            onChange={(e) => setProjectState(Number(e.target.value))}
-          >
-            {Object.entries(ProjectStates).map(([key, value]) => (
-              <option key={key} value={key}>
-                {translate(value)}
-              </option>
-            ))}
-          </Form.Control>
         </Form.Group>
         <div className="mt-3">
           <Button type="submit" className="me-2">
