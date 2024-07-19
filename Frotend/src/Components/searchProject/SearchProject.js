@@ -6,7 +6,6 @@ import { ThemeContext } from "../../services/themeContext/theme.context";
 import ProjectCard from "../dashboard/ProjectCard";
 import ToDoCard from "../dashboard/ToDoCard";
 import NavBar from "../navBar/NavBar";
-import ComboLanguage from "../ui/comboLanguage/ComboLanguaje";
 
 function SearchProject() {
   const [projects, setProjects] = useState([]);
@@ -120,9 +119,8 @@ function SearchProject() {
   return (
     <div className="container-fluid">
       <NavBar />
-      <ComboLanguage />
-
-      <div className="container-lg">
+      <div className="container-lg p-4">
+        <h2>Buscar tareas por usuarios</h2>
         <Form className="mb-4">
           <Form.Group controlId="assignedUserId">
             <Form.Label>Search ToDos by Assigned User</Form.Label>
@@ -140,6 +138,7 @@ function SearchProject() {
             </Form.Control>
           </Form.Group>
         </Form>
+        <h3>Proyectos</h3>
         <Row className="mt-4">
           {projects.length > 0 ? (
             projects.map((project) => (
@@ -161,6 +160,7 @@ function SearchProject() {
             </Col>
           )}
         </Row>
+        <h3>Tareas</h3>
         <Row className="mt-4">
           {todos.length > 0 ? (
             todos.map((todo) => (

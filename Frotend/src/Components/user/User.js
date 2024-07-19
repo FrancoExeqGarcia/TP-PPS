@@ -7,7 +7,6 @@ import UserTable from "./UserTable";
 import AddUser from "./AddUser";
 import EditUser from "./EditUser";
 import NavBar from "../navBar/NavBar";
-import ComboLanguage from "../ui/comboLanguage/ComboLanguaje";
 
 const UserDashboard = ({ setIsAuthenticated }) => {
   const [users, setUsers] = useState([]);
@@ -43,7 +42,6 @@ const UserDashboard = ({ setIsAuthenticated }) => {
   return (
     <Container fluid className="container-fluid">
       <NavBar />
-      <ComboLanguage />
       <div className="user-table-container container-lg">
         {!isAdding && !isEditing && (
           <>

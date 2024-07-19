@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { ThemeContext } from "../../services/themeContext/theme.context";
 import { Dropdown, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import ComboLanguage from "../ui/comboLanguage/ComboLanguaje";
 
 function NavBar() {
   const navigate = useNavigate();
@@ -41,14 +42,15 @@ function NavBar() {
         backgroundColor: theme === "oscuro" ? "#333" : "#f8f9fa",
         color: theme === "oscuro" ? "white" : "black",
       }}
+      expand="lg"
     >
       <Link to="/home" className="navbar-brand-container">
         <Navbar.Brand className="navbar-brand-custom mr-4 ms-auto me-auto border-black rounded p-6 text-black">
           TASK MANAGER
         </Navbar.Brand>
       </Link>
-      <Navbar.Toggle />
-      <Navbar.Collapse className="justify-content-end">
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
         <Navbar.Text
           style={{
             padding: "10px",
@@ -60,8 +62,8 @@ function NavBar() {
         >
           {translate("hi")} {user.UserName}!
         </Navbar.Text>
-        <Dropdown align="end">
-          <Dropdown.Toggle variant="outline-primary" id="dropdown-basic">
+        <Dropdown align="end" className="me-2">
+          <Dropdown.Toggle variant="primary" id="dropdown-basic">
             Menu
           </Dropdown.Toggle>
           <Dropdown.Menu>
@@ -88,6 +90,7 @@ function NavBar() {
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
+        <ComboLanguage />
       </Navbar.Collapse>
     </Navbar>
   );

@@ -32,8 +32,7 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
       description,
       startDate,
       endDate,
-      status:1,
-
+      status: 1,
     };
 
     try {
@@ -60,68 +59,9 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
   };
 
   return (
-
-      <Container className="small-container">
-        <Form onSubmit={handleAdd}>
-          <h1>{translate("Add Project")}</h1>
-          
-          <Form.Group className="mb-3" controlId="name">
-            <Form.Label>{translate("Name")}</Form.Label>
-            <Form.Control
-              type="text"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </Form.Group>
-          
-          <Form.Group className="mb-3" controlId="description">
-            <Form.Label>{translate("Description")}</Form.Label>
-            <Form.Control
-              type="text"
-              name="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </Form.Group>
-          
-          <Form.Group className="mb-3" controlId="startDate">
-            <Form.Label>{translate("Start Date")}</Form.Label>
-            <Form.Control
-              type="datetime-local"
-              name="startDate"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-            />
-          </Form.Group>
-          
-          <Form.Group className="mb-3" controlId="endDate">
-            <Form.Label>{translate("End Date")}</Form.Label>
-            <Form.Control
-              type="datetime-local"
-              name="endDate"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-            />
-          </Form.Group>
-          
-          <div style={{ marginTop: "30px" }}>
-            <Button variant="primary" type="submit">
-              {translate("Add")}
-            </Button>
-            <Button
-              variant="secondary"
-              style={{ marginLeft: "12px" }}
-              onClick={() => setIsAdding(false)}
-            >
-              {translate("Cancel")}
-            </Button>
-          </div>
-        </Form>
-      </Container>
     <Container className="small-container">
       <Form onSubmit={handleAdd}>
-        <h1 className={className}>{translate("Add Project")}</h1>
+        <h1>{translate("Add Project")}</h1>
 
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>{translate("Name")}</Form.Label>
@@ -160,16 +100,6 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
             name="endDate"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="state">
-          <Form.Check
-            type="checkbox"
-            name="state"
-            checked={state}
-            onChange={(e) => setState(e.target.checked)}
-            label={translate("Status")}
           />
         </Form.Group>
 

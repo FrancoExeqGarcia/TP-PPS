@@ -5,7 +5,6 @@ import { ThemeContext } from "../../services/themeContext/theme.context";
 import { useAuth } from "../../services/authenticationContext/authentication.context";
 import NavBar from "../navBar/NavBar";
 import useTranslation from "../../custom/useTranslation/useTranslation";
-import ComboLanguage from "../ui/comboLanguage/ComboLanguaje";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
 
@@ -101,7 +100,6 @@ const Profile = () => {
   return (
     <Container fluid>
       <NavBar />
-      <ComboLanguage />
       <div className="container-lg">
         <h1 className={className}>{translate("Profile")}</h1>
         {error && <p className="text-danger">{error}</p>}

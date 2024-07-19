@@ -45,7 +45,6 @@ const Dashboard = () => {
   return (
     <Container fluid>
       <NavBar />
-      <ComboLanguage />
       <div className="container-lg">
         <Row variant={theme === "oscuro" ? "dark" : "light"} className="mt-4">
           <Col>
