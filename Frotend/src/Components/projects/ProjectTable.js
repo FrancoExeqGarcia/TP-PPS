@@ -25,7 +25,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
     }).then(async (result) => {
       if (result.value) {
         try {
-          await axiosInstance.delete(`/project/${id}`);
+          const response = await axiosInstance.delete(`/project/${id}`);
           const projectsCopy = projects.filter((project) => project.id !== id);
           setProjects(projectsCopy);
 
@@ -51,7 +51,13 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
 
   return (
     <div>
-      <Table striped bordered hover responsive="sm" variant={theme === "oscuro" ? "dark" : "light"}>
+      <Table
+        striped
+        bordered
+        hover
+        responsive="sm"
+        variant={theme === "oscuro" ? "dark" : "light"}
+      >
         <thead>
           <tr>
             <th>No.</th>
@@ -61,7 +67,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
             <th>{translate("End Date")}</th>
             <th>{translate("Status")}</th>
             <th colSpan={2} className="text-center">
-            {translate("Actions")}
+              {translate("Actions")}
             </th>
           </tr>
         </thead>
@@ -75,11 +81,9 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
                 <td>{project.startDate}</td>
                 <td>{project.endDate}</td>
                 <td>{project.status === 1 ? "Active" : "Inactive"}</td>
+
                 <td className="text-center">
-                  <Button
-                    onClick={() => handleEdit(project.id)}
-                    variant="primary"
-                  >
+                  <Button onClick={() => handleEdit(project)} variant="primary">
                     {translate("Edit")}
                   </Button>
                 </td>
@@ -96,7 +100,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
           ) : (
             <tr>
               <td colSpan={8} className="text-center">
-              {translate("No Projects")}
+                {translate("No Projects")}
               </td>
             </tr>
           )}

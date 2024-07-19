@@ -150,3 +150,12 @@
   background-color: var(--primary-background);
   color: var(--text-color-light);
 }
+.search-project.dark-theme {
+  background-color: var(--secondary-background);
+  color: var(--text-color-dark);
+}
+
+.search-project.light-theme {
+  background-color: var(--primary-background);
+  color: var(--text-color-light);
+}

@@ -77,6 +77,7 @@ namespace TODOLIST.Services.Implementations
             foundProject.StartDate = dto.StartDate;
             foundProject.EndDate = dto.EndDate;
             foundProject.State = dto.State == 1 ? true : false;
+
             // foundProject.Collaborators = dto.CollaboratorsIds;
 
             var updatedProject = _repository.Update(id, foundProject);

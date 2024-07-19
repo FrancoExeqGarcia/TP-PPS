@@ -6,9 +6,8 @@ const ProjectCard = ({ project, onProjectClick, isSelected }) => {
   const translate = useTranslation();
 
   const handleCardClick = () => {
-    onProjectClick(project);
+    onProjectClick(project.id);
   };
-
   return (
     <Card
       style={{
@@ -37,7 +36,8 @@ const ProjectCard = ({ project, onProjectClick, isSelected }) => {
           <strong>{translate("End Date")}:</strong> {project.endDate}
         </Card.Text>
         <Card.Text>
-          <strong>{translate("Status")}:</strong> {project.status ? "Active" : "Inactive"}
+          <strong>{translate("Status")}:</strong>{" "}
+          {project.state ? "Active" : "Inactive"}
         </Card.Text>
       </Card.Body>
     </Card>

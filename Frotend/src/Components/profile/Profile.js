@@ -43,23 +43,40 @@ const Profile = () => {
       });
     }
 
-    const updatedUser = {
-      id: user.UserId,
-      name,
-      email,
-      password: newPassword || currentPassword,
-      userType,
-      state: true // Assuming state is always true for profile update
-    };
-
     try {
-      const response = await axiosInstance.put(`/user/${user.UserId}`, updatedUser);
+      const verifyResponse = await axiosInstance.post("/user/verifyPassword", {
+        userId: user.UserId,
+        password: currentPassword,
+        newPassword: newPassword,
+      });
+      if (verifyResponse.status !== 200) {
+        return Swal.fire({
+          icon: "error",
+          title: "Error!",
+          text: "Current password is incorrect.",
+          showConfirmButton: true,
+        });
+      }
+
+      const updatedUser = {
+        id: user.UserId,
+        name,
+        email,
+        password: newPassword || currentPassword,
+        userType,
+        state: true,
+      };
+
+      const response = await axiosInstance.put(
+        `/user/${user.UserId}`,
+        updatedUser
+      );
 
       setUser({
         ...user,
         UserName: response.data.name,
         Email: response.data.email,
-        UserType: response.data.userType
+        UserType: response.data.userType,
       });
 
       Swal.fire({
@@ -85,73 +102,65 @@ const Profile = () => {
     <Container fluid>
       <NavBar />
       <ComboLanguage />
-      <div className="container mt-1 shadow p-4 border-gray content">
-        <div className="row">
-          <div className="col-md-3">
-            <h1 className={className}>{translate("Profile")}</h1>
-            {error && <p className="text-danger">{error}</p>}
-            <Form onSubmit={handleSubmit}>
-              <Form.Group controlId="formUserName">
-                <Form.Label>{translate("Full Name")}</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </Form.Group>
+      <div className="container-lg">
+        <h1 className={className}>{translate("Profile")}</h1>
+        {error && <p className="text-danger">{error}</p>}
+        <Form onSubmit={handleSubmit}>
+          <Form.Group controlId="formUserName">
+            <Form.Label>{translate("Full Name")}</Form.Label>
+            <Form.Control
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </Form.Group>
 
-              <Form.Group controlId="formUserType">
-                <Form.Label>{translate("Role")}</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={userType}
-                  onChange={(e) => setUserType(e.target.value)}
-                  readOnly
-                />
-              </Form.Group>
+          <Form.Group controlId="formUserType">
+            <Form.Label>{translate("Role")}</Form.Label>
+            <Form.Control
+              type="text"
+              value={userType}
+              onChange={(e) => setUserType(e.target.value)}
+              readOnly
+            />
+          </Form.Group>
 
-              <Form.Group controlId="formEmail">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  readOnly
-                />
-              </Form.Group>
+          <Form.Group controlId="formEmail">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              readOnly
+            />
+          </Form.Group>
 
-              <Form.Group controlId="formCurrentPassword">
-                <Form.Label>{translate("Current Password")}</Form.Label>
-                <Form.Control
-                  type="password"
-                  value={currentPassword}
-                  onChange={(e) => setCurrentPassword(e.target.value)}
-                  required
-                />
-              </Form.Group>
+          <Form.Group controlId="formCurrentPassword">
+            <Form.Label>{translate("Current Password")}</Form.Label>
+            <Form.Control
+              type="password"
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              required
+            />
+          </Form.Group>
 
-              <Form.Group controlId="formNewPassword">
-                <Form.Label>{translate("New Password")}</Form.Label>
-                <Form.Control
-                  type="password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                />
-              </Form.Group>
+          <Form.Group controlId="formNewPassword">
+            <Form.Label>{translate("New Password")}</Form.Label>
+            <Form.Control
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+          </Form.Group>
 
-              <Button variant="primary" type="submit">
-                {translate("Save Changes")}
-              </Button>
-            </Form>
-            <Button
-              variant="primary"
-              onClick={handleBackToHome}
-              className="mt-3"
-            >
-              {translate("Back to Home")}
-            </Button>
-          </div>
-        </div>
+          <Button variant="primary" type="submit">
+            {translate("Save Changes")}
+          </Button>
+        </Form>
+        <Button variant="primary" onClick={handleBackToHome} className="mt-3">
+          {translate("Back to Home")}
+        </Button>
       </div>
     </Container>
   );

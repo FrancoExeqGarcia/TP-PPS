@@ -19,7 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="ErrorOr" Version="2.0.1" />
+    <PackageReference Include="MailKit" Version="4.7.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
@@ -33,8 +35,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.6.2" />
+    <PackageReference Include="Quartz" Version="3.11.0" />
 	  <!--<PackageReference Include="Moq" Version="4.20.70" />-->
-    <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.10.0" />
+    <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.11.0" />
     <PackageReference Include="Quartz.Extensions.Hosting" Version="3.10.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.6.2" />

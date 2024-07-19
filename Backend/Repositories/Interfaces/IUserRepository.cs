@@ -8,5 +8,7 @@ namespace TODOLIST.Repositories.Interfaces
         ICollection<User> GetAdminUsers();
         ICollection<User> GetProgrammerUsers();
         User GetByEmailAndPassword(string email, string password);
+        Task<User> GetByIdAsync(int id);
+
     }
 }

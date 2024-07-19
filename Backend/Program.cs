@@ -9,6 +9,7 @@ using System.Text;
 using TODOLIST.Repositories.Implementations;
 using TODOLIST.Repositories.Interfaces;
 using Quartz;
+using TODOLIST.BackgroundJobs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +45,8 @@ builder.Services.AddSwaggerGen(setupAction =>
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IToDoService, ToDoService>();
+
+builder.Services.AddScoped<IEmailSender, GMailEmailSender>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
@@ -82,6 +85,24 @@ builder.Services.AddCors(options =>
     );
 });
 
+
+builder.Services.AddQuartz(configure =>
+{
+    var jobKey = new JobKey(nameof(ToDoExpiredNotificator));
+
+    configure
+        .AddJob<ToDoExpiredNotificator>(jobKey)
+        .AddTrigger(
+            trigger =>
+                trigger.ForJob(jobKey)
+                    .WithCronSchedule("0 30 18 * * ?") 
+                    .StartNow());
+});
+
+builder.Services.AddQuartzHostedService(options =>
+{
+    options.WaitForJobsToComplete = true;
+});
 
 var app = builder.Build();
 

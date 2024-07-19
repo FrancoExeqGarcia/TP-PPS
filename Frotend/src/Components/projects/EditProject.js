@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
 import { Form, Button, Container } from "react-bootstrap";
@@ -11,18 +11,26 @@ const EditProject = ({
   setProjects,
   setIsEditing,
 }) => {
-  const id = selectedProject.id;
-
-  const [name, setName] = useState(selectedProject.name);
-  const [description, setDescription] = useState(selectedProject.description);
-  const [startDate, setStartDate] = useState(selectedProject.startDate);
-  const [endDate, setEndDate] = useState(selectedProject.endDate);
-  const [status, setStatus] = useState(selectedProject.status);
+  const [id, setId] = useState(null);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [state, setState] = useState(false);
   const translate = useTranslation();
   const { theme } = useContext(ThemeContext);
-  const className = `h1 ${
-    theme === "oscuro" ? "dark-theme" : "light-theme"
-  }`;
+  const className = `h1 ${theme === "oscuro" ? "dark-theme" : "light-theme"}`;
+
+  useEffect(() => {
+    if (selectedProject) {
+      setId(selectedProject.id);
+      setName(selectedProject.name);
+      setDescription(selectedProject.description);
+      setStartDate(selectedProject.startDate);
+      setEndDate(selectedProject.endDate);
+      setState(selectedProject.state);
+    }
+  }, [selectedProject]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -42,7 +50,7 @@ const EditProject = ({
       description,
       startDate,
       endDate,
-      status,
+      state,
     };
 
     try {
@@ -72,6 +80,10 @@ const EditProject = ({
       });
     }
   };
+
+  if (!selectedProject) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Container className="small-container">
@@ -109,12 +121,12 @@ const EditProject = ({
             onChange={(e) => setEndDate(e.target.value)}
           />
         </Form.Group>
-        <Form.Group controlId="status">
+        <Form.Group controlId="state">
           <Form.Check
             type="checkbox"
-            label="Status"
-            checked={status}
-            onChange={(e) => setStatus(e.target.checked)}
+            label="state"
+            checked={state}
+            onChange={(e) => setState(e.target.checked)}
           />
         </Form.Group>
         <div className="mt-3">
@@ -122,7 +134,7 @@ const EditProject = ({
             {translate("Update")}
           </Button>
           <Button variant="secondary" onClick={() => setIsEditing(false)}>
-           {translate("Cancel")}
+            {translate("Cancel")}
           </Button>
         </div>
       </Form>

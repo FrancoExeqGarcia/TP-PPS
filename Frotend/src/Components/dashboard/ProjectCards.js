@@ -1,39 +1,42 @@
-import React, { useContext,useState } from "react";
-import { Row, Col } from "react-bootstrap";
+import React, { useState } from "react";
+import { Row, Col, Pagination } from "react-bootstrap";
 import ProjectCard from "./ProjectCard";
-import useTranslation from "../../custom/useTranslation/useTranslation";
-import { ThemeContext } from "../../services/themeContext/theme.context";
 
 const ProjectCards = ({ projects, onProjectClick }) => {
-  const translate = useTranslation();
-  const [selectedProjectId, setSelectedProjectId] = useState(null);
-  const { theme } = useContext(ThemeContext);
+  const [currentPage, setCurrentPage] = useState(1);
+  const projectsPerPage = 4;
 
-  const handleProjectClick = (projectId) => {
-    setSelectedProjectId(projectId);
-    if (onProjectClick) {
-      onProjectClick(projectId);
-    }
-  };
+  const indexOfLastProject = currentPage * projectsPerPage;
+  const indexOfFirstProject = indexOfLastProject - projectsPerPage;
+  const currentProjects = projects.slice(
+    indexOfFirstProject,
+    indexOfLastProject
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(projects.length / projectsPerPage); i++) {
+    pageNumbers.push(i);
+  }
 
   return (
-    <Row className="cards-container" variant={theme === "oscuro" ? "dark" : "light"}>
-      {projects.length > 0 ? (
-        projects.map((project) => (
-          <Col key={project.id} xs={12} sm={6} md={4} lg={3}>
-            <ProjectCard
-              project={project}
-              onProjectClick={() => handleProjectClick(project.id)}
-              isSelected={project.id === selectedProjectId}
-            />
+    <>
+      <Row>
+        {currentProjects.map((project) => (
+          <Col key={project.id}>
+            <ProjectCard project={project} onProjectClick={onProjectClick} />
           </Col>
-        ))
-      ) : (
-        <Col>
-          <p>{translate("No Projects")}</p>
-        </Col>
-      )}
-    </Row>
+        ))}
+      </Row>
+      <Pagination>
+        {pageNumbers.map((number) => (
+          <Pagination.Item key={number} onClick={() => paginate(number)}>
+            {number}
+          </Pagination.Item>
+        ))}
+      </Pagination>
+    </>
   );
 };
 
