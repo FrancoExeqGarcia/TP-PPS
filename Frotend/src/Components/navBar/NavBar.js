@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import { useAuth } from "../../services/authenticationContext/authentication.context";
 import { useNavigate } from "react-router";
@@ -6,12 +6,15 @@ import { ThemeContext } from "../../services/themeContext/theme.context";
 import { Dropdown, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ComboLanguage from "../ui/comboLanguage/ComboLanguaje";
+import { FaCheckDouble } from "react-icons/fa"; // Asegúrate de importar el icono
 
 function NavBar() {
   const navigate = useNavigate();
   const translate = useTranslation();
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useContext(ThemeContext);
+
+  const [animate, setAnimate] = useState(false);
 
   const handleLogoutInDashboard = () => {
     logout();
@@ -33,6 +36,11 @@ function NavBar() {
     toggleTheme();
   };
 
+  const handleIconClick = () => {
+    setAnimate(true);
+    setTimeout(() => setAnimate(false), 300); // Duración de la animación
+  };
+
   return (
     <Navbar
       variant={theme === "oscuro" ? "dark" : "light"}
@@ -44,9 +52,29 @@ function NavBar() {
       }}
       expand="lg"
     >
-      <Link to="/home" className="navbar-brand-container">
-        <Navbar.Brand className="navbar-brand-custom mr-4 ms-auto me-auto border-black rounded p-6 text-black">
+      <Link
+        to="/home"
+        className="navbar-brand-container"
+        style={{ textDecoration: "none" }}
+      >
+        <Navbar.Brand
+          className="d-flex align-items-center"
+          style={{
+            color: theme === "oscuro" ? "white" : "black",
+            cursor: "pointer",
+            fontSize: "1.5rem", // Ajusta el tamaño del texto según sea necesario
+          }}
+        >
           TASK MANAGER
+          <FaCheckDouble
+            onClick={handleIconClick}
+            style={{
+              color: "#4c1c8c", // Color personalizado del icono
+              marginRight: "8px", // Espaciado entre el icono y el texto
+              transition: "transform 0.3s",
+              transform: animate ? "scale(1.2)" : "scale(1)", // Animación de escala
+            }}
+          />
         </Navbar.Brand>
       </Link>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -62,7 +90,8 @@ function NavBar() {
         >
           {translate("hi")} {user.UserName}!
         </Navbar.Text>
-        <Dropdown align="end" className="me-2">
+        <ComboLanguage style={{ marginRight: "16px" }} />
+        <Dropdown align="end">
           <Dropdown.Toggle variant="primary" id="dropdown-basic">
             Menu
           </Dropdown.Toggle>
@@ -90,7 +119,6 @@ function NavBar() {
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
-        <ComboLanguage />
       </Navbar.Collapse>
     </Navbar>
   );

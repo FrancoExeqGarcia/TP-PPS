@@ -13,7 +13,7 @@ const ComboLanguage = () => {
   };
 
   return (
-    <Dropdown onSelect={changeLanguage}>
+    <Dropdown onSelect={changeLanguage} style={{ marginRight: "16px" }}>
       <Dropdown.Toggle variant="primary" id="dropdown-basic">
         {language === "es"
           ? translate("spanish_lang")

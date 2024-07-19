@@ -22,6 +22,7 @@ const ProjectCards = ({ projects, onProjectClick }) => {
 
   return (
     <>
+      <h2>Seleccione un Proyecto:</h2>
       <Row>
         {currentProjects.map((project) => (
           <Col key={project.id}>

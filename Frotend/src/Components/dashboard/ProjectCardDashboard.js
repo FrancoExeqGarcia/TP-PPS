@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from "react";
 import { Col, Container, Row, Card } from "react-bootstrap";
 import axiosInstance from "../../data/axiosConfig";
 import Swal from "sweetalert2";
-import ComboLanguage from "../ui/comboLanguage/ComboLanguaje";
 import ChatBotManager from "../chatBotManager/ChatBotManager";
 import ProjectDashboard from "../projects/ProjectDashboard";
 import NavBar from "../navBar/NavBar";
