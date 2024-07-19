@@ -62,7 +62,6 @@ const EditProject = ({
       state,
       projectState,
     };
-
     try {
       const response = await axiosInstance.put(
         `/project/${id}`,

@@ -6,6 +6,7 @@ import { useAuth } from "../../services/authenticationContext/authentication.con
 import ToDoCard from "../dashboard/ToDoCard";
 import { useNavigate } from "react-router";
 import useTranslation from "../../custom/useTranslation/useTranslation";
+import NavBar from "../navBar/NavBar";
 
 function SearchTodos() {
   const { user } = useAuth();
@@ -52,43 +53,46 @@ function SearchTodos() {
   };
 
   return (
-    <Container>
-      <h2 className="mt-4">Mis Tareas</h2>
-      <h3>Todas las Tareas</h3>
-      <Row className="mt-4">
-        {todos.length > 0 ? (
-          todos.map((todo) => (
-            <Col key={todo.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
-              <ToDoCard todo={todo} />
+    <Container fluid>
+      <NavBar />
+      <div className="container-lg">
+        <h2 className="mt-4">Mis Tareas</h2>
+        <h3>Todas las Tareas</h3>
+        <Row className="mt-4">
+          {todos.length > 0 ? (
+            todos.map((todo) => (
+              <Col key={todo.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
+                <ToDoCard todo={todo} />
+              </Col>
+            ))
+          ) : (
+            <Col>
+              <Card>
+                <Card.Body>No todos assigned to you.</Card.Body>
+              </Card>
             </Col>
-          ))
-        ) : (
-          <Col>
-            <Card>
-              <Card.Body>No todos assigned to you.</Card.Body>
-            </Card>
-          </Col>
-        )}
-      </Row>
-      <h3>Tareas Incompletas</h3>
-      <Row className="mt-4">
-        {incompleteTodos.length > 0 ? (
-          incompleteTodos.map((todo) => (
-            <Col key={todo.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
-              <ToDoCard todo={todo} />
+          )}
+        </Row>
+        <h3>Tareas Incompletas</h3>
+        <Row className="mt-4">
+          {incompleteTodos.length > 0 ? (
+            incompleteTodos.map((todo) => (
+              <Col key={todo.id} xs={12} sm={6} md={4} lg={3} className="mb-4">
+                <ToDoCard todo={todo} />
+              </Col>
+            ))
+          ) : (
+            <Col>
+              <Card>
+                <Card.Body>No incomplete todos assigned to you.</Card.Body>
+              </Card>
             </Col>
-          ))
-        ) : (
-          <Col>
-            <Card>
-              <Card.Body>No incomplete todos assigned to you.</Card.Body>
-            </Card>
-          </Col>
-        )}
-      </Row>
-      <Button variant="primary" onClick={handleBackToHome} className="mt-3">
-        {translate("Back to Home")}
-      </Button>
+          )}
+        </Row>
+        <Button variant="primary" onClick={handleBackToHome} className="mt-3">
+          {translate("Back to Home")}
+        </Button>
+      </div>
     </Container>
   );
 }
