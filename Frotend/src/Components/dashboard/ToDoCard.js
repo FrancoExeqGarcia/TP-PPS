@@ -9,13 +9,13 @@ const ToDoCard = ({ todo }) => {
 
   return (
     <Card 
-    style={{
-      width: "18rem",
-      cursor: "pointer",
-      boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-      transition: "border-color 0.3s ease",
-    }}
-    className={`project-card`}
+      style={{
+        width: "18rem",
+        cursor: "pointer",
+        boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+        transition: "border-color 0.3s ease",
+      }}
+      className={`project-card`}
     >
       <Card.Body>
         <Card.Title style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
@@ -28,13 +28,13 @@ const ToDoCard = ({ todo }) => {
           <strong>{translate("End Date")}:</strong> {todo.endDate}
         </Card.Text>
         <Card.Text>
-          <strong>{translate("Statuss")}:</strong> {todo.state ? "Active" : "Inactive"}
+          <strong>{translate("Status")}:</strong> {todo.state ? "Active" : "Inactive"}
         </Card.Text>
         <Card.Text>
           <strong>{translate("Is Completed")}:</strong> {todo.isCompleted ? "Yes" : "No"}
         </Card.Text>
         <Card.Text>
-          <strong>{translate("Assigned User")}:</strong> {todo.assignedUserId ? todo.assignedUserId : "Unassigned"}
+          <strong>{translate("Assigned User")}:</strong> {todo.assignedUserEmail}
         </Card.Text>
       </Card.Body>
     </Card>
