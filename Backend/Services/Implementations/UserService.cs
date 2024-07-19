@@ -99,12 +99,19 @@ namespace TODOLIST.Services.Implementations
             var foundUser = _repository.GetById(id)
                 ?? throw new NotFoundException("User not found");
 
+            // Log the values before update
+            Console.WriteLine($"Updating user {id}: Email={request.Email}, Password={request.Password}");
+
             foundUser.Password = request.Password;
             foundUser.State = request.State;
             foundUser.Name = request.Name;
+            foundUser.Email = request.Email; // Ensure that email is updated
             foundUser.UserType = (UserRoleEnum)Enum.Parse(typeof(UserRoleEnum), request.UserType);
 
             var updatedUser = _repository.Update(id, foundUser);
+
+            // Log the updated values
+            Console.WriteLine($"Updated user: {updatedUser.Email}");
 
             var updatedUserDto = new UserDto()
             {
