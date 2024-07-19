@@ -25,6 +25,7 @@ function SearchProject() {
   const handleBackToHome = () => {
     navigate("/home");
   };
+
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -55,11 +56,23 @@ function SearchProject() {
       }
     };
 
+    fetchProjects();
+    fetchUsers();
+  }, []);
+
+  useEffect(() => {
     const fetchTodos = async () => {
       try {
         const response = await axiosInstance.get("/todo/all");
-        setAllTodos(response.data);
-        setTodos(response.data);
+        const todosWithUsers = response.data.map(todo => {
+          const user = users.find(user => user.id === todo.assignedUserId);
+          return {
+            ...todo,
+            assignedUserEmail: user ? user.email : "Unassigned"
+          };
+        });
+        setAllTodos(todosWithUsers);
+        setTodos(todosWithUsers);
       } catch (error) {
         console.error("Error fetching todos:", error);
         Swal.fire({
@@ -70,16 +83,23 @@ function SearchProject() {
       }
     };
 
-    fetchProjects();
-    fetchUsers();
-    fetchTodos();
-  }, []);
+    if (users.length > 0) {
+      fetchTodos();
+    }
+  }, [users]);
 
   const handleProjectClick = async (project) => {
     setSelectedProject(project);
     try {
       const response = await axiosInstance.get(`/todo?projectId=${project.id}`);
-      setTodos(response.data);
+      const todosWithUsers = response.data.map(todo => {
+        const user = users.find(user => user.id === todo.assignedUserId);
+        return {
+          ...todo,
+          assignedUserEmail: user ? user.email : "Unassigned"
+        };
+      });
+      setTodos(todosWithUsers);
     } catch (error) {
       console.error("Error fetching todos:", error);
       Swal.fire({
