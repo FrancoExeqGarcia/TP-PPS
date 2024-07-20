@@ -121,6 +121,28 @@ const EditProject = ({
             onChange={(e) => setEndDate(e.target.value)}
           />
         </Form.Group>
+        <Form.Group controlId="state">
+          <Form.Check
+            type="checkbox"
+            label={translate("State")}
+            checked={state}
+            onChange={(e) => setState(e.target.checked)}
+          />
+        </Form.Group>
+        <Form.Group controlId="projectState">
+          <Form.Label>{translate("Project State")}</Form.Label>
+          <Form.Control
+            as="select"
+            value={projectState}
+            onChange={(e) => setProjectState(Number(e.target.value))}
+          >
+            {Object.entries(ProjectStates).map(([key, value]) => (
+              <option key={key} value={key}>
+                {translate(value)}
+              </option>
+            ))}
+          </Form.Control>
+        </Form.Group>
         <div className="mt-3">
           <Button type="submit" className="me-2">
             {translate("Update")}
