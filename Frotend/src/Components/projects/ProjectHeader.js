@@ -14,11 +14,11 @@ const ProjectHeader = ({ setIsAdding, setIsAuthenticated }) => {
     <header>
       <h1 className={className}>{translate("Projects")}</h1>
       <div style={{ marginTop: "30px", marginBottom: "18px" }}>
-      {user.UserType === "SuperAdmin" && user.UserType === "Admin" && (
+      {user.UserType === "SuperAdmin" || user.UserType === "Admin"} (
         <button onClick={() => setIsAdding(true)} className="btn btn-primary">
           {translate("Add Project")}
         </button>
-        )}
+        )
       </div>
     </header>
   );
