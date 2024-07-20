@@ -17,6 +17,7 @@ const EditProject = ({
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [state, setState] = useState(false);
+  const [projectState, setProjectState] = useState(0);
   const translate = useTranslation();
   const { theme } = useContext(ThemeContext);
   const className = `h1 ${theme === "oscuro" ? "dark-theme" : "light-theme"}`;
@@ -29,6 +30,7 @@ const EditProject = ({
       setStartDate(selectedProject.startDate);
       setEndDate(selectedProject.endDate);
       setState(selectedProject.state);
+      setProjectState(selectedProject.projectState);
     }
   }, [selectedProject]);
 
@@ -51,6 +53,7 @@ const EditProject = ({
       startDate,
       endDate,
       state,
+      projectState,
     };
 
     try {
