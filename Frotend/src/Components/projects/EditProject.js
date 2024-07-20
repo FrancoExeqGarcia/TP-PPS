@@ -5,6 +5,12 @@ import { Form, Button, Container } from "react-bootstrap";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import { ThemeContext } from "../../services/themeContext/theme.context";
 
+const ProjectStates = {
+  0: "Not Started",
+  1: "In Progress",
+  2: "Done",
+};
+
 const EditProject = ({
   projects,
   selectedProject,
@@ -55,7 +61,6 @@ const EditProject = ({
       state,
       projectState,
     };
-
     try {
       const response = await axiosInstance.put(
         `/project/${id}`,
