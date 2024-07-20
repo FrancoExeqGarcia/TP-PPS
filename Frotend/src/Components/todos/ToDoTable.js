@@ -24,7 +24,6 @@ const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
             <th>{translate("Name")}</th>
             <th>{translate("Start Date")}</th>
             <th>{translate("End Date")}</th>
-            <th>{translate("State")}</th>
             <th>{translate("Is Completed")}</th>
             <th>{translate("Assigned User")}</th>
             <th colSpan={2} className="text-center">
@@ -40,7 +39,6 @@ const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
                 <td>{todo.name}</td>
                 <td>{todo.startDate}</td>
                 <td>{todo.endDate}</td>
-                <td>{todo.state ? "Active" : "Inactive"}</td>
                 <td>{todo.isCompleted ? "Yes" : "No"}</td>
                 <td>{getUserEmailById(todo.assignedUserId)}</td>
                 <td className="text-center">

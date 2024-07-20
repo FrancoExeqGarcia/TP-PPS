@@ -129,14 +129,6 @@ const EditProject = ({
             onChange={(e) => setEndDate(e.target.value)}
           />
         </Form.Group>
-        <Form.Group controlId="state">
-          <Form.Check
-            type="checkbox"
-            label={translate("State")}
-            checked={state}
-            onChange={(e) => setState(e.target.checked)}
-          />
-        </Form.Group>
         <Form.Group controlId="projectState">
           <Form.Label>{translate("Project State")}</Form.Label>
           <Form.Control

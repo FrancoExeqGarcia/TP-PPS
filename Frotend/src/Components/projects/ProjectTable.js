@@ -72,7 +72,6 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
             <th>{translate("Description")}</th>
             <th>{translate("Start Date")}</th>
             <th>{translate("End Date")}</th>
-            <th>{translate("Status")}</th>
             <th>{translate("Project State")}</th>
             <th colSpan={2} className="text-center">
               {translate("Actions")}
