@@ -42,6 +42,10 @@ namespace TODOLIST.Controllers
             {
                 return NotFound();
             }
+            catch (ForbiddenActionException ex) 
+            {
+                return Forbid();
+            }
         }
 
         [HttpDelete("{id}")]

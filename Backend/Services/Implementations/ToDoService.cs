@@ -6,16 +6,19 @@ using TODOLIST.Data.Models.ToDo;
 using TODOLIST.Exceptions;
 using TODOLIST.Repositories.Implementations;
 using TODOLIST.Repositories.Interfaces;
+using TODOLIST.Enums;
 
 namespace TODOLIST.Services.Implementations
 {
     public class ToDoService : IToDoService
     {
         private readonly IToDoRepository _repository;
+        private readonly ITokenService _tokenService;
 
-        public ToDoService(IToDoRepository repository)
+        public ToDoService(IToDoRepository repository, ITokenService tokenService)
         {
             _repository = repository;
+            _tokenService = tokenService;
         }
 
         public void Delete(int id)
@@ -105,6 +108,13 @@ namespace TODOLIST.Services.Implementations
         {
             var toDo = _repository.GetById(id)
                 ?? throw new NotFoundException("ToDo not found");
+            var userId = _tokenService.GetUserId();
+            var role = _tokenService.GetRole();
+
+            if (userId != toDo.AssignedUserId 
+                && role != UserRoleEnum.SuperAdmin.ToString() 
+                && role != UserRoleEnum.Admin.ToString())
+                throw new ForbiddenActionException("You don't have permission to update a ToDo that does not belong to you");
 
             toDo.Name = dto.Name;
             toDo.StartDate = dto.StartDate;
