@@ -65,8 +65,6 @@ namespace TODOLIST.Controllers
         [HttpGet()]
         public ActionResult<ICollection<ProjectDto>> GetAll()
         {
-            Console.WriteLine(string.Join(",", User.Claims.Select(e => e.Value.ToString())));
-
             return Ok(_projectService.GetAll());
         }
 

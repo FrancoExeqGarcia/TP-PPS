@@ -45,6 +45,8 @@ builder.Services.AddSwaggerGen(setupAction =>
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IToDoService, ToDoService>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ITokenService,TokenService>();
 
 builder.Services.AddScoped<IEmailSender, GMailEmailSender>();
 

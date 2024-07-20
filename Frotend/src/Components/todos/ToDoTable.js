@@ -3,10 +3,12 @@ import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import { ThemeContext } from "../../services/themeContext/theme.context";
+import { useAuth } from "../../services/authenticationContext/authentication.context";
 
 const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
   const translate = useTranslation();
   const { theme } = useContext(ThemeContext);
+  const { user } = useAuth();
 
   const getUserEmailById = (id) => {
     const user = users.find((user) => user.id === id);
@@ -46,6 +48,7 @@ const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
                     onClick={() => handleEdit(todo.id)}
                     variant="primary"
                     className="item-center"
+                    disabled={user.UserType!=="SuperAdmin" && user.UserType!=="Admin" && todo.assignedUserId != user.UserId}
                   >
                      {translate("Edit")}
                   </Button>
@@ -54,6 +57,7 @@ const ToDoTable = ({ todos, handleEdit, handleDelete, users }) => {
                   <Button
                     onClick={() => handleDelete(todo.id)}
                     variant="danger"
+                    disabled={user.UserType!=="SuperAdmin" && user.UserType!=="Admin" && todo.assignedUserId != user.UserId}
                   >
                     {translate("Delete")}
                   </Button>
