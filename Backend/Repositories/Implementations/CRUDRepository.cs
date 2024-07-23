@@ -1,4 +1,5 @@
-﻿using TODOLIST.Data.Entities;
+﻿using System.Linq.Dynamic.Core;
+using TODOLIST.Data.Entities;
 using TODOLIST.DBContext;
 using TODOLIST.Exceptions;
 using TODOLIST.Repositories.Interfaces;
@@ -30,6 +31,10 @@ namespace TODOLIST.Repositories.Implementations
 
             if (found == null)
                 throw new NotFoundException("Entidad no encontrada");
+
+            if (_dbContext.Entry(found).Collection("ToDos").Query().Any())
+                throw new InvalidOperationException("No se puede eliminar el proyecto porque tiene tareas asociadas.");
+
 
             _dbContext.Set<T>().Remove(found);
 

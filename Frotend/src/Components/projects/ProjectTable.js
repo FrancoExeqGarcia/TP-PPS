@@ -35,7 +35,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
           const response = await axiosInstance.delete(`/project/${id}`);
           const projectsCopy = projects.filter((project) => project.id !== id);
           setProjects(projectsCopy);
-
+  
           Swal.fire({
             icon: "success",
             title: "Deleted!",
@@ -44,17 +44,19 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
             timer: 1500,
           });
         } catch (error) {
-          console.error("Error deleting project:", error);
+          console.error("Error deleting project:", error.response?.data?.message || error.message);
           Swal.fire({
             icon: "error",
             title: "Error!",
-            text: "Something went wrong while deleting the project.",
+            text: error.response?.data?.message || "Something went wrong while deleting the project.",
             showConfirmButton: true,
           });
         }
       }
     });
   };
+  
+  
 
   return (
     <div>
