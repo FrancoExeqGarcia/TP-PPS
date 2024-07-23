@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
 import { Form, Button, Container } from "react-bootstrap";
 import useTranslation from "../../custom/useTranslation/useTranslation";
+import { ThemeContext } from "../../services/themeContext/theme.context";
 
 const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
   const [name, setName] = useState("");
@@ -12,7 +13,10 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
   const [isCompleted, setIsCompleted] = useState(false);
   const [assignedUserId, setAssignedUserId] = useState("");
   const translate = useTranslation();
-
+  const { theme } = useContext(ThemeContext);
+  const className = `h1 ${
+    theme === "oscuro" ? "dark-theme" : "light-theme"
+  }`;
   const handleAdd = async (e) => {
     e.preventDefault();
 
@@ -61,7 +65,7 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
   return (
     <Container className="small-container">
       <Form onSubmit={handleAdd}>
-        <h1>{translate("Add ToDo")}</h1>
+        <h1 className={className}>{translate("Add ToDo")}</h1>
         <Form.Group controlId="name">
           <Form.Label>{translate("Name")}</Form.Label>
           <Form.Control

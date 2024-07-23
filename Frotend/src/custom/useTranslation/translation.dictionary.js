@@ -137,6 +137,8 @@ export const dictionary_translations = {
     { key: "not_todos_assigned", value: "No tienes tareas asignadas" },
     { key: "not_todos_incompleted", value: "No tienes tareas incompletas" },
     { key: "todos_incompleted", value: "Tareas sin terminar" },
+    { key: "search_todos_for_user", value: "Buscar tareas por usuarios"},
+    { key: "pending_tasks", value: "Buscar tareas pendientes por usuario asignado"}
   ],
   en: [
     { key: "login", value: "Login" },
@@ -234,5 +236,7 @@ export const dictionary_translations = {
       key: "not_todos_incompleted",
       value: "No incomplete todos assigned to you.",
     },
+    { key: "search_todos_for_user", value: "Search tasks by users"},
+    { key: "pending_tasks", value: "Search ToDos by assigned user"}
   ],
 };

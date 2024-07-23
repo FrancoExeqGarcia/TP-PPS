@@ -42,7 +42,7 @@ function NavBar() {
 
   const handleIconClick = () => {
     setAnimate(true);
-    setTimeout(() => setAnimate(false), 300); // Duración de la animación
+    setTimeout(() => setAnimate(false), 300); 
   };
 
   return (
@@ -50,7 +50,7 @@ function NavBar() {
       variant={theme === "oscuro" ? "dark" : "light"}
       className="d-flex align-items-center"
       style={{
-        borderBottom: `2px solid ${theme === "oscuro" ? "white" : "black"}`,
+        borderBottom: `1px solid ${theme === "oscuro" ? "white" : "black"}`,
         backgroundColor: theme === "oscuro" ? "#333" : "#f8f9fa",
         color: theme === "oscuro" ? "white" : "black",
       }}
@@ -76,7 +76,7 @@ function NavBar() {
               color: "#4c1c8c", // Color personalizado del icono
               marginRight: "8px", // Espaciado entre el icono y el texto
               transition: "transform 0.3s",
-              transform: animate ? "scale(1.2)" : "scale(1)", // Animación de escala
+              transform: animate ? "scale(1.2)" : "scale(1)",
             }}
           />
         </Navbar.Brand>

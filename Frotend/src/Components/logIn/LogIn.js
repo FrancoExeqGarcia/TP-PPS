@@ -13,7 +13,6 @@ const LogIn = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const translate = useTranslation();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -50,7 +49,7 @@ const LogIn = () => {
         <Col md={6} lg={4}>
           <div
             className={`p-4 rounded shadow ${
-              theme === "DARK" ? "bg-dark text-light" : "bg-light"
+              theme === "oscuro" ? "bg-dark text-light" : "bg-light text-dark"
             }`}
           >
             <ComboLanguage />

@@ -147,16 +147,15 @@ function SearchProject() {
     <div className="container-fluid">
       <NavBar />
       <div className="container-lg p-4">
-        <h2>Buscar tareas por usuarios</h2>
         <Form className="mb-4">
           <Form.Group controlId="assignedUserId">
-            <Form.Label>Search ToDos by Assigned User</Form.Label>
+            <h3><Form.Label>{translate("pending_tasks")}</Form.Label></h3>
             <Form.Control
               as="select"
               value={selectedUserId}
               onChange={handleUserChange}
             >
-              <option value="">Select User</option>
+              <option value="">{translate("Select User")}</option>
               {users.map((user) => (
                 <option key={user.id} value={user.id}>
                   {user.email}
@@ -165,7 +164,7 @@ function SearchProject() {
             </Form.Control>
           </Form.Group>
         </Form>
-        <h3>Proyectos</h3>
+        <h3>{translate("Projects")}</h3>
         <Row className="mt-4">
           {projects.length > 0 ? (
             projects.map((project) => (
@@ -187,7 +186,7 @@ function SearchProject() {
             </Col>
           )}
         </Row>
-        <h3>Tareas</h3>
+        <h3>{translate("list_of_todos")}</h3>
         <Row className="mt-4">
           {todos.length > 0 ? (
             todos.map((todo) => (
@@ -204,7 +203,7 @@ function SearchProject() {
           )}
         </Row>
         <Button variant="primary" onClick={handleBackToHome} className="mt-3">
-          {translate("Back to Home")}
+          {translate("back_to_home")}
         </Button>
       </div>
     </div>
