@@ -44,8 +44,8 @@ function SearchTodos() {
         console.error("Error fetching todos:", error);
         Swal.fire({
           icon: "error",
-          title: "Oops...",
-          text: "Something went wrong while fetching the todos!",
+          title: translate("sw_oops_title"),
+          text: translate("sw_fetch_todos_error_text"),
         });
       }
     };

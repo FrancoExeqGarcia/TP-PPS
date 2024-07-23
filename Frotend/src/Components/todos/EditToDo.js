@@ -1,6 +1,6 @@
-import React, { useState,useContext  } from "react";
+import React, { useState, useContext } from "react";
 import Swal from "sweetalert2";
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form, Button } from "react-bootstrap";
 import axiosInstance from "../../data/axiosConfig";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import { ThemeContext } from "../../services/themeContext/theme.context";
@@ -18,9 +18,7 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
     selectedToDo.assignedUserId || ""
   );
   const { theme } = useContext(ThemeContext);
-  const className = `h1 ${
-    theme === "oscuro" ? "dark-theme" : "light-theme"
-  }`;
+  const className = `h1 ${theme === "oscuro" ? "dark-theme" : "light-theme"}`;
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -28,8 +26,8 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
     if (!name || !startDate || !endDate) {
       return Swal.fire({
         icon: "error",
-        title: "Error!",
-        text: "All fields are required.",
+        title: translate("sw_all_fields_required_title"),
+        text: translate("sw_all_fields_required_text"),
         showConfirmButton: true,
       });
     }
@@ -51,8 +49,8 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
 
       Swal.fire({
         icon: "success",
-        title: "Updated!",
-        text: `${name} todo has been updated.`,
+        title: translate("sw_todo_updated_title"),
+        text: translate("sw_todo_updated_text").replace("{name}", name),
         showConfirmButton: false,
         timer: 1500,
       });
@@ -60,8 +58,8 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
       console.error("Error updating todo:", error);
       Swal.fire({
         icon: "error",
-        title: "Error!",
-        text: "Something went wrong while updating the todo.",
+        title: translate("sw_todo_update_error_title"),
+        text: translate("sw_todo_update_error_text"),
         showConfirmButton: true,
       });
     }
@@ -69,87 +67,84 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
 
   return (
     <Container>
-    <Form onSubmit={handleUpdate}>
-      <h1 className={className}>{translate("Edit ToDo")}</h1>
-      
-      <Form.Group className="mb-3" controlId="name">
-        <Form.Label>{translate("Name")}</Form.Label>
-        <Form.Control
-          type="text"
-          name="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </Form.Group>
-      
-      <Form.Group className="mb-3" controlId="startDate">
-        <Form.Label>{translate("Start Date")}</Form.Label>
-        <Form.Control
-          type="datetime-local"
-          name="startDate"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
-      </Form.Group>
-      
-      <Form.Group className="mb-3" controlId="endDate">
-        <Form.Label>{translate("End Date")}</Form.Label>
-        <Form.Control
-          type="datetime-local"
-          name="endDate"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-        />
-      </Form.Group>
-      
-      <Form.Group className="mb-3" controlId="state">
-        <Form.Check
-          type="checkbox"
-          name="state"
-          checked={state}
-          onChange={(e) => setState(e.target.checked)}
-          label={translate("State")}
-        />
-      </Form.Group>
-      
-      <Form.Group className="mb-3" controlId="isCompleted">
-        <Form.Check
-          type="checkbox"
-          name="isCompleted"
-          checked={isCompleted}
-          onChange={(e) => setIsCompleted(e.target.checked)}
-          label={translate("Is Completed")}
-        />
-      </Form.Group>
-      
-      <Form.Group className="mb-3" controlId="assignedUserId">
-        <Form.Label>{translate("Assigned User")}</Form.Label>
-        <Form.Select
-          name="assignedUserId"
-          value={assignedUserId}
-          onChange={(e) => setAssignedUserId(e.target.value)}
-        >
-          <option value="">{translate("Select User")}</option>
-          {users.map((user) => (
-            <option key={user.id} value={user.id}>
-              {user.email}
-            </option>
-          ))}
-        </Form.Select>
-      </Form.Group>
-      
-      <Button variant="primary" type="submit" className="me-2">
-        {translate("Update")}
-      </Button>
-      <Button
-        variant="secondary"
-        onClick={() => setIsEditing(false)}
-      >
-        {translate("Cancel")}
-      </Button>
-    </Form>
-  </Container>
-);
+      <Form onSubmit={handleUpdate}>
+        <h1 className={className}>{translate("Edit ToDo")}</h1>
+
+        <Form.Group className="mb-3" controlId="name">
+          <Form.Label>{translate("Name")}</Form.Label>
+          <Form.Control
+            type="text"
+            name="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="startDate">
+          <Form.Label>{translate("Start Date")}</Form.Label>
+          <Form.Control
+            type="datetime-local"
+            name="startDate"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="endDate">
+          <Form.Label>{translate("End Date")}</Form.Label>
+          <Form.Control
+            type="datetime-local"
+            name="endDate"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="state">
+          <Form.Check
+            type="checkbox"
+            name="state"
+            checked={state}
+            onChange={(e) => setState(e.target.checked)}
+            label={translate("state")}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="isCompleted">
+          <Form.Check
+            type="checkbox"
+            name="isCompleted"
+            checked={isCompleted}
+            onChange={(e) => setIsCompleted(e.target.checked)}
+            label={translate("Is Completed")}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="assignedUserId">
+          <Form.Label>{translate("Assigned User")}</Form.Label>
+          <Form.Select
+            name="assignedUserId"
+            value={assignedUserId}
+            onChange={(e) => setAssignedUserId(e.target.value)}
+          >
+            <option value="">{translate("Select User")}</option>
+            {users.map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.email}
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
+
+        <Button variant="primary" type="submit" className="me-2">
+          {translate("update")}
+        </Button>
+        <Button variant="secondary" onClick={() => setIsEditing(false)}>
+          {translate("cancel")}
+        </Button>
+      </Form>
+    </Container>
+  );
 };
 
 export default EditToDo;

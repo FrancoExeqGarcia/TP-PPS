@@ -5,12 +5,6 @@ import { Form, Button, Container } from "react-bootstrap";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import { ThemeContext } from "../../services/themeContext/theme.context";
 
-const ProjectStates = {
-  0: "Not Started",
-  1: "In Progress",
-  2: "Done",
-};
-
 const EditProject = ({
   projects,
   selectedProject,
@@ -27,6 +21,12 @@ const EditProject = ({
   const translate = useTranslation();
   const { theme } = useContext(ThemeContext);
   const className = `h1 ${theme === "oscuro" ? "dark-theme" : "light-theme"}`;
+
+  const ProjectStates = {
+    0: translate("not_started"),
+    1: translate("in_progress"),
+    2: translate("done"),
+  };
 
   useEffect(() => {
     if (selectedProject) {
@@ -46,8 +46,8 @@ const EditProject = ({
     if (!name || !description || !startDate || !endDate) {
       return Swal.fire({
         icon: "error",
-        title: "Error!",
-        text: "All fields are required.",
+        title: translate("sw_error_title"),
+        text: translate("sw_fields_required"),
         showConfirmButton: true,
       });
     }
@@ -73,8 +73,8 @@ const EditProject = ({
 
       Swal.fire({
         icon: "success",
-        title: "Updated!",
-        text: `${name} project has been updated.`,
+        title: translate("success"),
+        text: `${name} ${translate("project_update")}`,
         showConfirmButton: false,
         timer: 1500,
       });
@@ -83,7 +83,7 @@ const EditProject = ({
       Swal.fire({
         icon: "error",
         title: "Error!",
-        text: "Something went wrong while updating the project.",
+        text: translate("err_update_project"),
         showConfirmButton: true,
       });
     }
@@ -130,7 +130,7 @@ const EditProject = ({
           />
         </Form.Group>
         <Form.Group controlId="projectState">
-          <Form.Label>{translate("Project State")}</Form.Label>
+          <Form.Label>{translate("project_states")}</Form.Label>
           <Form.Control
             as="select"
             value={projectState}
@@ -145,10 +145,10 @@ const EditProject = ({
         </Form.Group>
         <div className="mt-3">
           <Button type="submit" className="me-2">
-            {translate("Update")}
+            {translate("update")}
           </Button>
           <Button variant="secondary" onClick={() => setIsEditing(false)}>
-            {translate("Cancel")}
+            {translate("cancel")}
           </Button>
         </div>
       </Form>

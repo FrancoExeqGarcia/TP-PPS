@@ -35,8 +35,8 @@ function SearchProject() {
         console.error("Error fetching projects:", error);
         Swal.fire({
           icon: "error",
-          title: "Oops...",
-          text: "Something went wrong while fetching the projects!",
+          title: translate("sw_oops_title"),
+          text: translate("sw_fetch_todos_error_text"),
         });
       }
     };
@@ -49,8 +49,8 @@ function SearchProject() {
         console.error("Error fetching users:", error);
         Swal.fire({
           icon: "error",
-          title: "Oops...",
-          text: "Something went wrong while fetching the users!",
+          title: translate("sw_no_results_title"),
+          text: translate("sw_no_todos_found_text"),
         });
       }
     };
@@ -63,11 +63,11 @@ function SearchProject() {
     const fetchTodos = async () => {
       try {
         const response = await axiosInstance.get("/todo/all");
-        const todosWithUsers = response.data.map(todo => {
-          const user = users.find(user => user.id === todo.assignedUserId);
+        const todosWithUsers = response.data.map((todo) => {
+          const user = users.find((user) => user.id === todo.assignedUserId);
           return {
             ...todo,
-            assignedUserEmail: user ? user.email : "Unassigned"
+            assignedUserEmail: user ? user.email : "Unassigned",
           };
         });
         setAllTodos(todosWithUsers);
@@ -76,8 +76,8 @@ function SearchProject() {
         console.error("Error fetching todos:", error);
         Swal.fire({
           icon: "error",
-          title: "Oops...",
-          text: "Something went wrong while fetching the todos!",
+          title: translate("sw_oops_title"),
+          text: translate("sw_fetch_projects_error_text"),
         });
       }
     };
@@ -91,11 +91,11 @@ function SearchProject() {
     setSelectedProject(project);
     try {
       const response = await axiosInstance.get(`/todo?projectId=${project.id}`);
-      const todosWithUsers = response.data.map(todo => {
-        const user = users.find(user => user.id === todo.assignedUserId);
+      const todosWithUsers = response.data.map((todo) => {
+        const user = users.find((user) => user.id === todo.assignedUserId);
         return {
           ...todo,
-          assignedUserEmail: user ? user.email : "Unassigned"
+          assignedUserEmail: user ? user.email : "Unassigned",
         };
       });
       setTodos(todosWithUsers);
@@ -129,8 +129,8 @@ function SearchProject() {
       } else {
         Swal.fire({
           icon: "info",
-          title: "No results",
-          text: "No ToDos found for the selected user.",
+          title: translate("sw_no_results_title"),
+          text: translate("sw_no_todos_found_text"),
         });
         setProjects([]);
         setSelectedProject(null);
@@ -149,7 +149,9 @@ function SearchProject() {
       <div className="container-lg p-4">
         <Form className="mb-4">
           <Form.Group controlId="assignedUserId">
-            <h3><Form.Label>{translate("pending_tasks")}</Form.Label></h3>
+            <h3>
+              <Form.Label>{translate("pending_tasks")}</Form.Label>
+            </h3>
             <Form.Control
               as="select"
               value={selectedUserId}

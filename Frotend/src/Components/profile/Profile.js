@@ -37,7 +37,7 @@ const Profile = () => {
       return Swal.fire({
         icon: "error",
         title: "Error!",
-        text: "All fields are required.",
+        text: translate("sw_fields"),
         showConfirmButton: true,
       });
     }
@@ -52,7 +52,7 @@ const Profile = () => {
         return Swal.fire({
           icon: "error",
           title: "Error!",
-          text: "Current password is incorrect.",
+          text: translate("sw_pw_incorrect"),
           showConfirmButton: true,
         });
       }
@@ -153,11 +153,11 @@ const Profile = () => {
           </Form.Group>
 
           <Button variant="primary" type="submit">
-            {translate("Save Changes")}
+            {translate("save_changes")}
           </Button>
         </Form>
         <Button variant="primary" onClick={handleBackToHome} className="mt-3">
-          {translate("Back to Home")}
+          {translate("back_to_home")}
         </Button>
       </div>
     </Container>

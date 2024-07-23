@@ -21,8 +21,8 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
     if (!name || !description || !startDate || !endDate) {
       return Swal.fire({
         icon: "error",
-        title: "Error!",
-        text: "All fields are required.",
+        title: translate("sw_all_fields_error_title"),
+        text: translate("sw_all_fields_error_text"),
         showConfirmButton: true,
       });
     }
@@ -42,8 +42,8 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
 
       Swal.fire({
         icon: "success",
-        title: "Added!",
-        text: `${name} project has been added.`,
+        title: translate("sw_project_add_success_title"),
+        text: translate("sw_project_add_success_text").replace("{name}", name),
         showConfirmButton: false,
         timer: 1500,
       });
@@ -51,8 +51,8 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
       console.error("Error adding project:", error);
       Swal.fire({
         icon: "error",
-        title: "Error!",
-        text: "Something went wrong while adding the project.",
+        title: translate("sw_project_add_error_title"),
+        text: translate("sw_project_add_error"),
         showConfirmButton: true,
       });
     }
@@ -105,14 +105,14 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
 
         <div style={{ marginTop: "30px" }}>
           <Button variant="primary" type="submit">
-            {translate("Add")}
+            {translate("add")}
           </Button>
           <Button
             variant="secondary"
             style={{ marginLeft: "12px" }}
             onClick={() => setIsAdding(false)}
           >
-            {translate("Cancel")}
+            {translate("cancel")}
           </Button>
         </div>
       </Form>
