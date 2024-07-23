@@ -21,6 +21,7 @@ const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
   const [selectedToDo, setSelectedToDo] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+  const translate = useTranslation();
 
   useEffect(() => {
     if (!projectId) return;

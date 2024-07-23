@@ -26,7 +26,14 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
         showConfirmButton: true,
       });
     }
-
+    if (new Date(startDate) > new Date(endDate)) {
+      return Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "The start date cannot be later than the end date.",
+        showConfirmButton: true,
+      });
+    }
     const newToDo = {
       name,
       startDate,

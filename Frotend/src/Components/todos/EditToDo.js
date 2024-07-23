@@ -31,7 +31,14 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
         showConfirmButton: true,
       });
     }
-
+    if (new Date(startDate) > new Date(endDate)) {
+      return Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "The start date cannot be later than the end date.",
+        showConfirmButton: true,
+      });
+    }
     const updatedToDo = {
       id,
       name,
@@ -59,7 +66,7 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
       Swal.fire({
         icon: "error",
         title: translate("sw_todo_update_error_title"),
-        text: translate("sw_todo_update_error_text"),
+        text: error.response?.data?.message || "Something went wrong while deleting the project.",
         showConfirmButton: true,
       });
     }

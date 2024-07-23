@@ -26,15 +26,15 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
       title: translate("sw_warning_title"),
       text: translate("sw_warning_text"),
       showCancelButton: true,
-      confirmButtonText: translate("sw_confirm_button_text"),
-      cancelButtonText: translate("sw_cancel_button_text"),
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
     }).then(async (result) => {
       if (result.value) {
         try {
           const response = await axiosInstance.delete(`/project/${id}`);
           const projectsCopy = projects.filter((project) => project.id !== id);
           setProjects(projectsCopy);
-
+  
           Swal.fire({
             icon: "success",
             title: translate("sw_success_title"),
@@ -43,7 +43,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
             timer: 1500,
           });
         } catch (error) {
-          console.error("Error deleting project:", error);
+          console.error("Error deleting project:", error.response?.data?.message || error.message);
           Swal.fire({
             icon: "error",
             title: translate("sw_error_title"),

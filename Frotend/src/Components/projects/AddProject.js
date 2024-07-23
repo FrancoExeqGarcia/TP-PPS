@@ -26,7 +26,14 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
         showConfirmButton: true,
       });
     }
-
+    if (new Date(startDate) > new Date(endDate)) {
+      return Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "The start date cannot be later than the end date.",
+        showConfirmButton: true,
+      });
+    }
     const newProject = {
       name,
       description,

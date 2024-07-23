@@ -14,7 +14,21 @@ public class ProjectService : IProjectService
     }
 
     public void Delete(int id)
-        => _repository.Delete(id);
+    {
+        var project = _repository.GetById(id);
+        if (project == null)
+        {
+            throw new NotFoundException("Project not found");
+        }
+
+        if (project.ToDos.Any())
+        {
+            throw new InvalidOperationException("Cannot delete project with associated tasks");
+        }
+
+        _repository.Delete(id);
+    }
+
 
     public ProjectDto GetById(int id)
     {
