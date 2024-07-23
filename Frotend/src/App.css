@@ -1,3 +1,4 @@
+/* General styles */
 @import url("https://fonts.googleapis.com/css2?family=Inika:wght@400;700&display=swap");
 
 :root {
@@ -12,14 +13,20 @@
   --button-danger-bg: #dc3545; /* Fondo del botón de peligro */
   --button-danger-text: #fff; /* Texto del botón de peligro */
   --form-background: #ffffff;
+  --light-login-bg: url("../img/backgroundImg.jpg"); /* Fondo de login en modo claro */
+  --dark-login-bg: url("../img/modoOscuro.jpg"); /* Fondo de login en modo oscuro */
+  --card-bg-dark: #333; /* Fondo de las tarjetas en modo oscuro */
+  --card-text-dark: #fff; /* Color de texto de las tarjetas en modo oscuro */
 }
+
 .light-theme .navbar-brand-container:hover .navbar-brand-custom {
   background-color: #4c1c8c;
-  color: #fff; /* Color de texto en hover */
+  color: #fff; 
 }
-* Estilos específicos para el tema oscuro */ .dark-theme {
-  --button-primary-bg: #333; /* Fondo del botón primario para tema oscuro */
-  --button-primary-text: #ccc; /* Texto del botón primario para tema oscuro */
+
+.dark-theme {
+  --button-primary-bg: #333; 
+  --button-primary-text: #ccc; 
   background-color: var(--secondary-background);
   color: var(--text-color-dark);
   height: 100%;
@@ -35,7 +42,19 @@
   color: #fff; /* Color de texto en hover */
 }
 
-/* Otros estilos */
+.dark-theme .card {
+  background-color: var(--card-bg-dark);
+  color: var(--card-text-dark);
+}
+
+.dark-theme .section-header {
+  background-color: var(--secondary-background);
+  color: var(--text-color-dark);
+  border: 1px solid var(--border-color-dark);
+  padding: 20px;
+  border-radius: 5px;
+}
+
 .border-gray {
   border: 1px solid #837e7e;
 }
@@ -73,6 +92,7 @@
   font-family: "Inika", serif;
   height: auto;
 }
+
 .btn-primary {
   background-color: var(--button-primary-bg);
   color: var(--button-primary-text);
@@ -95,7 +115,6 @@
   font-family: "Inika", serif;
 }
 
-/* App */
 .App {
   display: flex;
   width: 100%;
@@ -103,24 +122,26 @@
   overflow: hidden;
 }
 
+.light-theme {
+  background-color: var(--primary-background);
+  color: var(--text-color-light);
+}
+
 .dark-theme {
   --button-primary-bg: #333; /* Fondo del botón primario para tema oscuro */
   --button-primary-text: #ccc; /* Texto del botón primario para tema oscuro */
   background-color: var(--secondary-background);
   color: var(--text-color-dark);
-  height: 100%;
 }
-.light_theme {
-  background-color: var(--primary-background);
-  color: var(--text-color-light);
-  height: 100%;
-}
+
 .border-gray {
   border: 1px solid #837e7e;
 }
+
 .rounded {
   border-radius: 10px;
 }
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -132,6 +153,7 @@
   flex: 1;
   margin-left: 2px;
 }
+
 .btn-primary {
   background-color: var(--button-primary-bg);
   color: var(--button-primary-text);
@@ -148,6 +170,7 @@
   background-color: var(--primary-background);
   color: var(--text-color-light);
 }
+
 .search-project.dark-theme {
   background-color: var(--secondary-background);
   color: var(--text-color-dark);
@@ -158,8 +181,6 @@
   color: var(--text-color-light);
 }
 
-/* app.css */
-
 .login-container::before {
   content: "";
   position: absolute;
@@ -167,9 +188,17 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url("../img/backgroundImg.jpg");
-  background-size: cover; /* Asegura que la imagen cubra todo el contenedor */
-  background-position: center; /* Centra la imagen en el contenedor */
-  opacity: 0.5; /* Ajusta la opacidad de la imagen */
-  z-index: -1; /* Coloca la imagen detrás del contenido */
+  background-image: var(--light-login-bg);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.dark-theme h2,
+.dark-theme h3,
+.dark-theme h4,
+.dark-theme h5,
+.dark-theme h6 {
+  color: var(--text-color-dark);
 }

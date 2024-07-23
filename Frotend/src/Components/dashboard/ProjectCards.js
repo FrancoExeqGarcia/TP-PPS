@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Row, Col, Pagination, ButtonGroup, Button } from "react-bootstrap";
 import ProjectCard from "./ProjectCard";
+import { ThemeContext } from "../../services/themeContext/theme.context";
+import useTranslation from "../../custom/useTranslation/useTranslation";
+
 
 // Enum para los estados del proyecto
 const ProjectStates = {
@@ -17,10 +20,11 @@ const StateColors = {
 };
 
 const ProjectCards = ({ projects, onProjectClick }) => {
+  const translate = useTranslation();
   const [currentPage, setCurrentPage] = useState(1);
   const [filter, setFilter] = useState(null); // Estado para filtrar proyectos
   const projectsPerPage = 4;
-
+  const { theme } = useContext(ThemeContext);
   // Filtrar proyectos según el estado seleccionado
   const filteredProjects =
     filter === null
@@ -45,14 +49,14 @@ const ProjectCards = ({ projects, onProjectClick }) => {
   ) {
     pageNumbers.push(i);
   }
+  const className = `h1 ${
+    theme === "oscuro" ? "dark-theme" : "light-theme"
+  }`;
 
   return (
     <>
-      <h2>Seleccione un Proyecto:</h2>
-
-      {/* Sección de explicación de colores */}
       <div className="color-explanation mb-4">
-        <h6 className="mb-2">Estados de Proyecto:</h6>
+      <h1 className={className}>{translate("select_project")}</h1>
         <div className="d-flex align-items-center">
           <div
             style={{

@@ -38,11 +38,8 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
       state,
     };
 
-    console.log("Updated user data being sent:", updatedUser);
-
     try {
       const response = await axiosInstance.put(`/user/${id}`, updatedUser);
-      console.log("Response from server:", response.data);
       const updatedUsers = users.map((user) =>
         user.id === id ? response.data : user
       );
