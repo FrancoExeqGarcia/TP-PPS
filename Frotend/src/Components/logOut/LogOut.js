@@ -13,8 +13,8 @@ const LogOut = ({ className }) => {
   const handleLogout = () => {
     Swal.fire({
       icon: "question",
-      title: "Logging Out",
-      text: "Are you sure you want to log out?",
+      title: translate("sw_log_out_title"),
+      text: translate("sw_log_out"),
       showCancelButton: true,
       confirmButtonText: "Yes",
     }).then((result) => {

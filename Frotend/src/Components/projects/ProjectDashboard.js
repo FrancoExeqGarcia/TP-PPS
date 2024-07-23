@@ -7,11 +7,15 @@ import ProjectTable from "./ProjectTable";
 import AddProject from "./AddProject";
 import EditProject from "./EditProject";
 import { ThemeContext } from "../../services/themeContext/theme.context";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const ProjectDashboard = ({ projects, setProjects }) => {
   const { theme } = useContext(ThemeContext);
   const { user } = useAuth();
-  const className = `project-dashboard ${theme === "oscuro" ? "dark-theme" : "light-theme"}`;
+  const translate = useTranslation();
+  const className = `project-dashboard ${
+    theme === "oscuro" ? "dark-theme" : "light-theme"
+  }`;
   const [selectedProject, setSelectedProject] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -24,11 +28,11 @@ const ProjectDashboard = ({ projects, setProjects }) => {
   const handleDelete = async (id) => {
     Swal.fire({
       icon: "warning",
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: translate("sw_warning_title"),
+      text: translate("sw_warning_text"),
       showCancelButton: true,
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel!",
+      confirmButtonText: translate("sw_confirm_button_text"),
+      cancelButtonText: translate("sw_cancel_button_text"),
     }).then(async (result) => {
       if (result.value) {
         try {
@@ -38,8 +42,8 @@ const ProjectDashboard = ({ projects, setProjects }) => {
 
           Swal.fire({
             icon: "success",
-            title: "Deleted!",
-            text: `Project has been deleted.`,
+            title: translate("sw_success_title"),
+            text: translate("sw_success_text"),
             showConfirmButton: false,
             timer: 1500,
           });
@@ -47,8 +51,8 @@ const ProjectDashboard = ({ projects, setProjects }) => {
           console.error("Error deleting project:", error);
           Swal.fire({
             icon: "error",
-            title: "Error!",
-            text: "Something went wrong while deleting the project.",
+            title: translate("sw_error_title"),
+            text: translate("sw_delete_error_text"),
             showConfirmButton: true,
           });
         }

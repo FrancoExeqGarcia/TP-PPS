@@ -4,10 +4,12 @@ import chatIcon from "../../assets/chatIcon.svg";
 import { useAuth } from "../../services/authenticationContext/authentication.context";
 import axiosInstance from "../../data/axiosConfig";
 import Swal from "sweetalert2";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const ChatBotManager = () => {
   const [form, setForm] = useState({});
   const { user } = useAuth();
+  const translate = useTranslation();
 
   const options = {
     header: {
@@ -15,10 +17,10 @@ const ChatBotManager = () => {
       avatar: chatIcon,
     },
     footer: {
-      text: <p>Creado por TaskMinder</p>,
+      text: <p>{translate("bot_create")}</p>,
     },
     tooltip: {
-      text: "Hablame! 😊",
+      text: `${translate("bot_hello")} 😊`,
       style: {
         backgroundColor: "#007bff",
         color: "#ffffff",
@@ -27,13 +29,13 @@ const ChatBotManager = () => {
       },
     },
     chatHistory: {
-      viewChatHistoryButtonText: "Cargar Historial ⟳",
+      viewChatHistoryButtonText: translate("bot_history"),
     },
     hatInput: {
-      enabledPlaceholderText: "Escribe tu mensaje...",
+      enabledPlaceholderText: translate("bot_message"),
     },
     chatWindow: {
-      messagePromptText: "Nuevos mensajes ↓",
+      messagePromptText: translate("bot_new_message"),
     },
     chatButton: {
       icon: chatIcon,
@@ -89,45 +91,43 @@ const ChatBotManager = () => {
     try {
       await axiosInstance.post(url, data);
       Swal.fire({
-        title: "Éxito",
-        text: "La solicitud se ha enviado correctamente.",
+        title: translate("success"),
+        text: translate("bot_request"),
         icon: "success",
-        confirmButtonText: "Aceptar",
+        confirmButtonText: translate("accept"),
       });
-      console.log("Request sent successfully");
     } catch (error) {
       Swal.fire({
         title: "Error",
-        text: "Hubo un problema al enviar la solicitud.",
+        text: translate("bot_err_request"),
         icon: "error",
-        confirmButtonText: "Aceptar",
+        confirmButtonText: translate("accept"),
       });
-      console.error("Error sending request:", error);
     }
   };
 
   const flow = {
     start: {
-      message: `Hola ${user.UserName}, ¿en qué puedo ayudarte?`,
-      options: ["Reportar problema", "Contactar con admin"],
+      message: `${translate("Hi")} ${user.UserName}, ${translate("bot_help")}`,
+      options: [translate("bot_report"), translate("bot_contact")],
       chatDisabled: true,
       path: (params) => {
-        if (params.userInput === "Reportar problema") {
+        if (params.userInput === translate("bot_report")) {
           return "report_problem";
-        } else if (params.userInput === "Contactar con admin") {
+        } else if (params.userInput === translate("bot_contact")) {
           return "contact_admin";
         }
       },
     },
     report_problem: {
-      message: "¿Cuál es el problema? Descríbelo.",
+      message: translate("bot_problem"),
       function: (params) => {
         setForm((prevForm) => ({ ...prevForm, reporte: params.userInput }));
       },
       path: "end_report",
     },
     contact_admin: {
-      message: "¿Cuál es el asunto? Descríbelo.",
+      message: translate("bot_problem"),
       function: (params) => {
         setForm((prevForm) => ({
           ...prevForm,
@@ -138,43 +138,42 @@ const ChatBotManager = () => {
       path: "end_contact",
     },
     end_report: {
-      message: "Gracias por tu reporte, pronto tendrás una respuesta.",
+      message: translate("bot_thanks"),
       render: (
         <div style={formStyle}>
-          <h4>Resumen de la Aplicación</h4>
+          <h4>{translate("bot_summary")}</h4>
           <p>
-            <strong>Reporte:</strong> {form.reporte || "N/A"}
+            <strong>{translate("bot_resume")}</strong> {form.reporte || "N/A"}
           </p>
           <p>
-            <strong>Email de contacto:</strong> {user.Email}
+            <strong>{translate("bot_email")}</strong> {user.Email}
           </p>
           <button
             onClick={() =>
               sendRequest("report", { reportDetails: form.reporte })
             }
           >
-            Enviar Reporte
+            {translate("bot_send")}
           </button>
         </div>
       ),
-      options: ["Nueva Consulta"],
+      options: [translate("bot_new_query")],
       chatDisabled: true,
       path: "start",
     },
     end_contact: {
-      message:
-        "Gracias por tu mensaje, ya se envió la solicitud al admin, pronto se contactará contigo.",
+      message: translate("bot_thanks_send"),
       render: (
         <div style={formStyle}>
-          <h4>Resumen de la Aplicación</h4>
+          <h4>{translate("bot_summary")}</h4>
           <p>
-            <strong>Asunto:</strong> {form.asunto || "N/A"}
+            <strong>{translate("bot_affair")}</strong> {form.asunto || "N/A"}
           </p>
           <p>
-            <strong>Email de contacto:</strong> {user.Email}
+            <strong>{translate("bot_email")}</strong> {user.Email}
           </p>
           <p>
-            <strong>Fecha estimada de respuesta:</strong>{" "}
+            <strong>{translate("bot_date")}</strong>{" "}
             {form.tiempoConsulta || "N/A"}
           </p>
           <button
@@ -187,11 +186,11 @@ const ChatBotManager = () => {
               })
             }
           >
-            Enviar Consulta
+            {translate("bot_send_consult")}
           </button>
         </div>
       ),
-      options: ["Nueva Consulta"],
+      options: [translate("bot_new_query")],
       chatDisabled: true,
       path: "start",
     },

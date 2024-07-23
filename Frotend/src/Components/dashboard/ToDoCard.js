@@ -8,7 +8,7 @@ const ToDoCard = ({ todo }) => {
   const { theme } = useContext(ThemeContext);
 
   return (
-    <Card 
+    <Card
       style={{
         width: "18rem",
         cursor: "pointer",
@@ -28,13 +28,12 @@ const ToDoCard = ({ todo }) => {
           <strong>{translate("End Date")}:</strong> {todo.endDate}
         </Card.Text>
         <Card.Text>
-          <strong>{translate("Status")}:</strong> {todo.state ? "Active" : "Inactive"}
+          <strong>{translate("Is Completed")}:</strong>{" "}
+          {todo.isCompleted ? "Yes" : "No"}
         </Card.Text>
         <Card.Text>
-          <strong>{translate("Is Completed")}:</strong> {todo.isCompleted ? "Yes" : "No"}
-        </Card.Text>
-        <Card.Text>
-          <strong>{translate("Assigned User")}:</strong> {todo.assignedUserEmail}
+          <strong>{translate("Assigned User")}:</strong>{" "}
+          {todo.assignedUserEmail}
         </Card.Text>
       </Card.Body>
     </Card>

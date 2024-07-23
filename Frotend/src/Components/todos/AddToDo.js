@@ -14,9 +14,7 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
   const [assignedUserId, setAssignedUserId] = useState("");
   const translate = useTranslation();
   const { theme } = useContext(ThemeContext);
-  const className = `h1 ${
-    theme === "oscuro" ? "dark-theme" : "light-theme"
-  }`;
+  const className = `h1 ${theme === "oscuro" ? "dark-theme" : "light-theme"}`;
   const handleAdd = async (e) => {
     e.preventDefault();
 
@@ -46,8 +44,8 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
 
       Swal.fire({
         icon: "success",
-        title: "Added!",
-        text: `${name} todo has been added.`,
+        title: translate("sw_todo_added_title"),
+        text: translate("sw_todo_added_text").replace("{name}", name),
         showConfirmButton: false,
         timer: 1500,
       });
@@ -55,8 +53,8 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
       console.error("Error adding todo:", error);
       Swal.fire({
         icon: "error",
-        title: "Error!",
-        text: "Something went wrong while adding the todo.",
+        title: translate("sw_todo_add_error_title"),
+        text: translate("sw_todo_add_error_text"),
         showConfirmButton: true,
       });
     }
@@ -123,10 +121,10 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
         </Form.Group>
         <div className="mt-3">
           <Button type="submit" className="me-2">
-            {translate("Add")}
+            {translate("agregar")}
           </Button>
           <Button variant="secondary" onClick={() => setIsAdding(false)}>
-           {translate("Cancel")}
+            {translate("cancel")}
           </Button>
         </div>
       </Form>

@@ -4,13 +4,7 @@ import ProjectCard from "./ProjectCard";
 import { ThemeContext } from "../../services/themeContext/theme.context";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 
-
 // Enum para los estados del proyecto
-const ProjectStates = {
-  0: "Not Started",
-  1: "In Progress",
-  2: "Done",
-};
 
 // Colores asociados a los estados
 const StateColors = {
@@ -25,6 +19,11 @@ const ProjectCards = ({ projects, onProjectClick }) => {
   const [filter, setFilter] = useState(null); // Estado para filtrar proyectos
   const projectsPerPage = 4;
   const { theme } = useContext(ThemeContext);
+  const ProjectStates = {
+    0: translate("not_started"),
+    1: translate("in_progress"),
+    2: translate("done"),
+  };
   // Filtrar proyectos según el estado seleccionado
   const filteredProjects =
     filter === null
@@ -49,14 +48,12 @@ const ProjectCards = ({ projects, onProjectClick }) => {
   ) {
     pageNumbers.push(i);
   }
-  const className = `h1 ${
-    theme === "oscuro" ? "dark-theme" : "light-theme"
-  }`;
+  const className = `h1 ${theme === "oscuro" ? "dark-theme" : "light-theme"}`;
 
   return (
     <>
       <div className="color-explanation mb-4">
-      <h1 className={className}>{translate("select_project")}</h1>
+        <h1 className={className}>{translate("select_project")}</h1>
         <div className="d-flex align-items-center">
           <div
             style={{
@@ -67,7 +64,7 @@ const ProjectCards = ({ projects, onProjectClick }) => {
               borderRadius: "3px",
             }}
           ></div>
-          <span className="me-3">Not Started</span>
+          <span className="me-3">{translate("not_started")}</span>
           <div
             style={{
               width: "20px",
@@ -77,7 +74,7 @@ const ProjectCards = ({ projects, onProjectClick }) => {
               borderRadius: "3px",
             }}
           ></div>
-          <span className="me-3">In Progress</span>
+          <span className="me-3">{translate("in_progress")}</span>
           <div
             style={{
               width: "20px",
@@ -87,19 +84,19 @@ const ProjectCards = ({ projects, onProjectClick }) => {
               borderRadius: "3px",
             }}
           ></div>
-          <span>Done</span>
+          <span>{translate("done")}</span>
         </div>
       </div>
 
       <div className="filter-section mb-4">
-        <h6 className="mb-2">Filtrar por:</h6>
+        <h6 className="mb-2">{translate("filter_for")}</h6>
         <ButtonGroup>
           <Button
             variant={filter === null ? "primary" : "secondary"}
             onClick={() => setFilter(null)}
             className="btn-m"
           >
-            All
+            {translate("all")}
           </Button>
           <Button
             variant={filter === 0 ? "primary" : "secondary"}
@@ -134,7 +131,7 @@ const ProjectCards = ({ projects, onProjectClick }) => {
           ))
         ) : (
           <Col>
-            <p>No projects found</p>
+            <p>{translate("no_projects")}</p>
           </Col>
         )}
       </Row>

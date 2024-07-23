@@ -2,13 +2,6 @@ import React from "react";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import { Card } from "react-bootstrap";
 
-// Enum para los estados del proyecto
-const ProjectStates = {
-  0: "Not Started",
-  1: "In Progress",
-  2: "Done",
-};
-
 // Función para obtener el estilo basado en el estado del proyecto
 const getProjectCardStyle = (state) => {
   switch (state) {
@@ -41,6 +34,12 @@ const getProjectCardStyle = (state) => {
 
 const ProjectCard = ({ project, onProjectClick, isSelected }) => {
   const translate = useTranslation();
+
+  const ProjectStates = {
+    0: translate("not_started"),
+    1: translate("in_progress"),
+    2: translate("done"),
+  };
   const projectCardStyle = getProjectCardStyle(project.projectState);
 
   const handleCardClick = () => {
@@ -78,7 +77,7 @@ const ProjectCard = ({ project, onProjectClick, isSelected }) => {
           <strong>{translate("End Date")}:</strong> {project.endDate}
         </Card.Text>
         <Card.Text>
-          <strong>{translate("Project State")}:</strong>{" "}
+          <strong>{translate("project_states")}:</strong>{" "}
           {ProjectStates[project.projectState] || "Unknown"}
         </Card.Text>
       </Card.Body>

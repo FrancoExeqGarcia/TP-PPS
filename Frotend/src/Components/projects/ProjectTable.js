@@ -6,16 +6,15 @@ import { ThemeContext } from "../../services/themeContext/theme.context";
 import { Button } from "react-bootstrap";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 
-// Enum para los estados del proyecto
-const ProjectStates = {
-  0: "Not Started",
-  1: "In Progress",
-  2: "Done",
-};
-
 const ProjectTable = ({ projects, setProjects, handleEdit }) => {
   const { theme } = useContext(ThemeContext);
   const translate = useTranslation();
+
+  const ProjectStates = {
+    0: translate("not_started"),
+    1: translate("in_progress"),
+    2: translate("done"),
+  };
 
   const className = `project-dashboard ${
     theme === "oscuro" ? "dark-theme" : "light-theme"
@@ -24,11 +23,11 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
   const handleDelete = async (id) => {
     Swal.fire({
       icon: "warning",
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: translate("sw_warning_title"),
+      text: translate("sw_warning_text"),
       showCancelButton: true,
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel!",
+      confirmButtonText: translate("sw_confirm_button_text"),
+      cancelButtonText: translate("sw_cancel_button_text"),
     }).then(async (result) => {
       if (result.value) {
         try {
@@ -38,8 +37,8 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
 
           Swal.fire({
             icon: "success",
-            title: "Deleted!",
-            text: `Project has been deleted.`,
+            title: translate("sw_success_title"),
+            text: translate("sw_success_text"),
             showConfirmButton: false,
             timer: 1500,
           });
@@ -47,8 +46,8 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
           console.error("Error deleting project:", error);
           Swal.fire({
             icon: "error",
-            title: "Error!",
-            text: "Something went wrong while deleting the project.",
+            title: translate("sw_error_title"),
+            text: translate("sw_delete_error_text"),
             showConfirmButton: true,
           });
         }
@@ -72,7 +71,7 @@ const ProjectTable = ({ projects, setProjects, handleEdit }) => {
             <th>{translate("Description")}</th>
             <th>{translate("Start Date")}</th>
             <th>{translate("End Date")}</th>
-            <th>{translate("Project State")}</th>
+            <th>{translate("project_states")}</th>
             <th colSpan={2} className="text-center">
               {translate("Actions")}
             </th>

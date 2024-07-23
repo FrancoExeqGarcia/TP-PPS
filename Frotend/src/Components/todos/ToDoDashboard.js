@@ -22,7 +22,7 @@ const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
   useEffect(() => {
     if (!projectId) return;
     // Fetch todos for the selected project
-  
+
     const fetchToDos = async () => {
       try {
         const response = await axiosInstance.get(
@@ -33,8 +33,8 @@ const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
         console.error("Error fetching todos:", error);
         Swal.fire({
           icon: "error",
-          title: "Oops...",
-          text: "Something went wrong while fetching the todos!",
+          title: translate("sw_fetch_todos_error_title"),
+          text: translate("sw_fetch_todos_error_text"),
         });
       }
     };
@@ -47,8 +47,8 @@ const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
         console.error("Error fetching users:", error);
         Swal.fire({
           icon: "error",
-          title: "Oops...",
-          text: "Something went wrong while fetching the users!",
+          title: translate("sw_fetch_users_error_title"),
+          text: translate("sw_fetch_users_error_text"),
         });
       }
     };
@@ -67,11 +67,11 @@ const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
   const handleDelete = async (id) => {
     Swal.fire({
       icon: "warning",
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: translate("sw_todo_deleted_title"),
+      text: translate("sw_todo_deleted_text"),
       showCancelButton: true,
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel!",
+      title: translate("sw_todo_delete_error_title"),
+      text: translate("sw_todo_delete_error_text"),
     }).then(async (result) => {
       if (result.value) {
         try {

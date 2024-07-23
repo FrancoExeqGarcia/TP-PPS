@@ -82,7 +82,7 @@ const UserDashboard = ({ setIsAuthenticated }) => {
           />
         )}
         <Button variant="primary" onClick={handleBackToHome} className="mt-3">
-          {translate("Back to Home")}
+          {translate("back_to_home")}
         </Button>
       </div>
     </Container>

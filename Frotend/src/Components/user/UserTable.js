@@ -47,14 +47,20 @@ const UserTable = ({ users, setUsers, handleEdit }) => {
 
   return (
     <div className="contain-table">
-      <Table striped bordered hover responsive="sm" variant={theme === "oscuro" ? "dark" : "light"}>
+      <Table
+        striped
+        bordered
+        hover
+        responsive="sm"
+        variant={theme === "oscuro" ? "dark" : "light"}
+      >
         <thead>
           <tr>
             <th>No.</th>
             <th>{translate("Name")}</th>
             <th>{translate("Email")}</th>
             <th>{translate("User Type")}</th>
-            <th>{translate("State")}</th>
+            <th>{translate("state")}</th>
             <th colSpan={2} className="text-center">
               {translate("Actions")}
             </th>
@@ -68,7 +74,9 @@ const UserTable = ({ users, setUsers, handleEdit }) => {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.userType}</td>
-                <td>{user.state ? "Active" : "Inactive"}</td>
+                <td>
+                  {user.state ? translate("active") : translate("inactive")}
+                </td>
                 <td className="text-center">
                   <Button
                     onClick={() => handleEdit(user.id)}

@@ -118,20 +118,20 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
             name="state"
             checked={state}
             onChange={(e) => setState(e.target.checked)}
-            label={translate("State")}
+            label={translate("state")}
           />
         </Form.Group>
 
         <div style={{ marginTop: "30px" }}>
           <Button variant="primary" type="submit">
-            {translate("Update")}
+            {translate("update")}
           </Button>
           <Button
             variant="secondary"
             style={{ marginLeft: "12px" }}
             onClick={() => setIsEditing(false)}
           >
-            {translate("Cancel")}
+            {translate("cancel")}
           </Button>
         </div>
       </Form>

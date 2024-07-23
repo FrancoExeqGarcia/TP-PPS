@@ -9,6 +9,7 @@ import ToDoDashboard from "../todos/ToDoDashboard";
 import { ThemeContext } from "../../services/themeContext/theme.context";
 import ProjectCards from "../dashboard/ProjectCards";
 import { useAuth } from "../../services/authenticationContext/authentication.context";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const Dashboard = () => {
   const { theme } = useContext(ThemeContext);
@@ -19,17 +20,18 @@ const Dashboard = () => {
   const [projects, setProjects] = useState([]);
   const [selectedProjectId, setSelectedProjectId] = useState(null);
 
+  const translate = useTranslation();
+
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         const response = await axiosInstance.get("/project");
         setProjects(response.data);
       } catch (error) {
-        console.error("Error fetching projects:", error);
         Swal.fire({
           icon: "error",
           title: "Oops...",
-          text: "Something went wrong while fetching the projects!",
+          text: translate("sw_wrong_project"),
         });
       }
     };
