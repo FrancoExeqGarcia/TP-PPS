@@ -21,7 +21,6 @@ const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
   const [selectedToDo, setSelectedToDo] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const translate = useTranslation();
 
   useEffect(() => {
     if (!projectId) return;
@@ -74,8 +73,8 @@ const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
       title: translate("sw_todo_deleted_title"),
       text: translate("sw_todo_deleted_text"),
       showCancelButton: true,
-      title: translate("sw_todo_delete_error_title"),
-      text: translate("sw_todo_delete_error_text"),
+      confirmButtonText: translate("sw_confirm_button_text"),
+      cancelButtonText: translate("sw_cancel_button_text"),
     }).then(async (result) => {
       if (result.value) {
         try {
@@ -85,8 +84,8 @@ const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
 
           Swal.fire({
             icon: "success",
-            title: "Deleted!",
-            text: `ToDo has been deleted.`,
+            title: translate("sw_user_deleted_title"),
+            text: translate("sw_todo_deleted_text"),
             showConfirmButton: false,
             timer: 1500,
           });
