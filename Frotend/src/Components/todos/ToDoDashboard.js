@@ -6,12 +6,15 @@ import ToDoTable from "./ToDoTable";
 import AddToDo from "./AddToDo";
 import EditToDo from "./EditToDo";
 import { ThemeContext } from "../../services/themeContext/theme.context";
+import useTranslation from "../../custom/useTranslation/useTranslation";
 
 const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
   const { theme } = useContext(ThemeContext);
   const className = `project-dashboard ${
     theme === "oscuro" ? "dark-theme" : "light-theme"
   }`;
+
+  const translate = useTranslation();
 
   const [todos, setTodos] = useState([]);
   const [users, setUsers] = useState([]);
