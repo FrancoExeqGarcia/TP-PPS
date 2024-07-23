@@ -73,7 +73,7 @@ const ProjectDashboard = ({ projects, setProjects }) => {
           />
         </>
       )}
-      {user.UserType === "SuperAdmin" && isAdding && (
+      {(user.UserType === "SuperAdmin" || user.UserType === "Admin") && isAdding && (
         <AddProject
           projects={projects}
           setProjects={setProjects}

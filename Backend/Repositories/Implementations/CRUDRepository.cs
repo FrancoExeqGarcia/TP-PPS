@@ -1,4 +1,6 @@
-﻿using TODOLIST.Data.Entities;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using TODOLIST.Data.Entities;
 using TODOLIST.DBContext;
 using TODOLIST.Exceptions;
 using TODOLIST.Repositories.Interfaces;
@@ -33,7 +35,19 @@ namespace TODOLIST.Repositories.Implementations
 
             _dbContext.Set<T>().Remove(found);
 
-            _dbContext.SaveChanges();
+            try
+            {
+                _dbContext.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+                // Aquí puedes verificar la excepción para asegurarte de que es por una referencia
+                if (ex.InnerException is SqlException sqlEx && sqlEx.Number == 547) // Código de error de violación de referencia
+                {
+                    throw new InvalidOperationException("No se puede eliminar el proyecto porque tiene tareas asociadas.", ex);
+                }
+                throw; // Re-lanzar si es otra excepción
+            }
         }
 
         public virtual List<T> GetAll()
