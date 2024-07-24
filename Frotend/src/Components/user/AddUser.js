@@ -43,7 +43,7 @@ const AddUser = ({ users, setUsers, setIsAdding }) => {
       Swal.fire({
         icon: "success",
         title: translate("sw_project_add_success_title"),
-        text: translate("sw_user_added_text"),
+        text: translate("sw_user_added_text").replace("{name}", name),
         showConfirmButton: false,
         timer: 1500,
       });

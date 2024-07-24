@@ -216,10 +216,6 @@ export const dictionary_translations = {
       value: "¡Añadido!",
     },
     {
-      key: "sw_project_add_success_text",
-      value: "El proyecto {name} ha sido añadido.",
-    },
-    {
       key: "sw_project_add_error_title",
       value: "¡Error!",
     },
@@ -324,8 +320,12 @@ export const dictionary_translations = {
     { key: "sw_todo_deleted_text", value: "El ToDo ha sido eliminado." },
     { key: "sw_user_added_title", value: "¡Añadido!" },
     {
+      key: "dont_match_password",
+      value: "No se pudo actualizar, las contraseñas no coinciden.",
+    },
+    {
       key: "sw_user_added_text",
-      value: "Los datos de {name} han sido añadidos.",
+      value: "El usuario {name} ha sido agregado.",
     },
     { key: "sw_user_add_error_title", value: "Error!" },
     {
@@ -343,16 +343,26 @@ export const dictionary_translations = {
       value: "Los datos de {name} han sido actualizados.",
     },
     { key: "sw_user_deleted_title", value: "¡Eliminado!" },
-    { key: "sw_user_deleted_text", value: "El usuario ha sido eliminado." },
+    {
+      key: "sw_user_deleted_text",
+      value: "El usuario: {name} ha sido elimnado",
+    },
     { key: "sw_user_delete_error_title", value: "Error!" },
     {
       key: "sw_user_delete_error_text",
       value: "¡Algo salió mal al eliminar el usuario!",
     },
     {
-      key: "sw_user_updated_text",
-      value: "{name} los datos han sido actualizados.",
+      key: "sw_project_data_available",
+      value: "Los datos de los proyectos no están disponibles.",
     },
+    { key: "sw_project_not_found", value: "Proyecto no encontrado." },
+    {
+      key: "sw_project_date",
+      value:
+        "Las fechas de las tareas deben estar dentro del período del proyecto.",
+    },
+    { key: "sw_user_updated_title", value: "Actualizado!" },
 
     //End Swal
   ],
@@ -396,10 +406,19 @@ export const dictionary_translations = {
     },
     { key: "sw_confirmation_confirm_text", value: "Yes, delete it!" },
     { key: "sw_confirmation_cancel_text", value: "No, cancel!" },
+    {
+      key: "sw_project_data_available",
+      value: "Projects data is not available.",
+    },
+    { key: "sw_project_not_found", value: "Project not found." },
+    {
+      key: "sw_project_date",
+      value: "The task dates must be within the project period.",
+    },
     { key: "sw_todo_deleted_title", value: "Deleted!" },
     { key: "sw_todo_deleted_text", value: "ToDo has been deleted." },
     { key: "sw_user_added_title", value: "Added!" },
-    { key: "sw_user_added_text", value: "{name}'s data has been added." },
+    { key: "sw_user_added_text", value: "User {name} has been added." },
     { key: "sw_user_add_error_title", value: "Error!" },
     {
       key: "sw_user_add_error_text",
@@ -410,10 +429,14 @@ export const dictionary_translations = {
       key: "sw_user_update_error_text",
       value: "Something went wrong while updating the user.",
     },
-    { key: "sw_user_updated_title", value: "Updated!" },
+
     { key: "sw_user_updated_text", value: "{name}'s data has been updated." },
     { key: "sw_user_deleted_title", value: "Deleted!" },
-    { key: "sw_user_deleted_text", value: "User has been deleted." },
+    { key: "sw_user_deleted_text", value: "User: {name} has been deleted" },
+    {
+      key: "dont_match_password",
+      value: "Could not update, passwords do not match.",
+    },
     { key: "sw_user_delete_error_title", value: "Error!" },
     {
       key: "sw_user_delete_error_text",
@@ -484,10 +507,6 @@ export const dictionary_translations = {
     {
       key: "sw_project_add_error",
       value: "Something went wrong while adding the project.",
-    },
-    {
-      key: "sw_project_add_success_text",
-      value: "El proyecto {name} ha sido añadido.",
     },
     {
       key: "sw_wrong_project",

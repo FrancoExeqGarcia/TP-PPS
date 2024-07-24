@@ -11,7 +11,7 @@ const AddToDo = ({
   setIsAdding,
   users,
   projectId,
-  projects, 
+  projects,
 }) => {
   const [name, setName] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -46,7 +46,7 @@ const AddToDo = ({
       return Swal.fire({
         icon: "error",
         title: "Error!",
-        text: "Projects data is not available.",
+        text: translate("sw_project_data_available"),
         showConfirmButton: true,
       });
     }
@@ -55,7 +55,7 @@ const AddToDo = ({
       return Swal.fire({
         icon: "error",
         title: "Error!",
-        text: "Project not found.",
+        text: translate("sw_project_not_found"),
         showConfirmButton: true,
       });
     }
@@ -67,7 +67,7 @@ const AddToDo = ({
       return Swal.fire({
         icon: "error",
         title: "Error!",
-        text: "The task dates must be within the project period.",
+        text: translate("sw_project_date"),
         showConfirmButton: true,
       });
     }

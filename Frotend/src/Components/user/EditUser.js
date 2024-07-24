@@ -49,7 +49,7 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
       Swal.fire({
         icon: "success",
         title: translate("sw_todo_updated_title"),
-        text: translate("sw_user_updated_text"),
+        text: translate("sw_user_updated_text").replace("{name}", name),
         showConfirmButton: false,
         timer: 1500,
       });

@@ -80,16 +80,20 @@ const Profile = () => {
 
       Swal.fire({
         icon: "success",
-        title: "Updated!",
-        text: `${name}'s data has been updated.`,
+        title: translate("sw_todo_updated_title"),
+        text: translate("sw_user_updated_text").replace("{name}", name),
         showConfirmButton: false,
         timer: 1500,
       });
 
       navigate("/home");
     } catch (error) {
-      console.error("Error updating user:", error);
-      setError("Error updating user profile.");
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: translate("dont_match_password"),
+        showConfirmButton: true,
+      });
     }
   };
 
@@ -102,7 +106,6 @@ const Profile = () => {
       <NavBar />
       <div className="container-lg">
         <h1 className={className}>{translate("Profile")}</h1>
-        {error && <p className="text-danger">{error}</p>}
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formUserName">
             <Form.Label>{translate("Full Name")}</Form.Label>

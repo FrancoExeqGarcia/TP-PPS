@@ -6,6 +6,7 @@ import { ThemeContext } from "../../services/themeContext/theme.context";
 import { Dropdown, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import ComboLanguage from "../ui/comboLanguage/ComboLanguaje";
+import Swal from "sweetalert2";
 import { FaCheckDouble } from "react-icons/fa"; // Asegúrate de importar el icono
 
 function NavBar() {
@@ -17,8 +18,27 @@ function NavBar() {
   const [animate, setAnimate] = useState(false);
 
   const handleLogoutInDashboard = () => {
-    logout();
-    navigate("/login");
+    Swal.fire({
+      icon: "question",
+      title: translate("sw_log_out_title"),
+      text: translate("sw_log_out"),
+      showCancelButton: true,
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          timer: 1500,
+          showConfirmButton: false,
+          willOpen: () => {
+            Swal.showLoading();
+          },
+          willClose: () => {
+            logout();
+            navigate("/login");
+          },
+        });
+      }
+    });
   };
 
   const handleCreateUser = () => {
@@ -42,7 +62,7 @@ function NavBar() {
 
   const handleIconClick = () => {
     setAnimate(true);
-    setTimeout(() => setAnimate(false), 300); 
+    setTimeout(() => setAnimate(false), 300);
   };
 
   return (
