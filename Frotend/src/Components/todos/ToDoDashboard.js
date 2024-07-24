@@ -8,7 +8,7 @@ import EditToDo from "./EditToDo";
 import { ThemeContext } from "../../services/themeContext/theme.context";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 
-const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
+const ToDoDashboard = ({ projectId, setSelectedProjectId, projects }) => {
   const { theme } = useContext(ThemeContext);
   const className = `project-dashboard ${
     theme === "oscuro" ? "dark-theme" : "light-theme"
@@ -21,10 +21,8 @@ const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
   const [selectedToDo, setSelectedToDo] = useState(null);
   const [isAdding, setIsAdding] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-
   useEffect(() => {
     if (!projectId) return;
-    // Fetch todos for the selected project
 
     const fetchToDos = async () => {
       try {
@@ -125,6 +123,7 @@ const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
           setIsAdding={setIsAdding}
           users={users}
           projectId={projectId}
+          projects={projects}
         />
       )}
       {isEditing && (
