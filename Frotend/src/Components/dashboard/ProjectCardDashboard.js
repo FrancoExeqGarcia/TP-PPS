@@ -18,7 +18,7 @@ const Dashboard = () => {
   }`;
   const { user } = useAuth();
   const [projects, setProjects] = useState([]);
-  const [selectedProjectId, setSelectedProjectId] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const translate = useTranslation();
 
@@ -40,7 +40,7 @@ const Dashboard = () => {
   }, []);
 
   const handleProjectClick = (project) => {
-    setSelectedProjectId(project);
+    setSelectedProject(project);
   };
 
   return (
@@ -72,11 +72,12 @@ const Dashboard = () => {
         </Row>
         <Row className="mt-4">
           <Col>
-            {selectedProjectId && (
+            {selectedProject && (
               <Card>
                 <ToDoDashboard
-                  projectId={selectedProjectId}
-                  setSelectedProjectId={setSelectedProjectId}
+                  projectId={selectedProject}
+                  setSelectedProjectId={setSelectedProject}
+                  projects={projects}
                 />
               </Card>
             )}

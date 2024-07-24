@@ -49,7 +49,6 @@ const ProjectCards = ({ projects, onProjectClick }) => {
     pageNumbers.push(i);
   }
   const className = `h1 ${theme === "oscuro" ? "dark-theme" : "light-theme"}`;
-
   return (
     <>
       <div className="color-explanation mb-4">

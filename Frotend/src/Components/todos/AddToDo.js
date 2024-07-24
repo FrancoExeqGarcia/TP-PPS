@@ -5,7 +5,14 @@ import { Form, Button, Container } from "react-bootstrap";
 import useTranslation from "../../custom/useTranslation/useTranslation";
 import { ThemeContext } from "../../services/themeContext/theme.context";
 
-const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
+const AddToDo = ({
+  todos,
+  setTodos,
+  setIsAdding,
+  users,
+  projectId,
+  projects, 
+}) => {
   const [name, setName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -15,6 +22,7 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
   const translate = useTranslation();
   const { theme } = useContext(ThemeContext);
   const className = `h1 ${theme === "oscuro" ? "dark-theme" : "light-theme"}`;
+
   const handleAdd = async (e) => {
     e.preventDefault();
 
@@ -34,6 +42,36 @@ const AddToDo = ({ todos, setTodos, setIsAdding, users, projectId }) => {
         showConfirmButton: true,
       });
     }
+    if (!projects) {
+      return Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Projects data is not available.",
+        showConfirmButton: true,
+      });
+    }
+    const project = projects.find((p) => p.id === projectId);
+    if (!project) {
+      return Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Project not found.",
+        showConfirmButton: true,
+      });
+    }
+
+    if (
+      new Date(startDate) < new Date(project.startDate) ||
+      new Date(endDate) > new Date(project.endDate)
+    ) {
+      return Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "The task dates must be within the project period.",
+        showConfirmButton: true,
+      });
+    }
+
     const newToDo = {
       name,
       startDate,
