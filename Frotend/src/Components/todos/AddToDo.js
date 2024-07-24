@@ -29,16 +29,16 @@ const AddToDo = ({
     if (!name || !startDate || !endDate) {
       return Swal.fire({
         icon: "error",
-        title: "Error!",
-        text: "All fields are required.",
+        title: translate("sw_error_title"),
+        text: translate("sw_all_fields_required_text"),
         showConfirmButton: true,
       });
     }
     if (new Date(startDate) > new Date(endDate)) {
       return Swal.fire({
         icon: "error",
-        title: "Error!",
-        text: "The start date cannot be later than the end date.",
+        title: translate("sw_error_title"),
+        text: translate("sw_error_date"),
         showConfirmButton: true,
       });
     }

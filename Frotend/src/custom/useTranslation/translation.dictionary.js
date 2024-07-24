@@ -190,8 +190,10 @@ export const dictionary_translations = {
       key: "bot_err_request",
       value: "Hubo un problema al enviar la solicitud.",
     },
+    { key: "text_hi", value: "Hola" },
     //End bot
     //Swal
+    { key: "sw_user_delete", value: "El usuario ha sido eliminado" },
     {
       key: "sw_wrong_project",
       value: "¡Algo salió mal al buscar los proyectos!",
@@ -243,7 +245,7 @@ export const dictionary_translations = {
     { key: "sw_confirm_button_text", value: "Sí, ¡elimínalo!" },
     { key: "sw_cancel_button_text", value: "No, ¡cancelar!" },
     { key: "sw_success_title", value: "¡Eliminado!" },
-    { key: "sw_success_text", value: "El proyecto ha sido eliminado." },
+    { key: "sw_success_text_todo", value: "La tarea ha sido eliminada." },
     { key: "sw_error_title", value: "¡Error!" },
     {
       key: "sw_delete_error_text",
@@ -277,12 +279,12 @@ export const dictionary_translations = {
     { key: "sw_todo_added_title", value: "¡Añadido!" },
     {
       key: "sw_todo_added_text",
-      value: "El ToDo de {name} ha sido añadido.",
+      value: "La tarea {name} ha sido añadida.",
     },
     { key: "sw_todo_add_error_title", value: "Error!" },
     {
       key: "sw_todo_add_error_text",
-      value: "¡Algo salió mal al añadir el ToDo!",
+      value: "¡Algo salió mal al añadir la tarea!",
     },
     { key: "sw_all_fields_required_title", value: "Error!" },
     {
@@ -292,17 +294,17 @@ export const dictionary_translations = {
     { key: "sw_todo_updated_title", value: "¡Actualizado!" },
     {
       key: "sw_todo_updated_text",
-      value: "El ToDo de {name} ha sido actualizado.",
+      value: "La tarea {name} ha sido actualizada.",
     },
     { key: "sw_todo_update_error_title", value: "Error!" },
     {
       key: "sw_todo_update_error_text",
-      value: "¡Algo salió mal al actualizar el ToDo!",
+      value: "¡Algo salió mal al actualizar la tarea!",
     },
     { key: "sw_fetch_todos_error_title", value: "Vaya..." },
     {
       key: "sw_fetch_todos_error_text",
-      value: "¡Algo salió mal al obtener los ToDos!",
+      value: "¡Algo salió mal al obtener las tareas!",
     },
     { key: "sw_fetch_users_error_title", value: "Vaya..." },
     {
@@ -313,6 +315,11 @@ export const dictionary_translations = {
     { key: "sw_confirmation_text", value: "¡No podrás revertir esto!" },
     { key: "sw_confirmation_confirm_text", value: "¡Sí, bórralo!" },
     { key: "sw_confirmation_cancel_text", value: "No, cancelar!" },
+    {
+      key: "sw_error_date",
+      value:
+        "La fecha de inicio no puede ser posterior a la fecha de finalización",
+    },
     { key: "sw_todo_deleted_title", value: "¡Eliminado!" },
     { key: "sw_todo_deleted_text", value: "El ToDo ha sido eliminado." },
     { key: "sw_user_added_title", value: "¡Añadido!" },
@@ -342,6 +349,10 @@ export const dictionary_translations = {
       key: "sw_user_delete_error_text",
       value: "¡Algo salió mal al eliminar el usuario!",
     },
+    {
+      key: "sw_user_updated_text",
+      value: "{name} los datos han sido actualizados.",
+    },
 
     //End Swal
   ],
@@ -349,6 +360,10 @@ export const dictionary_translations = {
     //Swal
 
     { key: "sw_todo_added_title", value: "Added!" },
+    {
+      key: "sw_error_date",
+      value: "The start date cannot be later than the end date.",
+    },
     { key: "sw_todo_added_text", value: "{name} todo has been added." },
     { key: "sw_todo_add_error_title", value: "Error!" },
     {
@@ -423,7 +438,9 @@ export const dictionary_translations = {
     { key: "sw_confirm_button_text", value: "Yes, delete it!" },
     { key: "sw_cancel_button_text", value: "No, cancel!" },
     { key: "sw_success_title", value: "Deleted!" },
+    { key: "sw_user_delete", value: "User has been deleted." },
     { key: "sw_success_text", value: "Project has been deleted." },
+    { key: "sw_success_text_todo", value: "Todo has been deleted." },
     { key: "sw_error_title", value: "Error!" },
 
     {
@@ -435,7 +452,6 @@ export const dictionary_translations = {
     { key: "sw_confirm_button_text", value: "Yes, delete it!" },
     { key: "sw_cancel_button_text", value: "No, cancel!" },
     { key: "sw_success_title", value: "Deleted!" },
-    { key: "sw_success_text", value: "Project has been deleted." },
     { key: "sw_error_title", value: "Error!" },
     {
       key: "sw_delete_error_text",
@@ -566,7 +582,7 @@ export const dictionary_translations = {
     { key: "all_email", value: "All emails" },
     { key: "dark_theme_change", value: "Change to dark theme" },
     { key: "light_theme_change", value: "Change to light theme" },
-    { key: "hi", value: "Hello" },
+    { key: "text_hi", value: "Hello" },
     { key: "list_of_todos", value: "Things to do" },
     { key: "list_of_projects", value: "List of Projects" },
     { key: "start_date", value: "Start date: " },

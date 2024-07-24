@@ -34,8 +34,8 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
     if (new Date(startDate) > new Date(endDate)) {
       return Swal.fire({
         icon: "error",
-        title: "Error!",
-        text: "The start date cannot be later than the end date.",
+        title: translate("sw_todo_add_error_title"),
+        text: translate("sw_error_date"),
         showConfirmButton: true,
       });
     }
@@ -66,7 +66,8 @@ const EditToDo = ({ todos, selectedToDo, setTodos, setIsEditing, users }) => {
       Swal.fire({
         icon: "error",
         title: translate("sw_todo_update_error_title"),
-        text: error.response?.data?.message || "Something went wrong while deleting the project.",
+        text:
+          error.response?.data?.message || translate("sw_delete_error_text"),
         showConfirmButton: true,
       });
     }
