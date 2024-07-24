@@ -54,8 +54,8 @@ const EditProject = ({
     if (new Date(startDate) > new Date(endDate)) {
       return Swal.fire({
         icon: "error",
-        title: "Error!",
-        text: "The start date cannot be later than the end date.",
+        title: translate("sw_all_fields_error_title"),
+        text: translate("sw_error_date"),
         showConfirmButton: true,
       });
     }
@@ -89,7 +89,7 @@ const EditProject = ({
       console.error("Error updating project:", error);
       Swal.fire({
         icon: "error",
-        title: "Error!",
+        title: translate("sw_error_title"),
         text: translate("err_update_project"),
         showConfirmButton: true,
       });

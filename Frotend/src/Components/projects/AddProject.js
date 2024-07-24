@@ -30,7 +30,7 @@ const AddProject = ({ projects, setProjects, setIsAdding }) => {
       return Swal.fire({
         icon: "error",
         title: "Error!",
-        text: "The start date cannot be later than the end date.",
+        text: translate("sw_error_date"),
         showConfirmButton: true,
       });
     }

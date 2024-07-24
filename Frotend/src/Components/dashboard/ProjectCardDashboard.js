@@ -30,7 +30,7 @@ const Dashboard = () => {
       } catch (error) {
         Swal.fire({
           icon: "error",
-          title: "Oops...",
+          title: translate("sw_oops_title"),
           text: translate("sw_wrong_project"),
         });
       }

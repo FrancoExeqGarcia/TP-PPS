@@ -108,7 +108,9 @@ const ChatBotManager = () => {
 
   const flow = {
     start: {
-      message: `${translate("Hi")} ${user.UserName}, ${translate("bot_help")}`,
+      message: `${translate("text_hi")} ${user.UserName}, ${translate(
+        "bot_help"
+      )}`,
       options: [translate("bot_report"), translate("bot_contact")],
       chatDisabled: true,
       path: (params) => {

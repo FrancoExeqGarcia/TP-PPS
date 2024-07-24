@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import axiosInstance from "../../data/axiosConfig";
 import useTranslation from "../../custom/useTranslation/useTranslation";
-import { Container, Form, Button } from 'react-bootstrap';
+import { Container, Form, Button } from "react-bootstrap";
 
 const AddUser = ({ users, setUsers, setIsAdding }) => {
   const [name, setName] = useState("");
@@ -18,8 +18,8 @@ const AddUser = ({ users, setUsers, setIsAdding }) => {
     if (!name || !email || !password) {
       return Swal.fire({
         icon: "error",
-        title: "Error!",
-        text: "All fields are required.",
+        title: translate("sw_all_fields_error_title"),
+        text: translate("sw_all_fields_error_text"),
         showConfirmButton: true,
       });
     }
@@ -42,8 +42,8 @@ const AddUser = ({ users, setUsers, setIsAdding }) => {
 
       Swal.fire({
         icon: "success",
-        title: "Added!",
-        text: `${name}'s data has been added.`,
+        title: translate("sw_project_add_success_title"),
+        text: translate("sw_user_added_text"),
         showConfirmButton: false,
         timer: 1500,
       });
@@ -51,18 +51,18 @@ const AddUser = ({ users, setUsers, setIsAdding }) => {
       console.error("Error adding user:", error);
       Swal.fire({
         icon: "error",
-        title: "Error!",
-        text: "Something went wrong while adding the user.",
+        title: translate("sw_todo_add_error_title"),
+        text: translate("sw_user_add_error_text"),
         showConfirmButton: true,
       });
     }
   };
 
-  return  (
+  return (
     <Container className="small-container">
       <Form onSubmit={handleAdd}>
         <h1>{translate("Add User")}</h1>
-        
+
         <Form.Group className="mb-3" controlId="name">
           <Form.Label>{translate("Name")}</Form.Label>
           <Form.Control
@@ -72,7 +72,7 @@ const AddUser = ({ users, setUsers, setIsAdding }) => {
             onChange={(e) => setName(e.target.value)}
           />
         </Form.Group>
-        
+
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>{translate("Email")}</Form.Label>
           <Form.Control
@@ -82,7 +82,7 @@ const AddUser = ({ users, setUsers, setIsAdding }) => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </Form.Group>
-        
+
         <Form.Group className="mb-3" controlId="password">
           <Form.Label>{translate("Password")}</Form.Label>
           <Form.Control
@@ -92,7 +92,7 @@ const AddUser = ({ users, setUsers, setIsAdding }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
-        
+
         <Form.Group className="mb-3" controlId="userType">
           <Form.Label>{translate("User Type")}</Form.Label>
           <Form.Select
@@ -105,7 +105,7 @@ const AddUser = ({ users, setUsers, setIsAdding }) => {
             <option value="SuperAdmin">{translate("Super Admin")}</option>
           </Form.Select>
         </Form.Group>
-        
+
         <Form.Group className="mb-3" controlId="state">
           <Form.Check
             type="checkbox"
@@ -115,7 +115,7 @@ const AddUser = ({ users, setUsers, setIsAdding }) => {
             label={translate("State")}
           />
         </Form.Group>
-        
+
         <div style={{ marginTop: "30px" }}>
           <Button variant="primary" type="submit">
             {translate("Add")}

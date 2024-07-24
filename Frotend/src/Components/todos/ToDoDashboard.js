@@ -70,8 +70,8 @@ const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
   const handleDelete = async (id) => {
     Swal.fire({
       icon: "warning",
-      title: translate("sw_todo_deleted_title"),
-      text: translate("sw_todo_deleted_text"),
+      title: translate("sw_warning_title"),
+      text: translate("sw_warning_text"),
       showCancelButton: true,
       confirmButtonText: translate("sw_confirm_button_text"),
       cancelButtonText: translate("sw_cancel_button_text"),
@@ -84,8 +84,8 @@ const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
 
           Swal.fire({
             icon: "success",
-            title: translate("sw_user_deleted_title"),
-            text: translate("sw_todo_deleted_text"),
+            title: translate("sw_success_title"),
+            text: translate("sw_success_text_todo"),
             showConfirmButton: false,
             timer: 1500,
           });
@@ -93,8 +93,8 @@ const ToDoDashboard = ({ projectId, setSelectedProjectId }) => {
           console.error("Error deleting todo:", error);
           Swal.fire({
             icon: "error",
-            title: "Error!",
-            text: "Something went wrong while deleting the todo.",
+            title: translate("sw_error_title"),
+            text: translate("sw_delete_error_text"),
             showConfirmButton: true,
           });
         }

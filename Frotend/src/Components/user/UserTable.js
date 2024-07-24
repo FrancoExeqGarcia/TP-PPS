@@ -13,11 +13,11 @@ const UserTable = ({ users, setUsers, handleEdit }) => {
   const handleDelete = async (id) => {
     Swal.fire({
       icon: "warning",
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      title: translate("sw_confirmation_title"),
+      text: translate("sw_confirmation_text"),
       showCancelButton: true,
-      confirmButtonText: "Yes, delete it!",
-      cancelButtonText: "No, cancel!",
+      confirmButtonText: translate("sw_confirmation_confirm_text"),
+      cancelButtonText: translate("sw_confirmation_cancel_text"),
     }).then(async (result) => {
       if (result.value) {
         try {
@@ -27,8 +27,8 @@ const UserTable = ({ users, setUsers, handleEdit }) => {
 
           Swal.fire({
             icon: "success",
-            title: "Deleted!",
-            text: `User has been deleted.`,
+            title: translate("sw_success_title"),
+            text: translate("sw_user_delete"),
             showConfirmButton: false,
             timer: 1500,
           });
@@ -36,8 +36,8 @@ const UserTable = ({ users, setUsers, handleEdit }) => {
           console.error("Error deleting user:", error);
           Swal.fire({
             icon: "error",
-            title: "Error!",
-            text: "Something went wrong while deleting the user.",
+            title: translate("sw_all_fields_error_title"),
+            text: translate("sw_user_delete_error_text"),
             showConfirmButton: true,
           });
         }

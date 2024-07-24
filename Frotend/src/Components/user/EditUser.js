@@ -23,8 +23,8 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
     if (!name || !email || !password) {
       return Swal.fire({
         icon: "error",
-        title: "Error!",
-        text: "All fields are required.",
+        title: translate("sw_all_fields_error_title"),
+        text: translate("sw_all_fields_error_text"),
         showConfirmButton: true,
       });
     }
@@ -48,8 +48,8 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
 
       Swal.fire({
         icon: "success",
-        title: "Updated!",
-        text: `${name}'s data has been updated.`,
+        title: translate("sw_todo_updated_title"),
+        text: translate("sw_user_updated_text"),
         showConfirmButton: false,
         timer: 1500,
       });
@@ -57,8 +57,8 @@ const EditUser = ({ users, selectedUser, setUsers, setIsEditing }) => {
       console.error("Error updating user:", error);
       Swal.fire({
         icon: "error",
-        title: "Error!",
-        text: "Something went wrong while updating the user.",
+        title: translate("sw_error_title"),
+        text: translate("sw_user_update_error_text"),
         showConfirmButton: true,
       });
     }

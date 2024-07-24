@@ -28,8 +28,8 @@ const UserDashboard = ({ setIsAuthenticated }) => {
         console.error("Error fetching users:", error);
         Swal.fire({
           icon: "error",
-          title: "Oops...",
-          text: "Something went wrong while fetching the users!",
+          title: translate("sw_oops_title"),
+          text: translate("sw_fetch_users_error_text"),
         });
       }
     };
