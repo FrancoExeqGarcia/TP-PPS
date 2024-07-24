@@ -42,42 +42,65 @@ const Profile = () => {
       });
     }
 
-    try {
-      const verifyResponse = await axiosInstance.post("/user/verifyPassword", {
-        userId: user.UserId,
-        password: currentPassword,
-        newPassword: newPassword,
+    if (newPassword) {
+      Swal.fire({
+        title: translate("Are you sure"),
+        text: translate("alert_change_password"),
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: translate("sw_confirm_change_pass"),
+        cancelButtonText: translate("sw_cancel"),
+      }).then((result) => {
+        if (result.isConfirmed) {
+          verifyAndUpdatePassword();
+        }
       });
-      if (verifyResponse.status !== 200) {
-        return Swal.fire({
-          icon: "error",
-          title: "Error!",
-          text: translate("sw_pw_incorrect"),
-          showConfirmButton: true,
-        });
-      }
+    } else {
+      updateUser();
+    }
+  };
 
-      const updatedUser = {
-        id: user.UserId,
-        name,
-        email,
-        password: newPassword || currentPassword,
-        userType,
-        state: true,
-      };
+  const verifyAndUpdatePassword = async () => {
+    const verifyResponse = await axiosInstance.post("/user/verifyPassword", {
+      userId: user.UserId,
+      password: currentPassword,
+      newPassword: newPassword,
+    });
 
+    if (verifyResponse.status !== 200) {
+      return Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: translate("sw_pw_incorrect"),
+        showConfirmButton: true,
+      });
+    }
+    updateUser();
+  };
+
+  const updateUser = async () => {
+    const updatedUser = {
+      id: user.UserId,
+      name,
+      email,
+      password: newPassword || currentPassword,
+      userType,
+      state: true,
+    };
+
+    try {
       const response = await axiosInstance.put(
         `/user/${user.UserId}`,
         updatedUser
       );
-
       setUser({
         ...user,
         UserName: response.data.name,
         Email: response.data.email,
         UserType: response.data.userType,
       });
-
       Swal.fire({
         icon: "success",
         title: translate("sw_todo_updated_title"),
@@ -85,7 +108,6 @@ const Profile = () => {
         showConfirmButton: false,
         timer: 1500,
       });
-
       navigate("/home");
     } catch (error) {
       Swal.fire({
@@ -94,6 +116,7 @@ const Profile = () => {
         text: translate("dont_match_password"),
         showConfirmButton: true,
       });
+      setError("Error updating user profile.");
     }
   };
 
@@ -106,6 +129,10 @@ const Profile = () => {
       <NavBar />
       <div className="container-lg">
         <h1 className={className}>{translate("Profile")}</h1>
+        <p className={`className p-description`}>
+          {translate("describe_profile")}
+        </p>
+        {error && <p className="text-danger">{error}</p>}
         <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formUserName">
             <Form.Label>{translate("Full Name")}</Form.Label>
@@ -146,7 +173,7 @@ const Profile = () => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formNewPassword">
+          <Form.Group controlId="formNewPassword" className="mb-3">
             <Form.Label>{translate("New Password")}</Form.Label>
             <Form.Control
               type="password"
@@ -158,10 +185,10 @@ const Profile = () => {
           <Button variant="primary" type="submit">
             {translate("save_changes")}
           </Button>
+          <Button variant="primary" onClick={handleBackToHome} className="ms-3">
+            {translate("back_to_home")}
+          </Button>
         </Form>
-        <Button variant="primary" onClick={handleBackToHome} className="mt-3">
-          {translate("back_to_home")}
-        </Button>
       </div>
     </Container>
   );

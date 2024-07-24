@@ -202,6 +202,8 @@ export const dictionary_translations = {
     { key: "sw_log_out_title", value: "Saliendo de tu cuenta" },
     { key: "sw_fields", value: "Se requiere llenar todos los campos." },
     { key: "sw_pw_incorrect", value: "La contraseña actual es incorrecta." },
+    { key: "sw_confirm_change_pass", value: "Si, cámbialo!" },
+    { key: "sw_cancel", value: "No, cancelar!" },
     {
       key: "sw_project_add_error",
       value: "¡Algo salió mal al añadir el proyecto!",
@@ -363,7 +365,13 @@ export const dictionary_translations = {
         "Las fechas de las tareas deben estar dentro del período del proyecto.",
     },
     { key: "sw_user_updated_title", value: "Actualizado!" },
-
+    { key: "describe_profile", value: "En la sección de perfil, puedes actualizar tu nombre completo y, si lo deseas, cambiar tu contraseña." }, {
+      key: "Are you sure",
+      value: "¿Estás seguro?",
+    }, {
+      key: "alert_change_password",
+      value: "Estás apunto de modificar tu contraseña.",
+    }, 
     //End Swal
   ],
   en: [
@@ -474,6 +482,8 @@ export const dictionary_translations = {
     { key: "sw_warning_text", value: "You won't be able to revert this!" },
     { key: "sw_confirm_button_text", value: "Yes, delete it!" },
     { key: "sw_cancel_button_text", value: "No, cancel!" },
+    { key: "sw_confirm_change_pass", value: "Yes, delete it!" },
+    { key: "sw_cancel", value: "No, cancel!" },
     { key: "sw_success_title", value: "Deleted!" },
     { key: "sw_error_title", value: "Error!" },
     {
@@ -672,6 +682,15 @@ export const dictionary_translations = {
     {
       key: "err_update_project",
       value: "Something went wrong while updating the project.",
-    },
+    }, {
+      key: "describe_profile",
+      value: "In the profile section, you can update your full name and, if you wish, change your password.",
+    }, {
+      key: "Are you sure",
+      value: "Are you sure?",
+    }, {
+      key: "alert_change_password",
+      value: "You are about to change your password.",
+    }
   ],
 };
